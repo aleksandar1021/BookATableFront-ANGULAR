@@ -4,4 +4,9 @@ export interface User {
     email: string;
     password: string;
     image?: string;
-  }
+}
+
+export interface ActivateUser {
+    email: string;
+    activationCode: string;
+}

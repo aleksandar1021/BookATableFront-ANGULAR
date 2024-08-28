@@ -7,27 +7,34 @@
     <p id="hedding">The exit you deserve</p>
 
     <p id="hedding2">
-        Enter the activation code that was sent to you by email</p>
-    <form >
+        Successful registration, the activation code has been sent to your email <span class="href">{{email}}</span>, type code in the field below to activate your account</p>
+    <form [formGroup]="activationForm" id="activation-form" (ngSubmit)="onSubmit()">
         
         <div class="mb-3" class="customInput">
             <div class="iconFormsCustom">
                 <img src="assets/icons/code2.png" alt="icon">
             </div>
             <div class="inputFiled">
-              <input type="text" name="code" id="email" formControlName="code" placeholder="Activation code">
+              <input type="text" name="code" id="code" formControlName="code" placeholder="Activation code">
             </div>
+        </div>
+        <div class="errorMessage" *ngIf="activationForm.get('code')?.hasError('pattern') && activationForm.get('code')?.touched">
+            The entry must be a 4-digit number
+        </div>
+        <div class="errorMessage" *ngIf="activationForm.get('code')?.hasError('serverError')">
+            {{ activationForm.get('code')?.getError('serverError') }}
         </div>
         
         
         
-        <!-- <div *ngIf="message" class="successMessage">{{message}}</div> -->
+        <div *ngIf="message" class="successMessage">{{message}}</div>
 
-        <!-- <div *ngIf="errorMessage" class="errorMessage">{{errorMessage}}</div> -->
+        <div *ngIf="errorMessage" class="errorMessage">{{errorMessage}}</div>
 
         <div id="buttonContainer">
             <button type="submit" class="sumbitButton">Submit</button>
         </div>
 
     </form>
+
 </div>

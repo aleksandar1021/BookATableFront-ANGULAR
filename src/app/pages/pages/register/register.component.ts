@@ -7,7 +7,6 @@ import { AuthService } from '../../../services/auth.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 
-//import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -55,6 +54,8 @@ export class RegisterComponent{
       }).subscribe({
         next: (response) => {
           this.message = `Successfull registration, go to Login page`
+          const encodedEmail = encodeURIComponent(this.Email.value);
+          this.router.navigateByUrl(`/ActivateUser?email=${encodedEmail}`);
         },
         error: (error) => {
           this.handleServerErrors(error);
@@ -77,7 +78,7 @@ export class RegisterComponent{
       });
     }
     if(error.status !== 422 || error.status !== 201){
-      this.errorMessage = error[0].message;
+      this.errorMessage = error.error.message;
     }
   }
   

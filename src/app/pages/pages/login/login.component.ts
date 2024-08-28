@@ -16,7 +16,7 @@ export class LoginComponent {
   errorMessage : String ='';
 
   constructor(private titleService: Title, private router: Router, private http: HttpClient, private authService: AuthService) {
-    this.titleService.setTitle('Book a table | Register');
+    this.titleService.setTitle('Book a table | Login');
   }
   
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '..//interfaces/user.interface';
+import { ActivateUser, User } from '..//interfaces/user.interface';
 import { development } from '../../environments/development';
 import { Router } from '@angular/router';
 
@@ -23,6 +23,12 @@ export class AuthService {
 
   login(user: User) {
     return this.http.post(development.apiUrl + 'Auth', user, {
+      responseType: 'json',
+    });
+  }
+
+  activateUser(user: ActivateUser) {
+    return this.http.patch(development.apiUrl + 'Users', user, {
       responseType: 'json',
     });
   }
