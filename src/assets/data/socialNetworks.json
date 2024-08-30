@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Facebook",
+        "href": "https://www.facebook.com",
+        "icon": "zmdi zmdi-facebook",
+        "color": "#3b5998"
+    },
+    {
+        "id": 2,
+        "name": "Instagram",
+        "href": "https://www.instagram.com",
+        "icon": "zmdi zmdi-instagram",
+        "color": "#E1306C"
+    },
+    {
+        "id": 3,
+        "name": "Twitter",
+        "href": "https://www.x.com",
+        "icon": "zmdi zmdi-twitter",
+        "color": "#1da1f2"
+    },
+    {
+        "id": 4,
+        "name": "Linkedin",
+        "href": "https://www.linkedin.com",
+        "icon": "zmdi zmdi-linkedin",
+        "color": "#0077B5"
+    }
+]

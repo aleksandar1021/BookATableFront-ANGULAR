@@ -1395,6 +1395,9 @@ p.sub-p {
     display: inline-block;
     margin-left: 1em;
 }
+.social_list li:first-child {
+  margin-left: 0;
+}
 .social_list li a {
     color: #fff;
     text-align: center;
@@ -1409,6 +1412,26 @@ p.sub-p {
     -o-transition: .5s all;
     -ms-transition: .5s all;
     transition: .5s all;
+}
+
+.lll {
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  font-size: 23px;
+  line-height: 46px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  -webkit-transition: .5s all;
+  -moz-transition: .5s all;
+  -o-transition: .5s all;
+  -ms-transition: .5s all;
+  transition: .5s all;
+  transition: 0.1s;
+}
+.lll:hover{
+ scale: 1.1;
 }
 a.facebook{
 	background:#3b5998;
