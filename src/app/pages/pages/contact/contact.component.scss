@@ -1,0 +1,34 @@
+#contact{
+    margin-top: 50px;
+    margin-bottom: 5vh;
+}
+
+.errorMessage{
+    margin-left: 6px;
+    width: 98%;
+}
+
+.successMessage{
+    margin-left: 6px;
+    width: 98%;
+}
+
+#button{
+    margin-left: 6px;
+}
+
+.footer-grid{
+    margin-bottom: -45px;
+    border-top: 2px dashed #F5DDDD;
+
+}
+
+.liContact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.liContact > p{
+    width: 210px;
+}

@@ -4,7 +4,6 @@
         <div class="header-main">
             <div class="container">
                 <nav class="navbar navbar-default">
-                    
                     <!-- navbar-header -->
                     <div class="" id="navbarEdited">
                         <div id="logo">
@@ -13,23 +12,8 @@
                        
 
                         <ul class="nav navbar-nav navbar-right" id="links">
-                            <li class="scroll hvr-underline-from-center">
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a class="scroll hvr-underline-from-center" href="#about">About</a>
-                            </li>
-                            <li>
-                                <a class="scroll hvr-underline-from-center" href="#menu">Menu</a>
-                            </li>
-                            <li>
-                                <a class="scroll hvr-underline-from-center" href="#team">Team</a>
-                            </li>
-                            <li>
-                                <a class="scroll hvr-underline-from-center" href="#testimonials">Testimonials</a>
-                            </li>
-                            <li>
-                                <a class="scroll hvr-underline-from-center" href="#contact">Contact</a>
+                            <li *ngFor="let item of filteredNavItems" class="scroll hvr-underline-from-center">
+                                <a [routerLink]="item.route">{{ item.name }}</a>
                             </li>
                         </ul>
 

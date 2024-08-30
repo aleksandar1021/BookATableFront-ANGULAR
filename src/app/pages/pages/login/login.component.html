@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="errorMessage" *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
-            Password must contains minimum 8 characters, one capital letter ant one special character
+            Password must contains minimum 8 characters, one capital letter ant one special character.
         </div>
         <div class="errorMessage" *ngIf="loginForm.get('password')?.hasError('serverError')">
             {{ loginForm.get('password')?.getError('serverError') }}

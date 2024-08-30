@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivateUser, User } from '..//interfaces/user.interface';
 import { development } from '../../environments/development';
 import { Router } from '@angular/router';
+import { JsonPipe } from '@angular/common';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +39,17 @@ export class AuthService {
     this.http.delete(development.apiUrl + 'Auth');
     localStorage.removeItem('token');
     this.router.navigateByUrl('login');
+  }
+
+  getUseCases(){
+    const token : any = this.GetToken();
+    if(!token){
+      return of([]);
+    }
+    const tokenString = JSON.parse(token)
+    const payloda = tokenString.split(".")[1]
+    const paylodaData = JSON.parse(atob(payloda))
+    return JSON.parse(paylodaData.UseCaseIds)
   }
 
   isLoggedIn(): boolean {

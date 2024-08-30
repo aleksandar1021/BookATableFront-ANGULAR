@@ -33,11 +33,11 @@ export class RegisterComponent{
     rePassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,}$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,29}$/)
     ]),
     lastname: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,}$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,29}$/)
     ])
   }, { validators: passwordMatchValidator() }); 
 
