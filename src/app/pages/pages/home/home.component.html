@@ -1,14 +1,14 @@
 <div class="wrap">
     <div class="search">
-       <input type="text" class="searchTerm" placeholder="Search restaurants">
-       <button type="submit" class="searchButton">
+       <input  type="text" class="searchTerm" placeholder="Search restaurants">
+       <button (click)="show()" type="submit" class="searchButton">
          <i class="fa fa-search"></i>
       </button>
     </div>
-    <!-- <div class="searchResults"></div><br>
-    <div class="searchResults"></div> -->
-
-
+    <div *ngIf="isVisible" class="resultContainer">
+        <div class="searchResults"></div>
+        <div class="searchResults"></div>
+    </div>
 </div>
 
 <div class="containerHeadeing">
@@ -43,6 +43,8 @@
       <i id="right" class="fa-solid fa-angle-right"></i>
     </div>
 </div>
+
+<!-- Trendy restaurants -->
 
 <div class="containerHeadeing spacer">
     <h1>Trendy restaurants</h1>
@@ -82,5 +84,45 @@
     <button type="submit" class="sumbitButton">See more</button>
 </div>
 
+
+
+
+<div class="containerHeadeing spacer">
+    <h1>Newest restaurants</h1>
+</div>
+
+<div class="container">
+    <div class="wrapper1">
+      <ul class="carousel1">
+        <a href="http://">
+            <li class="card1">
+                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
+                <h2>Blanche Pearson</h2>
+                <h3>Restaurant place</h3>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+            </li>
+        </a>
+        <a href="http://">
+            <li class="card1">
+                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
+                <h2>Blanche Pearson</h2>
+                <h3>Restaurant place</h3>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+            </li>
+        </a>
+        <a href="http://">
+            <li class="card1">
+                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
+                <h2>Blanche Pearson</h2>
+                <h3>Restaurant place</h3>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+            </li>
+        </a>
+      </ul>
+    </div>
+</div>
+<div id="buttonContainer">
+    <button type="submit" class="sumbitButton">See more</button>
+</div>
 
 

@@ -1,4 +1,13 @@
 //my css
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+*{
+  font-family: "SUSE", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .customInput{
   width: 400px;
   margin: 0px auto;
@@ -7,7 +16,6 @@
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 20px;
-
 }
 
 .iconFormsCustom{

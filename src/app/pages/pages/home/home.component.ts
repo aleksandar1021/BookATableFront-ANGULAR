@@ -7,9 +7,23 @@ import { AfterViewInit, Component } from '@angular/core';
 })
 export class HomeComponent implements AfterViewInit {
 
+  isVisible : boolean = false;
+
   ngAfterViewInit(): void {
     this.initializeCarousel();
   }
+
+  show() : void{
+    if(this.isVisible){
+      this.isVisible = false
+    }else{
+      this.isVisible = true
+    }
+  }
+
+
+
+
 
   private initializeCarousel(): void {
     const carousel = document.querySelector(".carousel") as HTMLElement;
