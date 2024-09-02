@@ -1,33 +1,115 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { MealCategoryService } from '../../../services/mealCategory.service';
+import { RestaurantService } from '../../../services/restaurant.service';
+import { debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'] 
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewChecked{
 
   isVisible : boolean = false;
+  apiUrlMealCategories : string = "http://localhost:5000/mealCategories/"
+  apiUrlRestaurants : string = "http://localhost:5000/restaurantPhotos/"
 
-  ngAfterViewInit(): void {
+  mealCategories: any[] = []; 
+  restaurants: any[] = []; 
+  trendyRestaurants: any[] = []; 
+  newestRestaurants: any[] = []; 
+  searchControl = new FormControl('');
+  searchResults$: Observable<any[]> = of([]);
+
+
+  constructor(private mealCategoryService: MealCategoryService, private renderer: Renderer2, private el: ElementRef, private restaurantService: RestaurantService) { }
+
+  
+  
+
+
+  ngOnInit(): void {
+    this.getMealCategories();
+    this.getRestaurants();
+    this.getTrendyRestaurants();
+    this.getNewestRestaurants();
+
+    this.searchResults$ = this.searchControl.valueChanges.pipe(
+      distinctUntilChanged(),
+      switchMap(value => {
+        const query = value ?? '';
+        if (query.length === 0) {
+          return of([]); 
+        }
+        return this.restaurantService.searchRestaurants(query).pipe(
+          map(response => response.data || [])
+        );
+      })
+    );
+  }
+
+  ngAfterViewChecked(): void {
     this.initializeCarousel();
   }
 
-  show() : void{
-    if(this.isVisible){
-      this.isVisible = false
-    }else{
-      this.isVisible = true
-    }
+
+
+
+  
+
+  getMealCategories(): void {
+    this.mealCategoryService.getMealCategories().subscribe(
+      (response: any) => {  
+        this.mealCategories = response.data;
+      },
+      (error) => {
+        console.error('There was an error', error);
+      }
+    );
   }
 
+  getRestaurants(): void {
+    this.restaurantService.getRestaurants().subscribe(
+      (response: any) => {  
+        this.restaurants = response.data;  
+      },
+      (error) => {
+        console.error('There was an error', error);
+      }
+    );
+  }
+
+  getTrendyRestaurants(): void {
+    this.restaurantService.getTrendyRestaurants().subscribe(
+        (response: any) => {
+            this.trendyRestaurants = response; 
+        },
+        (error) => {
+            console.error('There was an error', error);
+        }
+    );
+  }
+    getNewestRestaurants(): void {
+      this.restaurantService.getTrendyRestaurants().subscribe(
+          (response: any) => {
+              this.newestRestaurants = response; 
+          },
+          (error) => {
+              console.error('There was an error', error);
+          }
+      );
+    }
 
 
-
+  show() : void {
+    this.isVisible = !this.isVisible;
+  }
 
   private initializeCarousel(): void {
-    const carousel = document.querySelector(".carousel") as HTMLElement;
-    const wrapper = document.querySelector(".wrapper") as HTMLElement;
+    const carousel = this.el.nativeElement.querySelector(".carousel") as HTMLElement;
+    const wrapper = this.el.nativeElement.querySelector(".wrapper") as HTMLElement;
     if (!carousel || !wrapper) {
       console.error("Element with class 'carousel' or 'wrapper' not found.");
       return;
@@ -35,32 +117,25 @@ export class HomeComponent implements AfterViewInit {
 
     const firstCard = carousel.querySelector(".card") as HTMLElement;
     const firstCardWidth = firstCard?.offsetWidth ?? 0;
-    const arrowBtns = document.querySelectorAll(".wrapper i") as NodeListOf<HTMLElement>;
-    const carouselChildrens = Array.from(carousel.children) as HTMLElement[];
-    
+    const arrowBtns = wrapper.querySelectorAll("i") as NodeListOf<HTMLElement>;
+
     let isDragging = false;
-    let isAutoPlay = true;
     let startX: number, startScrollLeft: number;
     let timeoutId: number;
 
-    let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
-    carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
-      carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
-    });
-    carouselChildrens.slice(0, cardPerView).forEach(card => {
-      carousel.insertAdjacentHTML("beforeend", card.outerHTML);
-    });
-
-    carousel.classList.add("no-transition");
-    carousel.scrollLeft = carousel.offsetWidth;
-    carousel.classList.remove("no-transition");
-
+    // Logika za pomeranje sa strelicama
     arrowBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+      this.renderer.listen(btn, 'click', () => {
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        if (btn.id === "left") {
+          carousel.scrollLeft = Math.max(carousel.scrollLeft - firstCardWidth, 0);
+        } else {
+          carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
+        }
       });
     });
 
+    // Logika za drag-and-drop
     const dragStart = (e: MouseEvent) => {
       isDragging = true;
       carousel.classList.add("dragging");
@@ -78,32 +153,24 @@ export class HomeComponent implements AfterViewInit {
       carousel.classList.remove("dragging");
     }
 
-    const infiniteScroll = () => {
-      if (carousel.scrollLeft === 0) {
-        carousel.classList.add("no-transition");
-        carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
-        carousel.classList.remove("no-transition");
-      } else if (Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
-        carousel.classList.add("no-transition");
-        carousel.scrollLeft = carousel.offsetWidth;
-        carousel.classList.remove("no-transition");
-      }
-
-      clearTimeout(timeoutId);
-      if (!wrapper.matches(":hover")) autoPlay();
-    }
-
+    // AutoPlay funkcija
     const autoPlay = () => {
-      if (window.innerWidth < 800 || !isAutoPlay) return;
-      timeoutId = window.setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
+      if (window.innerWidth < 800) return;
+      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft < maxScrollLeft) {
+        timeoutId = window.setTimeout(() => {
+          carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
+        }, 2500);
+      }
     }
+
     autoPlay();
 
-    carousel.addEventListener("mousedown", dragStart);
-    carousel.addEventListener("mousemove", dragging);
-    document.addEventListener("mouseup", dragStop);
-    carousel.addEventListener("scroll", infiniteScroll);
-    wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
-    wrapper.addEventListener("mouseleave", autoPlay);
+    // Dodaj event listenere
+    this.renderer.listen(carousel, 'mousedown', dragStart);
+    this.renderer.listen(carousel, 'mousemove', dragging);
+    this.renderer.listen(document, 'mouseup', dragStop);
+    this.renderer.listen(wrapper, 'mouseenter', () => clearTimeout(timeoutId));
+    this.renderer.listen(wrapper, 'mouseleave', autoPlay);
   }
 }

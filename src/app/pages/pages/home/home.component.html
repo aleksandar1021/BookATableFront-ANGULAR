@@ -1,13 +1,16 @@
 <div class="wrap">
     <div class="search">
-       <input  type="text" class="searchTerm" placeholder="Search restaurants">
-       <button (click)="show()" type="submit" class="searchButton">
-         <i class="fa fa-search"></i>
+      <input type="text" class="searchTerm" [formControl]="searchControl" placeholder="Search restaurants">
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
       </button>
     </div>
-    <div *ngIf="isVisible" class="resultContainer">
-        <div class="searchResults"></div>
-        <div class="searchResults"></div>
+    <div *ngIf="(searchResults$ | async)?.length ?? 0 > 0" class="resultContainer">
+        <a href="/single?id={{result.id}}" *ngFor="let result of searchResults$ | async">
+            <div  class="searchResults">
+                {{ result.name }}
+            </div>
+        </a>
     </div>
 </div>
 
@@ -18,27 +21,11 @@
     <div class="wrapper">
       <i id="left" class="fa-solid fa-angle-left"></i>
       <ul class="carousel">
-        <li class="card">
-          <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-          <h2>Blanche Pearson</h2>
-          <span>Sales Manager</span>
+        <li *ngFor="let mealCat of mealCategories" class="card">
+            <a href="/single?id={{mealCat.id}}"><div class="img"><img src="{{apiUrlMealCategories}}{{mealCat.image}}" alt="{{mealCat.name}}" draggable="false"></div></a>
+          <h2></h2>
+          <a href="/single?id={{mealCat.id}}"><span>{{mealCat.name}}</span></a>
         </li>
-        <li class="card">
-          <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-          <h2>Joenas Brauers</h2>
-          <span>Web Developer</span>
-        </li>
-        <li class="card">
-          <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-          <h2>Lariach French</h2>
-          <span>Online Teacher</span>
-        </li>
-        <li class="card">
-          <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-          <h2>James Khosravi</h2>
-          <span>Freelancer</span>
-        </li>
-        
       </ul>
       <i id="right" class="fa-solid fa-angle-right"></i>
     </div>
@@ -53,28 +40,11 @@
 <div class="container">
     <div class="wrapper1">
       <ul class="carousel1">
-        <a href="http://">
+        <a *ngFor="let restaurant of trendyRestaurants" href="/single?id={{restaurant.id}}">
             <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
-            </li>
-        </a>
-        <a href="http://">
-            <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
-            </li>
-        </a>
-        <a href="http://">
-            <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+                <div class="img"><img src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div>
+                <h2>{{restaurant.name}}</h2>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
             </li>
         </a>
       </ul>
@@ -94,28 +64,11 @@
 <div class="container">
     <div class="wrapper1">
       <ul class="carousel1">
-        <a href="http://">
+        <a *ngFor="let restaurant of newestRestaurants" href="/single?id={{restaurant.id}}">
             <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
-            </li>
-        </a>
-        <a href="http://">
-            <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
-            </li>
-        </a>
-        <a href="http://">
-            <li class="card1">
-                <div class="img"><img src="assets/images/g1.jpg" alt="img" draggable="false"></div>
-                <h2>Blanche Pearson</h2>
-                <h3>Restaurant place</h3>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; 5.0 &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+                <div class="img"><img src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div>
+                <h2>{{restaurant.name}}</h2>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
             </li>
         </a>
       </ul>

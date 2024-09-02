@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .container {
   display: flex;
@@ -101,6 +101,7 @@
 .carousel .card span {
   color: #6A6D78;
   font-size: 1.31rem;
+  font-size: 25px;
 }
 
 @media screen and (max-width: 900px) {
@@ -169,7 +170,7 @@
 
 .card1 > span{
     position: relative;
-    top: -380px;
+    top: -340px;
     margin-left: 15px;
     color: #fff;
     font-weight: 700;
@@ -191,7 +192,7 @@
     font-size: 25px;
     position: relative;
     font-weight: 700;
-    top: -130px;
+    top: -60px;
     color: #fff;
     margin-left: 15px;
 }
@@ -211,7 +212,7 @@
 }
 
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 
 
