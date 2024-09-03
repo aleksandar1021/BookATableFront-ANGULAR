@@ -1,0 +1,378 @@
+<div class="reservation book-right">
+    <div class="containerReservation">
+      <h3 class="w3layouts-title title-reserve">Make a Reservation</h3>
+      <div class="book-left1"></div>
+      <div class="book-right1">
+        <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" class="book-right2">
+          <div class="date-field">
+            <label>Date :</label>
+            <input type="date" id="datepicker" formControlName="date" [attr.min]="minDate" [attr.max]="maxDate">
+          </div>
+          <div class="form-left">
+            <label>No.of People :</label>
+            <select formControlName="numberOfGuests" required>
+              <option hidden value="0">Select number of persons</option>
+              <option *ngFor="let t of numbersOfGuests" [value]="t">{{t}} persons</option>
+            </select>
+          </div>
+          <div class="form-right">
+            <label>Time :</label>
+            <select formControlName="time" required>
+              <option hidden value="">Select time</option>
+              <option *ngFor="let time of timeSlots" [value]="time">{{time}}</option>
+            </select>
+          </div>
+          <div class="clearfix"> </div>
+          <div class="phone-info">
+            <label>Note :</label>
+            <input type="text" formControlName="note" placeholder="Reservation note" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Reservation note';}">
+          </div>
+          <input type="submit" value="Book a Table">
+        </form>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+    <p class="message" *ngIf="message">{{message}}</p>
+    <p class="message" *ngIf="errorMessage">{{errorMessage}}</p>
+
+</div>
+
+
+<div class="containerHeadeing space">
+    <h1>Images</h1>
+</div>
+<div class="container">
+    <div class="wrapper">
+      <i id="left" class="fa-solid fa-angle-left"></i>
+      <ul class="carousel">
+        <li class="card">
+            <a href="assets/images/g1.jpg"><div class="img"><img src="assets/images/g1.jpg" alt="" draggable="false"></div></a>
+        </li>
+      </ul>
+      <i id="right" class="fa-solid fa-angle-right"></i>
+    </div>
+</div>
+
+
+
+<div class="containerHeadeing space">
+    <h1>Special dishes</h1>
+</div>
+<div class="container">
+    
+    <div class="card1">
+        <div class="header">
+        
+        </div>
+        <div class="text">
+        <h2 class="food">
+            Dish name
+        </h2>
+            <div class="price">
+                <img class="coin" src="assets/icons/coin.png" alt="coin">&nbsp;
+                <span>1500 Dinara</span>
+            </div>       
+        
+        <p class="info">Dish description.</p>
+        </div>
+    </div>
+
+
+    <div class="card1">
+        <div class="header">
+        
+        </div>
+        <div class="text">
+        <h2 class="food">
+            Dish name
+        </h2>
+            <div class="price">
+                <img class="coin" src="assets/icons/coin.png" alt="coin">&nbsp;
+                <span>1500 Dinara</span>
+            </div>       
+        
+        <p class="info">Dish description.</p>
+        </div>
+    </div>
+
+
+    <div class="card1">
+        <div class="header">
+        
+        </div>
+        <div class="text">
+        <h2 class="food">
+            Dish name
+        </h2>
+            <div class="price">
+                <img class="coin" src="assets/icons/coin.png" alt="coin">&nbsp;
+                <span>1500 Dinara</span>
+            </div>       
+        
+        <p class="info">Dish description.</p>
+        </div>
+    </div>
+
+
+    <div class="card1">
+        <div class="header">
+        
+        </div>
+        <div class="text">
+        <h2 class="food">
+            Dish name
+        </h2>
+            <div class="price">
+                <img class="coin" src="assets/icons/coin.png" alt="coin">&nbsp;
+                <span>1500 Dinara</span>
+            </div>       
+        
+        <p class="info">Dish description.</p>
+        </div>
+    </div>
+
+
+    <div class="card1">
+        <div class="header">
+        
+        </div>
+        <div class="text">
+        <h2 class="food">
+            Dish name
+        </h2>
+            <div class="price">
+                <img class="coin" src="assets/icons/coin.png" alt="coin">&nbsp;
+                <span>1500 Dinara</span>
+            </div>       
+        
+        <p class="info">Dish description.</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="section carousel-reviews broun-block" id="testimonials">
+    <div class="container">
+        <h3 class="w3layouts-title text-center">Testimonials</h3>
+        <div class="row">
+            <div id="carousel-reviews" class="carousel slide" data-ride="carousel">
+
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="col-md-4 col-sm-6 view-testi">
+                            <div class="block-text rel zmin">
+                                <h6>lorem ipsum</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/f.png" alt="" />
+                                <h5>Anna</h5>
+                                <i>from Glasgow, Scotland</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>Nam libero</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star-empty"></span>
+                                        <span data-value="3" class="fa fa-star-empty"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/f.png" alt="" />
+                                <h5>Ella Mentree</h5>
+                                <i>United States</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>tempore cume</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star"></span>
+                                        <span data-value="5" class="fa fa-star"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/m.png" alt="" />
+                                <h5>Rannynm</h5>
+                                <i>Indonesia</i>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="item">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="block-text rel zmin">
+                                <h6>Nam libero</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/f.png" alt="" />
+                                <h5>Anna</h5>
+                                <i>from Glasgow, Scotland</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>tempore cum</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star-empty"></span>
+                                        <span data-value="3" class="fa fa-star-empty"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/m.png" alt="" />
+                                <h5>Ella Mentree</h5>
+                                <i>United States</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>tempore cum</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star"></span>
+                                        <span data-value="5" class="fa fa-star"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/m.png" alt="" />
+                                <h5>Rannynm</h5>
+                                <i>Indonesia</i>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="item">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="block-text rel zmin">
+                                <h6>Nam libero</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/f.png" alt="" />
+                                <h5>Anna</h5>
+                                <i>from Glasgow, Scotland</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>tempore cum</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star-empty"></span>
+                                        <span data-value="3" class="fa fa-star-empty"></span>
+                                        <span data-value="4" class="fa fa-star-empty"></span>
+                                        <span data-value="5" class="fa fa-star-empty"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/m.png" alt="" />
+                                <h5>Ella Mentree</h5>
+                                <i>United States</i>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
+                            <div class="block-text rel zmin">
+                                <h6>PNam libero</h6>
+                                <div class="mark">My rating:
+                                    <span class="rating-input">
+                                        <span data-value="0" class="fa fa-star"></span>
+                                        <span data-value="1" class="fa fa-star"></span>
+                                        <span data-value="2" class="fa fa-star"></span>
+                                        <span data-value="3" class="fa fa-star"></span>
+                                        <span data-value="4" class="fa fa-star"></span>
+                                        <span data-value="5" class="fa fa-star"></span>
+                                    </span>
+                                </div>
+                                <p>Hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. ...</p>
+                                
+                            </div>
+                            <div class="person-text rel">
+                                <img src="images/f.png" alt="" />
+                                <h5>Rannynm</h5>
+                                <i>Indonesia</i>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
+                    <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-reviews" role="button" data-slide="next">
+                    <span class="fa fa-angle-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

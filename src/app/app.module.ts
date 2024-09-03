@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';  
-import { HttpClientModule } from '@angular/common/http'; 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,8 @@ import { LoginComponent } from './pages/pages/login/login.component';
 import { RegisterComponent } from './pages/pages/register/register.component';
 import { ActivationUserComponent } from './pages/pages/activation-user/activation-user.component';
 import { ContactComponent } from './pages/pages/contact/contact.component';
+import { SingleComponent } from './pages/pages/single/single.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ContactComponent } from './pages/pages/contact/contact.component';
     LoginComponent,
     RegisterComponent,
     ActivationUserComponent,
-    ContactComponent
+    ContactComponent,
+    SingleComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,13 @@ import { ContactComponent } from './pages/pages/contact/contact.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

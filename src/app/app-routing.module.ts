@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/pages/register/register.component';
 import { LoginComponent } from './pages/pages/login/login.component';
 import { ActivationUserComponent } from './pages/pages/activation-user/activation-user.component';
 import { ContactComponent } from './pages/pages/contact/contact.component';
+import { SingleComponent } from './pages/pages/single/single.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'activateUser', component: ActivationUserComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'single', component: SingleComponent }
 
 ];
 

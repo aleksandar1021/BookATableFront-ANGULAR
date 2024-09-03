@@ -837,7 +837,7 @@ form.book-right2 {
     width: 48%;
 } 
 /*-- reservation --*/
-.book-right input[type="text"]{
+.book-right input[type="date"]{
     width: 100%;
     color: #555;
     outline: none;
@@ -849,6 +849,20 @@ form.book-right2 {
     -webkit-box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
     -moz-box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
     box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
+}
+
+.book-right input[type="text"]{
+  width: 100%;
+  color: #555;
+  outline: none;
+  font-size: 1em;
+  padding: .8em 1em;
+  border: none;
+  margin-bottom: 1.5em;
+  line-height: 1.8em;
+  -webkit-box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
+  -moz-box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
+  box-shadow: 5px 5px 0px 0px rgb(156, 213, 196);
 }
 .book-right select{
     outline: none;
@@ -888,7 +902,7 @@ form.book-right2 {
     color: #fff;
 }
 .book-left1 {
-    //background: url(app/assets/images/reserve.jpg)no-repeat;
+    background: url(assets/images/reserve.jpg)no-repeat;
     background-size: cover;
     min-height: 300px;
     float: left;

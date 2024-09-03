@@ -46,7 +46,7 @@ export class AuthService {
     if(!token){
       return of([]);
     }
-    const tokenString = JSON.parse(token)
+    const tokenString = token
     const payloda = tokenString.split(".")[1]
     const paylodaData = JSON.parse(atob(payloda))
     return JSON.parse(paylodaData.UseCaseIds)
@@ -57,6 +57,25 @@ export class AuthService {
     return token ? true : false;
   }
 
+  getUserFromToken(): any | null {
+    const token = localStorage.getItem('token');
+  
+    if (!token) {
+      return null;  
+    }
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      const user = JSON.parse(jsonPayload);
+      return user;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
 
   GetToken(): string | false {
     const token = localStorage.getItem("token");

@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { development } from '../../environments/development';
 import { ApiResponse } from '../interfaces/apiResponse.interface';
+import { Reservation } from '../interfaces/reservation.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestaurantService {
     private apiUrl = development.apiUrl+ "Restaurants"; 
+    private apiUrlReservation = development.apiUrl+ "Reservations"; 
 
     constructor(private http: HttpClient) {}
 
@@ -31,8 +33,17 @@ export class RestaurantService {
         );
     }
 
+
+    makeReservation(reservation: Reservation): Observable<any> {
+        return this.http.post(this.apiUrlReservation, reservation);
+    }
+
     searchRestaurants(query: string): Observable<ApiResponse<any[]>> {
         return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}?name=${query}`);
+    }
+
+    getRestaurant(id: string | null): Observable<ApiResponse<any[]>> {
+        return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}`);
     }
 
     getNewestRestaurants(): Observable<any> {

@@ -42,7 +42,7 @@ export class LoginComponent {
           this.message = `Successfull login`
           this.router.navigateByUrl('/home');
 
-          localStorage.setItem("token", JSON.stringify(response.token));
+          localStorage.setItem("token", response.token);
         },
         error: (error) => {
           this.handleServerErrors(error);

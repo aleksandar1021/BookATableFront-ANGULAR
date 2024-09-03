@@ -5,7 +5,7 @@
         <i class="fa fa-search"></i>
       </button>
     </div>
-    <div *ngIf="(searchResults$ | async)?.length ?? 0 > 0" class="resultContainer">
+    <div *ngIf="(searchResults$ | async)?.length ?? 0" class="resultContainer">
         <a href="/single?id={{result.id}}" *ngFor="let result of searchResults$ | async">
             <div  class="searchResults">
                 {{ result.name }}
