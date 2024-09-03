@@ -123,7 +123,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     let startX: number, startScrollLeft: number;
     let timeoutId: number;
 
-    // Logika za pomeranje sa strelicama
     arrowBtns.forEach(btn => {
       this.renderer.listen(btn, 'click', () => {
         const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
@@ -135,7 +134,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
       });
     });
 
-    // Logika za drag-and-drop
     const dragStart = (e: MouseEvent) => {
       isDragging = true;
       carousel.classList.add("dragging");
@@ -153,7 +151,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
       carousel.classList.remove("dragging");
     }
 
-    // AutoPlay funkcija
     const autoPlay = () => {
       if (window.innerWidth < 800) return;
       const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
@@ -166,7 +163,6 @@ export class HomeComponent implements OnInit, AfterViewChecked{
 
     autoPlay();
 
-    // Dodaj event listenere
     this.renderer.listen(carousel, 'mousedown', dragStart);
     this.renderer.listen(carousel, 'mousemove', dragging);
     this.renderer.listen(document, 'mouseup', dragStop);

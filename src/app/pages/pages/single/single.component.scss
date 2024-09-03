@@ -177,11 +177,12 @@
   .card1 {
      position: relative;
      background: $white;
-     max-width: 350px;
+     width: 250px;
      margin: 20px auto;
-     box-shadow: 0px 0px 30px 2px #000;
+     box-shadow: 0px 0px 10px 2px #7d7d7d;
+     object-fit: cover;
      .header {
-        background: $food;
+        // background: $food;
         background-size: cover;
         min-height: 250px;
            .icon a .fa-heart-o {
@@ -195,6 +196,10 @@
            padding: 15px;
            border-radius: 50%;
            box-shadow: 0px 5px 30px 1px $heart;
+        }
+        img{
+          width: 100%;
+          height: 250px;
         }
      }
      .text {
@@ -265,4 +270,53 @@
   color: #fff;
   font-weight: 600;
   font-size: 20px;
+}
+.container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 59%;
+  margin: 0px auto;
+}
+
+.left, .right {
+  width: 45%;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  min-height: 500px !important;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+h3 span {
+  font-weight: 500;
+  color: #555;
+}
+
+@media screen and (max-width: 1000px) {
+  .container2 {
+    flex-direction: column;
+  }
+  .left, .right{
+    width: 100%;
+    text-align: center;
+  }
 }

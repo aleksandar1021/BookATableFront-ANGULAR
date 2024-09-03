@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantService } from '../../../services/restaurant.service';
@@ -12,7 +12,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './single.component.html',
   styleUrls: ['./single.component.scss']
 })
-export class SingleComponent implements OnInit {
+export class SingleComponent implements OnInit, AfterViewChecked {
   minDate: string = '';
   maxDate: string = '';
   restaurant: any;
@@ -24,6 +24,9 @@ export class SingleComponent implements OnInit {
   errorMessage: string = '';
   userId: number = 0;
   user: any;
+  apiUrlRestaurants = "http://localhost:5000/restaurantPhotos/";
+  apiUrlDishs = "http://localhost:5000/dishPhotos/";
+  isLoggedIn : boolean = false;
 
   constructor(
     private restaurantService: RestaurantService,
@@ -31,7 +34,9 @@ export class SingleComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) {
     this.reservationForm = this.fb.group({
       date: ['', Validators.required],
@@ -56,22 +61,32 @@ export class SingleComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.id = params['id'];
       this.getRestaurant();
+      this.restaurant = this.getRestaurant();
     });
 
-    this.user = this.authService.getUserFromToken();
-    this.userId = this.user.Id;
+    if(this.isLoggedIn){
+      this.user = this.authService.getUserFromToken();
+      this.userId = this.user.Id;
 
-    // Postavljanje vrednosti u formu nakon što se korisnik učita
-    this.reservationForm.patchValue({
+      this.reservationForm.patchValue({
       userId: this.userId,
       restaurantId: this.id
     });
+    }
+
+    
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+
+    console.log(this.isLoggedIn)
   }
 
   onSubmit(): void {
     //console.log(this.id);
+    console.log(this.restaurant)
 
     this.message = '';
+    this.errorMessage = ''
     if (this.reservationForm.valid) {
       const reservation: Reservation = this.reservationForm.value;
 
@@ -159,5 +174,74 @@ export class SingleComponent implements OnInit {
         console.error('There was an error', error);
       }
     );
+  }
+
+  ngAfterViewChecked(): void {
+    this.initializeCarousel();
+  }
+
+
+  private initializeCarousel(): void {
+    const carousel = this.el.nativeElement.querySelector(".carousel") as HTMLElement;
+    const wrapper = this.el.nativeElement.querySelector(".wrapper") as HTMLElement;
+    if (!carousel || !wrapper) {
+      console.error("Element with class 'carousel' or 'wrapper' not found.");
+      return;
+    }
+
+    const firstCard = carousel.querySelector(".card") as HTMLElement;
+    const firstCardWidth = firstCard?.offsetWidth ?? 0;
+    const arrowBtns = wrapper.querySelectorAll("i") as NodeListOf<HTMLElement>;
+
+    let isDragging = false;
+    let startX: number, startScrollLeft: number;
+    let timeoutId: number;
+
+    arrowBtns.forEach(btn => {
+      this.renderer.listen(btn, 'click', () => {
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        if (btn.id === "left") {
+          carousel.scrollLeft = Math.max(carousel.scrollLeft - firstCardWidth, 0);
+        } else {
+          carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
+        }
+      });
+    });
+
+    const dragStart = (e: MouseEvent) => {
+      isDragging = true;
+      carousel.classList.add("dragging");
+      startX = e.pageX;
+      startScrollLeft = carousel.scrollLeft;
+    }
+
+    const dragging = (e: MouseEvent) => {
+      if (!isDragging) return;
+      carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+    }
+
+    const dragStop = () => {
+      isDragging = false;
+      carousel.classList.remove("dragging");
+    }
+
+    // AutoPlay funkcija
+    const autoPlay = () => {
+      if (window.innerWidth < 800) return;
+      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft < maxScrollLeft) {
+        timeoutId = window.setTimeout(() => {
+          carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
+        }, 2500);
+      }
+    }
+
+    autoPlay();
+
+    this.renderer.listen(carousel, 'mousedown', dragStart);
+    this.renderer.listen(carousel, 'mousemove', dragging);
+    this.renderer.listen(document, 'mouseup', dragStop);
+    this.renderer.listen(wrapper, 'mouseenter', () => clearTimeout(timeoutId));
+    this.renderer.listen(wrapper, 'mouseleave', autoPlay);
   }
 }
