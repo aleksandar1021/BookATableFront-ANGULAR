@@ -26,6 +26,8 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   user: any;
   apiUrlRestaurants = "http://localhost:5000/restaurantPhotos/";
   apiUrlDishs = "http://localhost:5000/dishPhotos/";
+  apiUrlUser = "http://localhost:5000/userPhotos/";
+
   isLoggedIn : boolean = false;
 
   constructor(
@@ -51,45 +53,43 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
-
+  
     const futureDate = new Date();
     futureDate.setDate(today.getDate() + 20);
     this.maxDate = futureDate.toISOString().split('T')[0];
-
+  
     this.id = this.route.snapshot.queryParamMap.get('id');
-
+  
     this.route.queryParams.subscribe(params => {
       this.id = params['id'];
       this.getRestaurant();
       this.restaurant = this.getRestaurant();
     });
-
-    if(this.isLoggedIn){
+  
+    this.isLoggedIn = this.authService.isLoggedIn();
+  
+    if (this.isLoggedIn) {
       this.user = this.authService.getUserFromToken();
       this.userId = this.user.Id;
-
+  
       this.reservationForm.patchValue({
-      userId: this.userId,
-      restaurantId: this.id
-    });
+        userId: this.userId,
+        restaurantId: this.id
+      });
     }
-
-    
-
-    this.isLoggedIn = this.authService.isLoggedIn();
-
-    console.log(this.isLoggedIn)
   }
-
+  
   onSubmit(): void {
-    //console.log(this.id);
-    console.log(this.restaurant)
-
+    console.log('Form Values before submission:', this.reservationForm.value);
+  
     this.message = '';
-    this.errorMessage = ''
+    this.errorMessage = '';
+  
     if (this.reservationForm.valid) {
       const reservation: Reservation = this.reservationForm.value;
-
+  
+      console.log('Submitting Reservation:', reservation);
+  
       this.reservationService.makeReservation(reservation).subscribe({
         next: (response: any) => {
           this.message = 'Reservation successful, you will receive an email when the reservation is approved.';
@@ -178,6 +178,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.initializeCarousel();
+    this.initializeCarousel1();
   }
 
 
@@ -225,7 +226,6 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       carousel.classList.remove("dragging");
     }
 
-    // AutoPlay funkcija
     const autoPlay = () => {
       if (window.innerWidth < 800) return;
       const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
@@ -244,4 +244,51 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     this.renderer.listen(wrapper, 'mouseenter', () => clearTimeout(timeoutId));
     this.renderer.listen(wrapper, 'mouseleave', autoPlay);
   }
+
+
+  private initializeCarousel1(): void {
+    const carousel = this.el.nativeElement.querySelector(".carousel1") as HTMLElement;
+    const wrapper = this.el.nativeElement.querySelector(".wrapper1") as HTMLElement;
+
+    const firstCard = carousel.querySelector(".card1") as HTMLElement;
+    const firstCardWidth = firstCard?.offsetWidth ?? 0;
+    const arrowBtns = wrapper.querySelectorAll(".arrow") as NodeListOf<HTMLElement>;
+
+    let isDragging = false;
+    let startX: number, startScrollLeft: number;
+
+    arrowBtns.forEach(btn => {
+      this.renderer.listen(btn, 'click', () => {
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        if (btn.id === "left1") {
+          carousel.scrollLeft = Math.max(carousel.scrollLeft - firstCardWidth, 0);
+        } else {
+          carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
+        }
+      });
+    });
+
+    const dragStart = (e: MouseEvent) => {
+      isDragging = true;
+      carousel.classList.add("dragging");
+      startX = e.pageX;
+      startScrollLeft = carousel.scrollLeft;
+    }
+
+    const dragging = (e: MouseEvent) => {
+      if (!isDragging) return;
+      carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+    }
+
+    const dragStop = () => {
+      isDragging = false;
+      carousel.classList.remove("dragging");
+    }
+
+    this.renderer.listen(carousel, 'mousedown', dragStart);
+    this.renderer.listen(carousel, 'mousemove', dragging);
+    this.renderer.listen(document, 'mouseup', dragStop);
+    this.renderer.listen(wrapper, 'mouseenter', () => clearTimeout(0)); 
+  }
+
 }

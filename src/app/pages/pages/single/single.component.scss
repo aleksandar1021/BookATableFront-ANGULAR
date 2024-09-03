@@ -93,8 +93,8 @@
   }
 
   .card .img {
-    width: 100%;
-    height: 100%;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
     border: 4px solid #fff;
   }
@@ -219,12 +219,7 @@
            color: $gray;
         }
      }
-     .stars {
-        margin: 10px 30px;
-        li a i {
-           color: $star;
-        }
-     }
+     
      .info {
         margin: 10px 30px;
      }
@@ -319,4 +314,160 @@ h3 span {
     width: 100%;
     text-align: center;
   }
+}
+
+/// comments css
+
+
+.container1 {
+  display: flex;
+  padding: 0 35px;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+.card1{
+    background-color: #eeeeee;
+    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.wrapper1 {
+  max-width: 1100px;
+  width: 100%;
+  position: relative;
+}
+.wrapper1 i {
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  position: absolute;
+  text-align: center;
+  line-height: 50px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+  transform: translateY(-50%);
+  transition: transform 0.1s linear;
+}
+.wrapper1 i:active{
+  transform: translateY(-50%) scale(0.85);
+}
+.wrapper1 i:first-child{
+  left: -22px;
+}
+.wrapper1 i:last-child{
+  right: -22px;
+}
+#left1{
+    z-index: 100 !important;
+}
+.wrapper1 .carousel1{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% / 3) - 12px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.carousel1::-webkit-scrollbar {
+  display: none;
+}
+.carousel1.no-transition {
+  scroll-behavior: auto;
+}
+.carousel1.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+.carousel1.dragging .card1 {
+  cursor: grab;
+  user-select: none;
+}
+.carousel1 :where(.card, .img) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel1 .card {
+  scroll-snap-align: start;
+  height: 342px;
+  list-style: none;
+  cursor: pointer;
+  padding-bottom: 15px;
+  flex-direction: column;
+}
+.carousel1 .card1 .img1 {
+  background: #d2252b;
+  height: 106px;
+  width: 106px;
+  border-radius: 50%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.card1 .img1 img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+}
+.carousel1 .card1 h2 {
+  font-weight: 500;
+  font-size: 1.56rem;
+  margin: 30px 0 5px;
+}
+.carousel1 .card1 span {
+  color: #6A6D78;
+  font-size: 1.31rem;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper1 .carousel1 {
+    grid-auto-columns: calc((100% / 2) - 9px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper1 .carousel1 {
+    grid-auto-columns: 100%;
+  }
+}
+
+.stars img{
+  width: 30px;
+}
+
+.stars{
+  width: 70%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card1 h1{
+  text-align: center;
+  color: #d2252b;
+  font-size: 22px;
+}
+
+.card1 p{
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  min-height: 60px;
+}
+
+.card1{
+  list-style-type: none !important;
+}
+
+.super{
+  text-align: left !important;
 }

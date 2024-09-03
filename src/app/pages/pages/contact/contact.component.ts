@@ -59,6 +59,7 @@ export class ContactComponent {
       }).subscribe({
         next: (response : any) => {
           this.message = `The message has been successfully sent.`
+          this.contactForm.reset()
           if(response.status != 201){
             this.errorMessage = response.error.message;
           }
