@@ -120,10 +120,10 @@
 
 </div>
 
-<div class="containerHeadeing space">
+<div *ngIf="restaurant?.ratings?.length" class="containerHeadeing space">
     <h1>Comments</h1>
 </div>
-<div class="container1">
+<div *ngIf="restaurant?.ratings?.length" class="container1">
     <div class="wrapper1">
       <i  id="left1" class="fa-solid fa-angle-left arrow"></i>
       <ul class="carousel1">

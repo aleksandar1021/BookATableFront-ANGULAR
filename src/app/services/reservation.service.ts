@@ -16,4 +16,15 @@ export class ReservationService {
     makeReservation(reservation: Reservation): Observable<any> {
         return this.http.post(this.apiUrl, reservation);
     }
+
+    getReservations(id : number): Observable<any> {
+      return this.http.get(this.apiUrl + `/?userId=${id}&perPage=1000`);
+    }
+
+    deleteReservation(reservationId: number): Observable<any> {
+      const url = `${this.apiUrl}/${reservationId}`;
+      return this.http.delete(url);
+    }
+
+   
 }

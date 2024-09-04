@@ -55,7 +55,7 @@ export class RegisterComponent{
         next: (response) => {
           this.message = `Successfull registration, go to Login page`
           const encodedEmail = encodeURIComponent(this.Email.value);
-          this.router.navigateByUrl(`/ActivateUser?email=${encodedEmail}`);
+          this.router.navigateByUrl(`/activateUser?email=${encodedEmail}`);
         },
         error: (error) => {
           this.handleServerErrors(error);

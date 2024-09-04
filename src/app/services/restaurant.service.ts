@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { development } from '../../environments/development';
 import { ApiResponse } from '../interfaces/apiResponse.interface';
 import { Reservation } from '../interfaces/reservation.interface';
+import { Saved } from '../interfaces/saved.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,21 @@ import { Reservation } from '../interfaces/reservation.interface';
 export class RestaurantService {
     private apiUrl = development.apiUrl+ "Restaurants"; 
     private apiUrlReservation = development.apiUrl+ "Reservations"; 
+    private apiUrlSaved = development.apiUrl+ "Saved"; 
+
 
     constructor(private http: HttpClient) {}
 
     getRestaurants(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
+    }
+
+    getSaved(id : number): Observable<any> {
+        return this.http.get<any>(this.apiUrlSaved + `?userId=${id}`);
+    }
+
+    toggleSaveRestaurant(savedData: Saved) {
+        return this.http.post(`${this.apiUrlSaved}`, savedData);
     }
 
 

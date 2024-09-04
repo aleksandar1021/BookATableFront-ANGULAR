@@ -14,6 +14,8 @@ import { ActivationUserComponent } from './pages/pages/activation-user/activatio
 import { ContactComponent } from './pages/pages/contact/contact.component';
 import { SingleComponent } from './pages/pages/single/single.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
+import { SavedComponent } from './pages/pages/saved/saved.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
     RegisterComponent,
     ActivationUserComponent,
     ContactComponent,
-    SingleComponent
+    SingleComponent,
+    ReservationsComponent,
+    SavedComponent
   ],
   imports: [
     BrowserModule,

@@ -40,13 +40,17 @@
 <div class="container">
     <div class="wrapper1">
       <ul class="carousel1">
-        <a *ngFor="let restaurant of trendyRestaurants" href="/single?id={{restaurant.id}}">
-            <li class="card1">
-                <div class="img"><img src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div>
-                <h2>{{restaurant.name}}</h2>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
-            </li>
-        </a>
+        
+          <li *ngFor="let restaurant of trendyRestaurants" class="card1">
+              <a  href="/single?id={{restaurant.id}}"><div class="img"><img class="im" src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div></a>
+              <h2>{{restaurant.name}}</h2>
+              <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+              <img *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
+              <ng-template #notSaved>
+              <img class="heart" src="assets/icons/heart.png" alt="heart" (click)="toggleSave(restaurant)">
+              </ng-template>
+          </li>
+      
       </ul>
     </div>
 </div>
@@ -64,13 +68,17 @@
 <div class="container">
     <div class="wrapper1">
       <ul class="carousel1">
-        <a *ngFor="let restaurant of newestRestaurants" href="/single?id={{restaurant.id}}">
-            <li class="card1">
-                <div class="img"><img src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div>
+        
+            <li *ngFor="let restaurant of newestRestaurants" class="card1">
+                <a  href="/single?id={{restaurant.id}}"><div class="img"><img class="im" src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.primaryImagePath}}" draggable="false"></div></a>
                 <h2>{{restaurant.name}}</h2>
                 <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+                <img *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
+                <ng-template #notSaved>
+                <img class="heart" src="assets/icons/heart.png" alt="heart" (click)="toggleSave(restaurant)">
+                </ng-template>
             </li>
-        </a>
+        
       </ul>
     </div>
 </div>

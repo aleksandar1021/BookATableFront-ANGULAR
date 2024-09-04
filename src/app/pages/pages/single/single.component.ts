@@ -66,10 +66,13 @@ export class SingleComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     const today = new Date();
-    this.minDate = today.toISOString().split('T')[0];
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    this.minDate = tomorrow.toISOString().split('T')[0];
   
     const futureDate = new Date();
-    futureDate.setDate(today.getDate() + 20);
+    futureDate.setDate(tomorrow.getDate() + 20);
     this.maxDate = futureDate.toISOString().split('T')[0];
   
     this.id = this.route.snapshot.queryParamMap.get('id');
@@ -121,11 +124,10 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     });
   }
   
-  onSubmit(): void {
-    console.log('Form Values before submission:', this.reservationForm.value);
-  
+  onSubmit(): void {  
     this.message = '';
     this.errorMessage = '';
+    //console.log(this.restaurant)
   
     if (this.reservationForm.valid) {
       const reservation: Reservation = this.reservationForm.value;
@@ -135,6 +137,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       this.reservationService.makeReservation(reservation).subscribe({
         next: (response: any) => {
           this.message = 'Reservation successful, you will receive an email when the reservation is approved.';
+          this.reservationForm.reset()
         },
         error: (error) => {
           this.handleServerErrors(error);
@@ -219,8 +222,12 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    this.initializeCarousel();
-    this.initializeCarousel1();
+    if(this.restaurant?.images?.length){
+      this.initializeCarousel();
+    }
+    if(this.restaurant?.ratings?.length){
+      this.initializeCarousel1();
+    }
   }
 
 

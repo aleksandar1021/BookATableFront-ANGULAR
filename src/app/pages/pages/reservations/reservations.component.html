@@ -1,0 +1,39 @@
+<div *ngIf="reservations?.length; else noReservations" class="container">
+    <div *ngFor="let r of reservations" class="card">
+        <div class="image">
+            <img src="{{apiUrlRestaurants}}{{r.restaurant.image}}" alt="">
+        </div>
+
+        <div class="wrapper">
+            <div class="info">
+                <h2>Restaurant name:</h2>
+                <h3>{{r.restaurant.name}}</h3>
+
+                <h2>Number of guests:</h2>
+                <h3>{{r.numberOfGuests}}</h3>
+
+                <h2>Date:</h2>
+                <h3>{{r.date}} &nbsp;&nbsp;{{r.time}}h</h3>
+            </div>
+            <div class="info">
+                <h2>Note:</h2>
+                <h3>{{r.note}}</h3>
+
+                <h2>Is accpeted:</h2>
+                <h3 *ngIf="r.isAccepted; else notAccepted">Yes</h3>
+                <ng-template #notAccepted><h3>No</h3></ng-template>         
+
+                <h2>IsRealised:</h2>
+                <h3 *ngIf="r.isRealised; else notRealised">Yes</h3>
+                <ng-template #notRealised><h3>No</h3></ng-template>
+            </div>
+
+            <div class="info infoFlex">
+                <img class="icon" src="assets/icons/x.png" alt="icon" (click)="deleteReservation(r.id)">
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noReservations>
+    <div class="errorMessage">You have no reservations yet</div>
+</ng-template>

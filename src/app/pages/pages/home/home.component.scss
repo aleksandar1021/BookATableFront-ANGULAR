@@ -162,7 +162,7 @@
     // filter: brightness(0.9);
 }
 
-.card1 > div > img{
+.im{
     width: 100%;
     height: 300px;
     object-fit: cover;
@@ -280,3 +280,17 @@
     border-top: none;
 }
 
+.heart{
+  width: 30px;
+  position: relative;
+  top: -350px;
+  left: 180px;
+  transition: 0.2s;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+
+.heart:hover{
+  transform: scale(1.2);
+}

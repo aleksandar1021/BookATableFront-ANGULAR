@@ -6,6 +6,8 @@ import { LoginComponent } from './pages/pages/login/login.component';
 import { ActivationUserComponent } from './pages/pages/activation-user/activation-user.component';
 import { ContactComponent } from './pages/pages/contact/contact.component';
 import { SingleComponent } from './pages/pages/single/single.component';
+import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
+import { SavedComponent } from './pages/pages/saved/saved.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,8 +16,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'activateUser', component: ActivationUserComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'single', component: SingleComponent }
-
+  { path: 'single', component: SingleComponent },
+  { path: 'reservations', component: ReservationsComponent },
+  { path: 'saved', component: SavedComponent }
 ];
 
 @NgModule({

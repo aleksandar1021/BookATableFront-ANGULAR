@@ -4,6 +4,8 @@ import { RestaurantService } from '../../../services/restaurant.service';
 import { debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../../../services/auth.service';
+import { Saved } from '../../../interfaces/saved.interface';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +26,12 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   searchResults$: Observable<any[]> = of([]);
 
 
-  constructor(private mealCategoryService: MealCategoryService, private renderer: Renderer2, private el: ElementRef, private restaurantService: RestaurantService) { }
+  constructor(private mealCategoryService: MealCategoryService, 
+              private renderer: Renderer2, 
+              private el: ElementRef, 
+              private restaurantService: RestaurantService,
+              private authService: AuthService
+            ) { }
 
   
   
@@ -55,7 +62,24 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   }
 
 
-
+  toggleSave(restaurant: any) {
+    const userId = this.authService.getUserFromToken().Id;
+    const isSaved = !restaurant.isSaved;
+  
+    const savedData: Saved = {
+      userId: userId,
+      restaurantId: restaurant.id
+    };
+  
+    this.restaurantService.toggleSaveRestaurant(savedData).subscribe(
+      response => {
+        restaurant.isSaved = isSaved;
+      },
+      error => {
+        console.error('Error saving restaurant:', error);
+      }
+    );
+  }
 
   
 
