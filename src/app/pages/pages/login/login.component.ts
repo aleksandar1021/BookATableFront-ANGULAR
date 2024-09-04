@@ -53,12 +53,12 @@ export class LoginComponent {
 
   private handleServerErrors(error: any) {
     if(error.status == 403){
-      this.errorMessage = "Your account is not active, please activate";
+      this.errorMessage = "Your account is not active, please activate.";
     }
     else if(error.status == 401){
-      this.errorMessage = "Wrong credentials";
+      this.errorMessage = "Wrong credentials.";
     }else {
-      this.errorMessage = "An error has occured, please try again"
+      this.errorMessage = "An error has occured, please try again."
     }
   }
   

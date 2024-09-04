@@ -1,11 +1,12 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantService } from '../../../services/restaurant.service';
 import { ReservationService } from '../../../services/reservation.service';
 import { Reservation } from '../../../interfaces/reservation.interface';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
+import { development } from '../../../../environments/development';
 
 @Component({
   selector: 'app-single',
@@ -30,6 +31,16 @@ export class SingleComponent implements OnInit, AfterViewChecked {
 
   isLoggedIn : boolean = false;
 
+  stars: number[] = [1, 2, 3, 4, 5];
+  rating: number = 0;  
+  ratingMessage: string = ''; 
+  errorMessageRating: string = '';
+  messageRatingResponse: string = '';
+  form: FormGroup;
+
+  setRating(star: number): void {
+    this.rating = star;
+  }
   constructor(
     private restaurantService: RestaurantService,
     private reservationService: ReservationService,
@@ -47,6 +58,9 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       note: [''],
       userId: [null],
       restaurantId: [null]
+    });
+    this.form = new FormGroup({
+      ratingMessage: new FormControl('')
     });
   }
 
@@ -77,6 +91,34 @@ export class SingleComponent implements OnInit, AfterViewChecked {
         restaurantId: this.id
       });
     }
+  }
+
+  submitRating(): void {
+    if (this.rating === 0) {
+      this.errorMessageRating = 'Choose a rate.';
+      return;
+    }
+
+    const ratingData = {
+      rate: this.rating,
+      message: this.form.get('ratingMessage')?.value || '',
+      userId: this.userId,
+      restaurantId: this.id
+    };
+
+    this.http.post(development.apiUrl + "Ratings", ratingData).subscribe({
+      next: (response) => {
+        this.messageRatingResponse = 'Review submitted successfully.';
+        this.errorMessageRating = '';
+        this.form.reset();
+        this.rating = 0;
+      },
+      error: (error) => {
+        this.errorMessageRating = 'An error has occured, please try again.';
+        this.message = '';
+        //console.error('Error:', error);
+      }
+    });
   }
   
   onSubmit(): void {

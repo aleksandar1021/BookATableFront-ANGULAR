@@ -442,6 +442,7 @@ h3 span {
 
 .stars img{
   width: 30px;
+  margin-right: 5px;
 }
 
 .stars{
@@ -470,4 +471,40 @@ h3 span {
 
 .super{
   text-align: left !important;
+}
+
+#formContainer{
+  margin-top: 50px;
+}
+
+#hedding2{
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.stars2 img{
+  width: 30px;
+  margin-right: 5px;
+  margin-right: 20px;
+  transition: transform 0.2s;
+}
+
+.stars2 img:last-child{
+  margin-right: 0px;
+}
+.stars2{
+  width: 70%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+#hedding{
+  color: #000;
+  font-size: 25px;
+}
+
+.stars2 img:hover {
+  transform: scale(1.2);
 }

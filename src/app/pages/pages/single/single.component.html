@@ -145,3 +145,32 @@
 
     
 </div>
+
+<div *ngIf="isLoggedIn" id="formContainer">
+    <p id="hedding2">Leave a review</p>
+    <form [formGroup]="form" id="register-form" (ngSubmit)="submitRating()">
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/chat.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input formControlName="ratingMessage" type="text" name="message" id="message" placeholder="Enter a review (optional)">
+            </div>
+        </div>
+    
+        <p id="hedding">Enter rate</p>
+        <div class="stars2">
+            <img *ngFor="let star of stars; let i = index" 
+                 [src]="star <= rating ? 'assets/icons/stars2.png' : 'assets/icons/empty.png'" 
+                 alt="star" 
+                 (click)="setRating(star)">
+        </div>
+    
+        <div *ngIf="messageRatingResponse" class="successMessage">{{messageRatingResponse}}</div>
+        <div *ngIf="errorMessageRating" class="errorMessage">{{errorMessageRating}}</div>
+    
+        <div id="buttonContainer">
+            <button type="submit" class="sumbitButton">Submit</button>
+        </div>
+    </form>
+</div>
