@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';  
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; 
+import { FormsModule } from '@angular/forms'; // Dodaj ovaj import
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { SingleComponent } from './pages/pages/single/single.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
 import { SavedComponent } from './pages/pages/saved/saved.component';
+import { SearchComponent } from './pages/pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +31,15 @@ import { SavedComponent } from './pages/pages/saved/saved.component';
     ContactComponent,
     SingleComponent,
     ReservationsComponent,
-    SavedComponent
+    SavedComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     {

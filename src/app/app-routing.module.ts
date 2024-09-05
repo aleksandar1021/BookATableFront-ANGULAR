@@ -8,6 +8,7 @@ import { ContactComponent } from './pages/pages/contact/contact.component';
 import { SingleComponent } from './pages/pages/single/single.component';
 import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
 import { SavedComponent } from './pages/pages/saved/saved.component';
+import { SearchComponent } from './pages/pages/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'single', component: SingleComponent },
   { path: 'reservations', component: ReservationsComponent },
-  { path: 'saved', component: SavedComponent }
+  { path: 'saved', component: SavedComponent },
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({

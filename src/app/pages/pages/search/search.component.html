@@ -1,0 +1,52 @@
+<div class="dropdown-container">
+    <div class="dropdown">
+        <label for="dropdown1">Choose meal category:</label>
+        <select id="dropdown1" [(ngModel)]="selectedMealCategory">
+            <option [ngValue]="''">All categories</option>
+            <option *ngFor="let m of mealCategories" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+
+    <div class="dropdown">
+        <label for="dropdown2">Choose restaurant type:</label>
+        <select id="dropdown2" [(ngModel)]="selectedRestaurantType">
+            <option [ngValue]="''">All restaurant types</option>
+            <option *ngFor="let m of restaurantTypes" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    
+    <div class="search-bar">
+        <label for="search">Search by name:</label>
+        <input type="text" id="search" placeholder="Search..." [(ngModel)]="searchName">
+    </div>
+
+    <button class="search" (click)="searchRestaurants()">Search</button>
+</div>
+
+
+
+<div class="container" *ngIf="restaurants?.length; else noRestaurants">
+    <div class="wrapper1">
+      <ul class="carousel1">
+        
+            <li *ngFor="let restaurant of restaurants" class="card1">
+                <a  href="/single?id={{restaurant.id}}"><div class="img"><img class="im" *ngIf="restaurant.primaryImagePath; else noImage" src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.name}}" draggable="false">
+                                                                        <ng-template #noImage><img class="im" src="assets/images/defaultRestaurantImage.jpg" alt="{{restaurant.name}}" draggable="false"></ng-template>
+                                                                        </div></a>
+                <h2>{{restaurant.name}}</h2>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+                <div *ngIf="isLogged">
+                    <img  *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
+                    <ng-template #notSaved >
+                    <img class="heart" src="assets/icons/heart.png" alt="heart" (click)="toggleSave(restaurant)">
+                    </ng-template>
+                </div>
+            </li>
+        
+      </ul>
+    </div>
+</div>
+
+<ng-template #noRestaurants>
+    <div class="errorMessage">There are no results for the search entered</div>
+</ng-template>

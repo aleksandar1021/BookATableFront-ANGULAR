@@ -21,6 +21,10 @@ export class RestaurantService {
         return this.http.get<any>(this.apiUrl);
     }
 
+    searchRestaurantsAll(name: string, mealCategoryId: string, restaurantTypeId: string,): Observable<ApiResponse<any[]>> {
+        return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}?name=${name}&mealCategoryId=${mealCategoryId}&restaurantTypeId=${restaurantTypeId}`);
+    }
+
     getSaved(id : number): Observable<any> {
         return this.http.get<any>(this.apiUrlSaved + `?userId=${id}`);
     }

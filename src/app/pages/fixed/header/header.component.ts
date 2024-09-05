@@ -43,7 +43,9 @@ export class HeaderComponent implements OnInit{
     { name: 'Home', route: '/home', useCaseId: 0 },
     { name: 'Reservations', route: '/reservations', useCaseId: 65 },
     { name: 'Saved', route: '/saved', useCaseId: 72 },
+    { name: 'Search', route: '/search', useCaseId: 0 },
     { name: 'Contact', route: '/contact', useCaseId: 0 },
+    
   ];
 
   loadNavigation(): void {

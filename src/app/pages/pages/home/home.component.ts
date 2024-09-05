@@ -15,6 +15,7 @@ import { Saved } from '../../../interfaces/saved.interface';
 export class HomeComponent implements OnInit, AfterViewChecked{
 
   isVisible : boolean = false;
+  isLogged : boolean = false;
   apiUrlMealCategories : string = "http://localhost:5000/mealCategories/"
   apiUrlRestaurants : string = "http://localhost:5000/restaurantPhotos/"
 
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     this.getRestaurants();
     this.getTrendyRestaurants();
     this.getNewestRestaurants();
+    this.isLogged = this.authService.isLoggedIn()
 
     this.searchResults$ = this.searchControl.valueChanges.pipe(
       distinctUntilChanged(),

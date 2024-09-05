@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
         return next.handle(req1);
       } else {
-        console.warn('No token found in localStorage');
+        //console.warn('No token found in localStorage');
         return next.handle(req);
       }
     }
