@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit{
   apiUrlRestaurants : string = "http://localhost:5000/restaurantPhotos/"
   restaurants : any;
   mealCategories: any[] = []; 
@@ -22,7 +22,15 @@ export class SearchComponent implements OnInit {
   selectedRestaurantType: string = '';
   searchName: string = ''; 
 
+  sortOptions: { value: string, label: string }[] = [];
+  selectedSortOption: string = '';
+
   isLogged: boolean = false;
+
+  perPage : number = 6;
+  totalCount : number = this.perPage;
+  isVisible : boolean = false;
+
 
   constructor(private restaurantService: RestaurantService, 
               private mealCategoryService: MealCategoryService, 
@@ -30,19 +38,49 @@ export class SearchComponent implements OnInit {
               private authService: AuthService,
               private route: ActivatedRoute
             ){
-
-  }
+             
+            }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.selectedMealCategory = params['mealCategoryId'] ? params['mealCategoryId'] : '';
+
+      const sortProperty = params['sorts[0].sortProperty'] ? params['sorts[0].sortProperty'] : '';
+      const sortDirection = params['sorts[0].direction'] ? params['sorts[0].direction'] : '';
+
+      if (sortProperty && sortDirection) {
+        this.selectedSortOption = this.buildSortOption(sortProperty, sortDirection);
+      }
     });
+
     this.searchRestaurants();
-    //this.getRestaurants()
-    this.getMealCategories()
-    this.getRestaurantTypes()
-    this.isLogged = this.authService.isLoggedIn()
+    this.getMealCategories();
+    this.getRestaurantTypes();
+    this.isLogged = this.authService.isLoggedIn();
+    this.getSortOptions();
+
     
+}
+
+ngAfterViewInit(): void {
+  
+}
+  buildSortOption(sortProperty: string, sortDirection: string): string {
+    return `${sortProperty}${sortDirection.charAt(0).toUpperCase() + sortDirection.slice(1).toLowerCase()}`; 
+  }
+
+  loadMore(){
+    this.totalCount += this.perPage;
+    this.searchRestaurants();
+  }
+
+  getSortOptions() {
+    this.sortOptions = [
+      { value: 'nameDesc', label: 'Name asc' },
+      { value: 'nameAsc', label: 'Name desc' },
+      { value: 'createdAsc', label: 'Create date asc' },
+      { value: 'createdDesc', label: 'Create date desc' },
+    ];
   }
 
   toggleSave(restaurant: any) {
@@ -65,17 +103,42 @@ export class SearchComponent implements OnInit {
   }
 
   searchRestaurants(): void {
-    this.restaurantService.searchRestaurantsAll(this.searchName, this.selectedMealCategory, this.selectedRestaurantType)
+    const queryParams = this.buildQueryString();
+    this.restaurantService.searchRestaurantsAll(this.searchName, this.selectedMealCategory, this.selectedRestaurantType, queryParams, this.totalCount)
       .subscribe(
         (response: any) => {
           this.restaurants = response.data;
-          console.log('Rezultat pretrage:', this.restaurants);
+          console.log(response.totalCount)
+          if(response.totalCount > this.perPage){
+            this.isVisible = true
+          }
+          if(response?.totalCount <= this.totalCount){
+            this.isVisible = false;
+          }
         },
         (error) => {
           console.error('Greška prilikom pretrage:', error);
         }
       );
   }
+
+  buildQueryString(): string {
+    const queryParams: string[] = [];
+    
+    if (this.selectedSortOption) {
+      const [sortProperty, sortDirection] = this.parseSortOption(this.selectedSortOption);
+      queryParams.push(`sorts[0].sortProperty=${encodeURIComponent(sortProperty)}`);
+      queryParams.push(`sorts[0].direction=${encodeURIComponent(sortDirection)}`);
+    }
+    return queryParams.join('&');
+  }
+
+  parseSortOption(sortOption: string): [string, string] {
+    const [property, direction] = sortOption.split(/(?=[A-Z])/); 
+    return [property, direction === 'Asc' ? 'Asc' : 'Desc'];
+  }
+
+
 
   getMealCategories(): void {
     this.mealCategoryService.getMealCategories().subscribe(
@@ -93,7 +156,6 @@ export class SearchComponent implements OnInit {
     this.restaurantTypeService.getRestaurantTypes().subscribe(
       (response: any) => {  
         this.restaurantTypes = response.data;
-        console.log(this.restaurantTypes)
       },
       (error) => {
         console.error('There was an error', error);
