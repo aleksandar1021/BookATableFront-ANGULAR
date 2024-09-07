@@ -43,7 +43,9 @@ export class HomeComponent implements OnInit, AfterViewChecked{
     this.getRestaurants();
     this.getTrendyRestaurants();
     this.getNewestRestaurants();
-    this.isLogged = this.authService.isLoggedIn()
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      this.isLogged = isLogged; 
+    });
 
     this.searchResults$ = this.searchControl.valueChanges.pipe(
       distinctUntilChanged(),

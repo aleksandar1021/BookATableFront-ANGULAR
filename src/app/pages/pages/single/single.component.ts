@@ -83,7 +83,9 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       this.restaurant = this.getRestaurant();
     });
   
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      this.isLoggedIn = isLogged; 
+    });
   
     if (this.isLoggedIn) {
       this.user = this.authService.getUserFromToken();

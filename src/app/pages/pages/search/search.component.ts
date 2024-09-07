@@ -56,7 +56,9 @@ export class SearchComponent implements OnInit, AfterViewInit{
     this.searchRestaurants();
     this.getMealCategories();
     this.getRestaurantTypes();
-    this.isLogged = this.authService.isLoggedIn();
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      this.isLogged = isLogged; 
+    });
     this.getSortOptions();
 
     

@@ -13,7 +13,7 @@ import { filter } from 'rxjs';
 export class HeaderComponent implements OnInit{
   isNavbarVisible = false;
   public filteredNavItems: NavItem[] = [];
-
+  isLogged : boolean = false;
 
   ngOnInit(): void {
     this.loadNavigation();
@@ -24,7 +24,12 @@ export class HeaderComponent implements OnInit{
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.loadNavigation();
+      this.authService.isLoggedIn().subscribe(isLogged => {
+        this.isLogged = isLogged; 
+      });
     });
+
+    
   }
 
   toggleNavbar() {
@@ -35,9 +40,8 @@ export class HeaderComponent implements OnInit{
     this.authService.logout();
   }
 
-  isLoggedIn(){
-    return this.authService.isLoggedIn();
-  }
+ 
+  
 
   navItems: NavItem[] = [
     { name: 'Home', route: '/home', useCaseId: 0 },

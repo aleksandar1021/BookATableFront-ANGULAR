@@ -18,7 +18,7 @@
                         </ul>
 
 
-                        <ul *ngIf="!isLoggedIn()" class="list-right">
+                        <ul *ngIf="!isLogged" class="list-right">
                             <a href="/login">
                                 <button id="loginLink">
                                     Login
@@ -26,8 +26,8 @@
                             </a>
                         </ul>
 
-                        <div *ngIf="isLoggedIn()">
-                            <ul *ngIf="isLoggedIn()" (click)="logout()" class="list-right">
+                        <div *ngIf="isLogged">
+                            <ul *ngIf="isLogged" (click)="logout()" class="list-right">
                                 <a>
                                     <button id="logoutLink">
                                         Logout
@@ -35,7 +35,7 @@
                                 </a>
                             </ul>
     
-                            <ul *ngIf="isLoggedIn()" class="list-right">
+                            <ul *ngIf="isLogged" class="list-right">
                                 <a routerLink="/registerRestaurant">
                                     <button class="regLink">
                                         Create a restaurant

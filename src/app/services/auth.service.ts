@@ -4,7 +4,7 @@ import { ActivateUser, User } from '..//interfaces/user.interface';
 import { development } from '../../environments/development';
 import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -63,9 +63,26 @@ export class AuthService {
     return JSON.parse(paylodaData.UseCaseIds)
   }
 
-  isLoggedIn(): boolean {
-    const token = this.GetToken();
-    return token ? true : false;
+  // isLoggedIn(): boolean {
+  //   const token = this.GetToken();
+  //   return token ? true : false;
+  // }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get<boolean>('http://localhost:5000/api/Auth').pipe(
+      catchError((error) => {
+        if (error.status === 401 || error.status === 500) {
+          return of(false); 
+        }
+        const tokenExpiration = this.getUserFromToken()?.exp;
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+
+        if (tokenExpiration && tokenExpiration < currentTimestamp) {
+          return of(false); 
+        }
+        return of(false); 
+      })
+    );
   }
 
   getUserFromToken(): any | null {
