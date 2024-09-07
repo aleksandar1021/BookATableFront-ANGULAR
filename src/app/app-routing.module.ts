@@ -9,6 +9,8 @@ import { SingleComponent } from './pages/pages/single/single.component';
 import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
 import { SavedComponent } from './pages/pages/saved/saved.component';
 import { SearchComponent } from './pages/pages/search/search.component';
+import { RegisterRestaurantComponent } from './pages/pages/register-restaurant/register-restaurant.component'; 
+import { AccountComponent } from './pages/pages/account/account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,7 +22,10 @@ const routes: Routes = [
   { path: 'single', component: SingleComponent },
   { path: 'reservations', component: ReservationsComponent },
   { path: 'saved', component: SavedComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  //{ path: 'registerRestaurant', component: RegisterRestaurantComponent }
+  { path: 'account', component: AccountComponent },
+
 ];
 
 @NgModule({

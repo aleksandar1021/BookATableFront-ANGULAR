@@ -45,7 +45,7 @@
                                                                         <ng-template #noImage><img class="im" src="assets/images/d.jpg" alt="{{restaurant.name}}" draggable="false"></ng-template>
                                                                         </div></a>
                 <h2>{{restaurant.name}}</h2>
-                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img src="assets/icons/star.png" alt="star"></span>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img *ngIf="restaurant.rate >= 4" src="assets/icons/star.png" alt="star"></span>
                 <div *ngIf="isLogged">
                     <img  *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
                     <ng-template #notSaved >

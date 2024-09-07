@@ -23,6 +23,17 @@ export class AuthService {
     });
   }
 
+  updateUser(user: User, id: number) {
+    return this.http.put(development.apiUrl + `Users/${id}`, user, {
+      responseType: 'json',
+    });
+  }
+
+
+  getUser(id : number) {
+    return this.http.get(development.apiUrl + `Users/${id}`)
+  }
+
   login(user: User) {
     return this.http.post(development.apiUrl + 'Auth', user, {
       responseType: 'json',

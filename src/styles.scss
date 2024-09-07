@@ -118,7 +118,7 @@
   }
 }
 
-#loginLink{
+#logoutLink{
   margin-top: 20px;
   background-color: #c14a4a;
   border: 3px dashed #c58080;
@@ -130,9 +130,40 @@
   transition: 0.3s;
 }
 
+#logoutLink:hover{
+  background-color: #fff;
+  color: #c14a4a;
+}
+
+#loginLink{
+  margin-top: 20px;
+  background-color: #c14a4a;
+  border: 3px dashed #c58080;
+  width: 120px;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+  margin-left: 18rem !important;
+}
+
 #loginLink:hover{
   background-color: #fff;
   color: #c14a4a;
+}
+
+.regLink{
+  margin-top: 20px;
+  background-color: #c14a4a;
+  border: 3px dashed #c58080;
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+  margin-right: 10px;
 }
 
 a {

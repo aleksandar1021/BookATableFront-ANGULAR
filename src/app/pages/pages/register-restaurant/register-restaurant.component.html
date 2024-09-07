@@ -1,0 +1,117 @@
+<div id="formContainer">
+    <div id="logoContainer">
+      <img id="logo" src="assets/images/logo.png" alt="Restaurant Logo">
+    </div>
+  
+    <p id="heading">The exit you deserve</p>
+    <p id="heading2">Register your restaurant</p>
+  
+    <form [formGroup]="registerForm" id="register-form" (ngSubmit)="registerRestaurant()">
+      <!-- Restaurant Name -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/text.png" alt="Name Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="name" id="name" placeholder="Restaurant Name">
+        </div>
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/text.png" alt="Description Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="description" id="description" placeholder="Restaurant Description">
+        </div>
+      </div>
+  
+      <!-- Working Hours -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workFromHour" min="0" max="23" id="workFromHour" placeholder="Work from (Hour)">
+        </div>
+      </div>
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workFromMinute" min="0" max="59" id="workFromMinute" placeholder="Work from (Minute)">
+        </div>
+      </div>
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workUntilHour" min="0" max="23" id="workUntilHour" placeholder="Work until (Hour)">
+        </div>
+      </div>
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workUntilMinute" min="0" max="59" id="workUntilMinute" placeholder="Work until (Minute)">
+        </div>
+      </div>
+  
+      <!-- Time Interval -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="timeInterval" min="10" max="60" id="timeInterval" placeholder="Time interval between reservations">
+        </div>
+      </div>
+  
+      <!-- Maximum Number of Guests -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/number.png" alt="Guests Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="maxNumberOfGuests" min="1" id="maxNumberOfGuests" placeholder="Maximum number of guests">
+        </div>
+      </div>
+  
+      <!-- Restaurant Type -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/restaurant.png" alt="Restaurant Icon">
+        </div>
+        <div class="inputFiled">
+          <select formControlName="restaurantType" id="restaurantType">
+            <option hidden value="">Select restaurant type</option>
+            <option *ngFor="let type of restaurantTypes" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Meal Categories -->
+      <div class="customInput noMargin">
+        <h4>Select meal categories</h4>
+      </div>
+      <div class="mealCategory" *ngFor="let category of mealCategories">
+        <label>
+          <input type="checkbox" [value]="category.id" formControlName="mealCategoryType"> {{ category.name }}
+        </label>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="!registerForm.valid">Register Restaurant</button>
+  
+      <!-- Error Messages -->
+      <div class="errorMessage" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </form>
+  </div>
+  

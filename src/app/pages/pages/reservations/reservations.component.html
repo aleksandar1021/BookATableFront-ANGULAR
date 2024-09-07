@@ -1,7 +1,11 @@
 <div *ngIf="reservations?.length; else noReservations" class="container">
     <div *ngFor="let r of reservations" class="card">
         <div class="image">
-            <img src="{{apiUrlRestaurants}}{{r.restaurant.image}}" alt="">
+            <!-- <img src="{{apiUrlRestaurants}}{{r.restaurant.image}}" alt=""> -->
+
+            <img *ngIf="r.restaurant.image; else noImage" src="{{apiUrlRestaurants}}{{r.restaurant.image}}" alt="{{r.restaurant.name}}" draggable="false">
+            <ng-template #noImage><img src="assets/images/d.jpg" alt="{{r.restaurant.name}}" draggable="false"></ng-template>
+                
         </div>
 
         <div class="wrapper">

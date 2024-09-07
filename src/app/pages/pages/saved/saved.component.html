@@ -1,7 +1,8 @@
 <div *ngIf="saveds?.length; else noSaveds" class="container">
     <div *ngFor="let s of saveds" class="card">
         <div class="image">
-            <img src="{{apiUrlRestaurants}}{{s.restaurant.image}}" alt="">
+            <img *ngIf="s.restaurant.image; else noImage" src="{{apiUrlRestaurants}}{{s.restaurant.image}}" alt="{{s.restaurant.name}}" draggable="false">
+            <ng-template #noImage><img src="assets/images/d.jpg" alt="{{s.restaurant.name}}" draggable="false"></ng-template>
         </div>
 
         <div class="wrapper">

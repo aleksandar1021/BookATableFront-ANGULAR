@@ -69,6 +69,7 @@
         <h3>
             <span *ngIf="restaurant?.address.city.name">{{restaurant?.address.city.name}}</span>
             <span *ngIf="restaurant?.address.place">, {{restaurant?.address.place}}</span>
+            <span *ngIf="restaurant?.address.address">, {{restaurant?.address.address}}</span>
             <span *ngIf="restaurant?.address.number"> {{restaurant?.address.number}}</span>
             <span *ngIf="restaurant?.address.floor">, floor : {{restaurant?.address.floor}}</span>
             <span *ngIf="restaurant?.address.description"> <br>Place description: {{restaurant?.address.description}}</span>

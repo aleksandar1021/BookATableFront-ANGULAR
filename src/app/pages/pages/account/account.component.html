@@ -1,0 +1,119 @@
+<div id="formContainer">
+    <div id="logoContainer">
+        <img id="logo" src="assets/images/logo.png" alt="Logo">
+    </div>
+
+    <p id="hedding">The exit you deserve</p>
+    <p id="hedding2">Edit account</p>
+
+    <form [formGroup]="registerForm" id="register-form" (ngSubmit)="onSubmit($event)">
+        <!-- Name Field -->
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/text.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input type="text" value="{{firstName}}" name="firstname" formControlName="firstname" id="firstname" placeholder="firstname">
+            </div>
+        </div>
+        <!-- Name Error Messages -->
+        <div class="errorMessage" *ngIf="registerForm.get('firstname')?.hasError('pattern') && registerForm.get('firstname')?.touched">
+            Name must start with a capital letter and be at least 3 characters long.
+        </div>
+        <div class="errorMessage" *ngIf="registerForm.get('firstname')?.hasError('serverError')">
+            {{ registerForm.get('firstname')?.getError('serverError') }}
+        </div>
+
+        <!-- Lastname Field -->
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/text.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input type="text" [value]="lastName" name="lastname" formControlName="lastname" id="lastname" placeholder="Lastname">
+            </div>
+        </div>
+        <!-- Lastname Error Messages -->
+        <div class="errorMessage" *ngIf="registerForm.get('lastname')?.hasError('pattern') && registerForm.get('lastname')?.touched">
+            Name must start with a capital letter and be at least 3 characters long.
+        </div>
+        <div class="errorMessage" *ngIf="registerForm.get('lastname')?.hasError('serverError')">
+            {{ registerForm.get('lastname')?.getError('serverError') }}
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/email.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input type="text" [value]="email" name="email" formControlName="email" id="email" placeholder="Email">
+            </div>
+        </div>
+        <!-- Email Error Messages -->
+        <div class="errorMessage" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+            Enter a valid email.
+        </div>
+        <div class="errorMessage" *ngIf="registerForm.get('email')?.hasError('serverError')">
+            {{ registerForm.get('email')?.getError('serverError') }}
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/key.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input type="password" name="password" formControlName="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <!-- Password Error Messages -->
+        <div class="errorMessage" *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched">
+            Password must contain at least 8 characters, one capital letter, and one special character.
+        </div>
+        <div class="errorMessage" *ngIf="registerForm.get('password')?.hasError('serverError')">
+            {{ registerForm.get('password')?.getError('serverError') }}
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="mb-3 customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/key.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+                <input type="password" name="rePassword" formControlName="rePassword" id="rePassword" placeholder="Confirm password">
+            </div>
+        </div>
+        <!-- Confirm Password Error Messages -->
+        <div class="errorMessage" *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('rePassword')?.touched">
+            Passwords do not match.
+        </div>
+
+        <!-- Image Display -->
+        <h4>Image:</h4>
+        <div class="mb-3 customInput">
+            <div class="image">
+                <img *ngIf="image" [src]="apiUrlUser + image" [alt]="firstName">
+                
+                <img *ngIf="newImage" [src]="apiUrlTemp + newImage" [alt]="firstName">
+                
+              </div>
+        </div>
+
+        <br>
+        <div class="imageBox">
+            <input type="file" (change)="onFileChange($event)" />
+        </div>
+        <br>
+        <!-- Success and Error Messages -->
+        <div *ngIf="message" class="successMessage">
+            {{message}}
+        </div>
+        <div *ngIf="errorMessage" class="errorMessage">{{errorMessage}}</div>
+
+        <!-- Submit Button -->
+        <div id="buttonContainer">
+            <button type="submit" class="sumbitButton">Update</button>
+        </div>
+    </form>
+</div>

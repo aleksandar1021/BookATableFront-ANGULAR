@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit, AfterViewInit{
               private restaurantTypeService: RestaurantTypeService,
               private authService: AuthService,
               private route: ActivatedRoute
-            ){
+              ){
              
             }
 

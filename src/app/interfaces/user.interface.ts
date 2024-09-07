@@ -10,3 +10,4 @@ export interface ActivateUser {
     email: string;
     activationCode: string;
 }
+

@@ -26,13 +26,23 @@
                             </a>
                         </ul>
 
-                        <ul *ngIf="isLoggedIn()" (click)="logout()" class="list-right">
-                            <a>
-                                <button id="loginLink">
-                                    Logout
-                                </button>
-                            </a>
-                        </ul>
+                        <div *ngIf="isLoggedIn()">
+                            <ul *ngIf="isLoggedIn()" (click)="logout()" class="list-right">
+                                <a>
+                                    <button id="logoutLink">
+                                        Logout
+                                    </button>
+                                </a>
+                            </ul>
+    
+                            <ul *ngIf="isLoggedIn()" class="list-right">
+                                <a routerLink="/registerRestaurant">
+                                    <button class="regLink">
+                                        Create a restaurant
+                                    </button>
+                                </a>
+                            </ul>
+                        </div>
 
                         <div class="navbar-header">
                             <button (click)="toggleNavbar()" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

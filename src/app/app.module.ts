@@ -18,6 +18,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { ReservationsComponent } from './pages/pages/reservations/reservations.component';
 import { SavedComponent } from './pages/pages/saved/saved.component';
 import { SearchComponent } from './pages/pages/search/search.component';
+import { RegisterRestaurantComponent } from './pages/pages/register-restaurant/register-restaurant.component';
+import { AccountComponent } from './pages/pages/account/account.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SearchComponent } from './pages/pages/search/search.component';
     SingleComponent,
     ReservationsComponent,
     SavedComponent,
-    SearchComponent
+    SearchComponent,
+    RegisterRestaurantComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
