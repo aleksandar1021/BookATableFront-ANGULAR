@@ -17,6 +17,11 @@ export class RestaurantService {
 
     constructor(private http: HttpClient) {}
 
+    applyRestaurant(restaurant: any): Observable<any> {
+        return this.http.post(this.apiUrl, restaurant);
+    }
+
+
     getRestaurants(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
     }

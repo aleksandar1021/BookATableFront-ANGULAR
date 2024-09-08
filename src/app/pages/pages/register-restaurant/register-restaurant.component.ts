@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RestaurantTypeService } from '../../../services/restaurantType.service'; 
 import { CityService } from '../../../services/city.service';
 import { AuthService } from '../../../services/auth.service';
+import { RestaurantService } from '../../../services/restaurant.service'; 
 import { MealCategoryService } from '../../../services/mealCategory.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, PatternValidator, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -19,8 +20,18 @@ export class RegisterRestaurantComponent implements OnInit {
   errorMessage: string = '';
 
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+    ]),
+    description: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.minLength(3),
+      Validators.maxLength(200),
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+    ]),    
     workFromHour: new FormControl('', [Validators.required, Validators.min(0), Validators.max(23)]),
     workFromMinute: new FormControl('', [Validators.required, Validators.min(0), Validators.max(59)]),
     workUntilHour: new FormControl('', [Validators.required, Validators.min(0), Validators.max(23)]),
@@ -30,18 +41,33 @@ export class RegisterRestaurantComponent implements OnInit {
     restaurantType: new FormControl('', [Validators.required]),
     mealCategoryType: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
-    addressOfPlace: new FormControl('', [Validators.required]),
-    place: new FormControl('', [Validators.required]),
-    number: new FormControl('', [Validators.required]),
-    floor: new FormControl(''),
-    descriptionAddress: new FormControl('')
+    addressOfPlace: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+    ]),
+    place: new FormControl('', [
+      Validators.minLength(3),
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+    ]),
+    number: new FormControl('', [
+      Validators.pattern(/^[\s\S]{1,10}$/)
+    ]),
+    floor: new FormControl('', [Validators.min(0), Validators.max(100)]),
+    addressDescription: new FormControl('', [
+      Validators.minLength(3),
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+    ])
   });
+
+
 
   constructor(
     private authService: AuthService, 
     private restaurantTypeService: RestaurantTypeService, 
     private cityService: CityService,
-    private mealCategoryService: MealCategoryService
+    private mealCategoryService: MealCategoryService,
+    private restaurantService: RestaurantService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +75,21 @@ export class RegisterRestaurantComponent implements OnInit {
     this.getCities();
     this.getMealCategories();
   }
+
+
+  // onCheckboxChange(event: any, categoryId: number) {
+  //   const mealCategories: FormArray = this.registerForm.get('mealCategories') as FormArray;
+  
+  //   if (event.target.checked) {
+  //     mealCategories.push(new FormControl(categoryId));
+  //   } else {
+  //     const index = mealCategories.controls.findIndex(x => x.value === categoryId);
+  //     if (index !== -1) {
+  //       mealCategories.removeAt(index);
+  //     }
+  //   }
+  // }
+
 
   getRestaurantTypes(): void {
     this.restaurantTypeService.getRestaurantTypes().subscribe(
@@ -84,9 +125,43 @@ export class RegisterRestaurantComponent implements OnInit {
   }
 
   registerRestaurant(): void {
-    if (this.registerForm.valid) {
-      // Submit form logic here
-      console.log('Form data:', this.registerForm.value);
+    if (1) {
+      // Transformacija podataka u traženi format
+      const formData = this.registerForm.value;
+  
+      const requestPayload = {
+        name: formData.name,
+        workFromHour: formData.workFromHour,
+        workUntilHour: formData.workUntilHour,
+        workFromMinute: formData.workFromMinute,
+        workUntilMinute: formData.workUntilMinute,
+        description: formData.description,
+        maxNumberOfGuests: formData.maxNumberOfGuests,
+        timeInterval: formData.timeInterval,
+        restaurantTypeId: formData.restaurantType,
+        addressInput: {
+          cityId: formData.city,
+          place: formData.place,
+          address: formData.addressOfPlace,
+          number: formData.number,
+          floor: formData.floor,
+          description: formData.addressDescription,
+        },
+        // mealCategoriesRestaurants: formData.mealCategories.map((mealCategoryId: number) => ({
+        //   mealCategoryId,
+        //   restaurantId: 0 // `restaurantId` će biti dodeljen od strane servera nakon kreiranja
+        // })),
+      };
+  
+      this.restaurantService.applyRestaurant(requestPayload).subscribe(
+        (response) => {
+          this.message = "You have successfully applied for a restaurant marketing permit, wait until the administrator checks the data and selects the restaurant if everything is in order."
+        },
+        (error) => {
+          console.error('Error registering restaurant', error);
+        }
+      );
+  
     } else {
       console.log('Form is invalid');
     }
