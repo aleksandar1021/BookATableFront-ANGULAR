@@ -4,7 +4,7 @@ import { CityService } from '../../../services/city.service';
 import { AuthService } from '../../../services/auth.service';
 import { RestaurantService } from '../../../services/restaurant.service'; 
 import { MealCategoryService } from '../../../services/mealCategory.service';
-import { FormArray, FormControl, FormGroup, PatternValidator, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -12,12 +12,13 @@ import { FormArray, FormControl, FormGroup, PatternValidator, Validators } from 
   styleUrls: ['./register-restaurant.component.scss']
 })
 export class RegisterRestaurantComponent implements OnInit {
-  
+
   restaurantTypes: any = [];
   cities: any = [];
   mealCategories: any = [];
   message: string = '';
   errorMessage: string = '';
+  selectedCategoryIds: number[] = [];
 
   registerForm = new FormGroup({
     name: new FormControl('', [
@@ -26,8 +27,6 @@ export class RegisterRestaurantComponent implements OnInit {
       Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
     ]),
     description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
       Validators.minLength(3),
       Validators.maxLength(200),
       Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
@@ -39,7 +38,7 @@ export class RegisterRestaurantComponent implements OnInit {
     timeInterval: new FormControl('', [Validators.required, Validators.min(10), Validators.max(60)]),
     maxNumberOfGuests: new FormControl('', [Validators.required, Validators.min(1)]),
     restaurantType: new FormControl('', [Validators.required]),
-    mealCategoryType: new FormControl('', [Validators.required]),
+    mealCategoryType: new FormArray([]),
     city: new FormControl('', [Validators.required]),
     addressOfPlace: new FormControl('', [
       Validators.required,
@@ -60,8 +59,6 @@ export class RegisterRestaurantComponent implements OnInit {
     ])
   });
 
-
-
   constructor(
     private authService: AuthService, 
     private restaurantTypeService: RestaurantTypeService, 
@@ -76,20 +73,21 @@ export class RegisterRestaurantComponent implements OnInit {
     this.getMealCategories();
   }
 
+  get mealCategoryFormArray(): FormArray {
+    return this.registerForm.get('mealCategoryType') as FormArray;
+  }
 
-  // onCheckboxChange(event: any, categoryId: number) {
-  //   const mealCategories: FormArray = this.registerForm.get('mealCategories') as FormArray;
-  
-  //   if (event.target.checked) {
-  //     mealCategories.push(new FormControl(categoryId));
-  //   } else {
-  //     const index = mealCategories.controls.findIndex(x => x.value === categoryId);
-  //     if (index !== -1) {
-  //       mealCategories.removeAt(index);
-  //     }
-  //   }
-  // }
-
+  onCheckboxChange(event: Event, categoryId: number): void {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.selectedCategoryIds.push(categoryId);
+    } else {
+      const index = this.selectedCategoryIds.indexOf(categoryId);
+      if (index !== -1) {
+        this.selectedCategoryIds.splice(index, 1);
+      }
+    }
+  }
 
   getRestaurantTypes(): void {
     this.restaurantTypeService.getRestaurantTypes().subscribe(
@@ -106,11 +104,19 @@ export class RegisterRestaurantComponent implements OnInit {
     this.mealCategoryService.getMealCategories().subscribe(
       (response: any) => {
         this.mealCategories = response.data;
+        this.initializeMealCategoryFormArray();
       },
       (error) => {
         console.error('Error fetching meal categories', error);
       }
     );
+  }
+
+  initializeMealCategoryFormArray(): void {
+    const formArray = this.mealCategoryFormArray;
+    this.mealCategories.forEach(() => {
+      formArray.push(new FormControl(false)); // Inicijalizujte sa false
+    });
   }
 
   getCities(): void {
@@ -124,11 +130,19 @@ export class RegisterRestaurantComponent implements OnInit {
     );
   }
 
+  createMealCategoriesRestaurants(): any {
+    const mealCategoriesRestaurants = this.selectedCategoryIds.map((mealCategoryId: number) => ({
+      mealCategoryId,
+      restaurantId: 0 
+    }));
+
+    return mealCategoriesRestaurants;
+  }
+
   registerRestaurant(): void {
-    if (1) {
-      // Transformacija podataka u traženi format
+    if (this.registerForm.valid) {
       const formData = this.registerForm.value;
-  
+
       const requestPayload = {
         name: formData.name,
         workFromHour: formData.workFromHour,
@@ -144,24 +158,23 @@ export class RegisterRestaurantComponent implements OnInit {
           place: formData.place,
           address: formData.addressOfPlace,
           number: formData.number,
-          floor: formData.floor,
+          floor: formData.floor ? formData.floor : null,
           description: formData.addressDescription,
         },
-        // mealCategoriesRestaurants: formData.mealCategories.map((mealCategoryId: number) => ({
-        //   mealCategoryId,
-        //   restaurantId: 0 // `restaurantId` će biti dodeljen od strane servera nakon kreiranja
-        // })),
+        mealCategoriesRestaurants: this.createMealCategoriesRestaurants()
       };
-  
+
       this.restaurantService.applyRestaurant(requestPayload).subscribe(
         (response) => {
-          this.message = "You have successfully applied for a restaurant marketing permit, wait until the administrator checks the data and selects the restaurant if everything is in order."
+          this.message = "You have successfully applied for a restaurant marketing permit, wait until the administrator checks the data and selects the restaurant if everything is in order.";
+          this.registerForm.reset();
+          this.mealCategoryFormArray.clear(); 
+          this.selectedCategoryIds = []; 
         },
         (error) => {
           console.error('Error registering restaurant', error);
         }
       );
-  
     } else {
       console.log('Form is invalid');
     }
@@ -170,7 +183,7 @@ export class RegisterRestaurantComponent implements OnInit {
   handleServerErrors(error: any) {
     if (error.status === 422 && Array.isArray(error.error)) {
       this.clearErrors();
-  
+
       error.error.forEach((err: { property: string, error: string }) => {
         const formControl = this.registerForm.get(err.property.toLowerCase());
         if (formControl) {

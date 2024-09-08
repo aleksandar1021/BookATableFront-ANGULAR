@@ -332,8 +332,9 @@
         <label>
           <input 
             type="checkbox" 
-            [value]="category.id" 
-            > {{ category.name }}
+            [value]="category.id"
+            (change)="onCheckboxChange($event, category.id)"
+          > {{ category.name }}
         </label>
       </div>
   
