@@ -99,6 +99,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   }
 
   submitRating(): void {
+    
     if (this.rating === 0) {
       this.errorMessageRating = 'Choose a rate.';
       return;
@@ -129,11 +130,14 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   onSubmit(): void {  
     this.message = '';
     this.errorMessage = '';
-    //console.log(this.restaurant)
+    
   
     if (this.reservationForm.valid) {
-      const reservation: Reservation = this.reservationForm.value;
-  
+      const reservation: any = this.reservationForm.value;
+
+      reservation.restaurantId = this.id;
+      reservation.userId = 0;
+
       console.log('Submitting Reservation:', reservation);
   
       this.reservationService.makeReservation(reservation).subscribe({

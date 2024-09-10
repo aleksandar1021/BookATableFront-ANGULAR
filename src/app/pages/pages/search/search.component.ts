@@ -78,8 +78,8 @@ ngAfterViewInit(): void {
 
   getSortOptions() {
     this.sortOptions = [
-      { value: 'nameDesc', label: 'Name asc' },
-      { value: 'nameAsc', label: 'Name desc' },
+      { value: 'nameAsc', label: 'Name asc' },
+      { value: 'nameDesc', label: 'Name desc' },
       { value: 'createdAsc', label: 'Create date asc' },
       { value: 'createdDesc', label: 'Create date desc' },
     ];
@@ -137,7 +137,7 @@ ngAfterViewInit(): void {
 
   parseSortOption(sortOption: string): [string, string] {
     const [property, direction] = sortOption.split(/(?=[A-Z])/); 
-    return [property, direction === 'Asc' ? 'Asc' : 'Desc'];
+    return [property, direction === 'Desc' ? 'Desc' : 'Asc'];
   }
 
 
