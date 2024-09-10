@@ -20,6 +20,11 @@ import { SavedComponent } from './pages/pages/saved/saved.component';
 import { SearchComponent } from './pages/pages/search/search.component';
 import { RegisterRestaurantComponent } from './pages/pages/register-restaurant/register-restaurant.component';
 import { AccountComponent } from './pages/pages/account/account.component';
+import { AdminLayoutComponent } from './pages/adminPages/admin-layout/admin-layout.component';
+import { AdminRestaurantsComponent } from './pages/adminPages/admin-restaurants/admin-restaurants.component';
+import { RestaurantTypesComponent } from './pages/adminPages/restaurant-types/restaurant-types.component';
+import { AddRestaurantTypeComponent } from './pages/adminPages/add-restaurant-type/add-restaurant-type.component';
+import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaurant-type/update-restaurant-type.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,12 @@ import { AccountComponent } from './pages/pages/account/account.component';
     SavedComponent,
     SearchComponent,
     RegisterRestaurantComponent,
-    AccountComponent
+    AccountComponent,
+    AdminLayoutComponent,
+    AdminRestaurantsComponent,
+    RestaurantTypesComponent,
+    AddRestaurantTypeComponent,
+    UpdateRestaurantTypeComponent
   ],
   imports: [
     BrowserModule,

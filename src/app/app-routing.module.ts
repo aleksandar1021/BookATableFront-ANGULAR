@@ -12,6 +12,13 @@ import { SearchComponent } from './pages/pages/search/search.component';
 import { RegisterRestaurantComponent } from './pages/pages/register-restaurant/register-restaurant.component'; 
 import { AccountComponent } from './pages/pages/account/account.component';
 import { AuthGuard } from './auth.guard';
+import { AdminLayoutComponent } from './pages/adminPages/admin-layout/admin-layout.component';
+import { AdminRestaurantsComponent } from './pages/adminPages/admin-restaurants/admin-restaurants.component';
+import { RestaurantTypesComponent } from './pages/adminPages/restaurant-types/restaurant-types.component';
+import { AddRestaurantTypeComponent } from './pages/adminPages/add-restaurant-type/add-restaurant-type.component';
+import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaurant-type/update-restaurant-type.component';
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -25,6 +32,18 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'registerRestaurant', component: RegisterRestaurantComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'restaurants', component: AdminRestaurantsComponent, canActivate: [AuthGuard] },
+      { path: 'restaurantTypes', component: RestaurantTypesComponent, canActivate: [AuthGuard] },
+      { path: 'addRestaurantType', component: AddRestaurantTypeComponent, canActivate: [AuthGuard] },
+      { path: 'updateRestaurantType/:id', component: UpdateRestaurantTypeComponent, canActivate: [AuthGuard] }
+
+    ]
+  }
 
 ];
 

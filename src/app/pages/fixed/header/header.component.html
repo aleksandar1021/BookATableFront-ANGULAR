@@ -37,8 +37,16 @@
     
                             <ul *ngIf="isLogged" class="list-right">
                                 <a routerLink="/registerRestaurant">
-                                    <button class="regLink">
+                                    <button style="width: 170px;" class="regLink">
                                         Create a restaurant
+                                    </button>
+                                </a>
+                            </ul>
+
+                            <ul *ngIf="isLogged" class="list-right">
+                                <a routerLink="/admin/restaurants">
+                                    <button style="width: 120px;" class="regLink">
+                                        Dashboard
                                     </button>
                                 </a>
                             </ul>
