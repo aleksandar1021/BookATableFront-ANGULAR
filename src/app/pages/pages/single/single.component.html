@@ -22,10 +22,13 @@
               <option *ngFor="let time of timeSlots" [value]="time">{{time}}</option>
             </select>
           </div>
-          <div class="phone-info">
+          <div *ngIf="restaurant?.appendiceRestaurants.length" class="phone-info">
             <label>Appendices:</label>
-            <br><br>
-          </div>
+            <div class="appendices" *ngFor="let m of restaurant?.appendiceRestaurants">
+              <input type="checkbox" [value]="m.id" (change)="onCheckboxChange($event, m.id)" id="{{m.id}}">&nbsp;
+              <label for="{{m.id}}">{{m.name}}</label>
+            </div>
+          </div><br>
           <div class="clearfix"> </div>
           <div class="phone-info">
             <label>Note :</label>
@@ -57,7 +60,10 @@
 
         <h2>Meal categories:</h2>
         <h3 *ngFor="let m of restaurant?.mealCategories">{{m.name}}</h3>
-    </div>
+
+        <h2 *ngIf="restaurant?.rate">Rate:</h2>
+        <h3>{{ restaurant?.rate | number: '1.1-1' }}</h3>
+      </div>
 
     
 

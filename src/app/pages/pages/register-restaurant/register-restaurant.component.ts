@@ -115,7 +115,7 @@ export class RegisterRestaurantComponent implements OnInit {
   initializeMealCategoryFormArray(): void {
     const formArray = this.mealCategoryFormArray;
     this.mealCategories.forEach(() => {
-      formArray.push(new FormControl(false)); // Inicijalizujte sa false
+      formArray.push(new FormControl(false)); 
     });
   }
 

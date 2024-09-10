@@ -508,3 +508,14 @@ h3 span {
 .stars2 img:hover {
   transform: scale(1.2);
 }
+
+.appendices{
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+.appendices label{
+  margin-top: 16px;
+}
+

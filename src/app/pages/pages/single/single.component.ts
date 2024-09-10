@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantService } from '../../../services/restaurant.service';
 import { ReservationService } from '../../../services/reservation.service';
@@ -38,6 +38,9 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   messageRatingResponse: string = '';
   form: FormGroup;
 
+  selectedIds: number[] = [];
+
+
   setRating(star: number): void {
     this.rating = star;
   }
@@ -57,11 +60,35 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       time: [null, Validators.required],
       note: [''],
       userId: [null],
-      restaurantId: [null]
+      restaurantId: [null],
+      appendices: this.fb.array([])
     });
     this.form = new FormGroup({
       ratingMessage: new FormControl('')
     });
+  }
+
+  // onAppendiceChange(event: any): void {
+  //   const appendices: FormArray = this.reservationForm.get('appendices') as FormArray;
+  
+  //   if (event.target.checked) {
+  //     appendices.push(new FormControl(event.target.value));
+  //   } else {
+  //     const index = appendices.controls.findIndex(x => x.value === event.target.value);
+  //     appendices.removeAt(index);
+  //   }
+  // }
+
+  onCheckboxChange(event: Event, id: number): void {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.selectedIds.push(id);
+    } else {
+      const index = this.selectedIds.indexOf(id);
+      if (index !== -1) {
+        this.selectedIds.splice(index, 1);
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -126,24 +153,32 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       }
     });
   }
-  
+  createAppendices(): any {
+    const array = this.selectedIds.map((appendiceId: number) => ({
+      appendiceId,
+      restaurantId: 0 
+    }));
+
+    return array;
+  }
+ 
+
   onSubmit(): void {  
     this.message = '';
     this.errorMessage = '';
     
-  
     if (this.reservationForm.valid) {
       const reservation: any = this.reservationForm.value;
-
       reservation.restaurantId = this.id;
-      reservation.userId = 0;
-
-      console.log('Submitting Reservation:', reservation);
-  
+      reservation.userId = this.userId;
+      reservation.appendices = this.createAppendices();
+    
       this.reservationService.makeReservation(reservation).subscribe({
         next: (response: any) => {
           this.message = 'Reservation successful, you will receive an email when the reservation is approved.';
-          this.reservationForm.reset()
+          this.reservationForm.reset();
+          this.clearAppendices(); 
+          this.resetCheckboxes();  
         },
         error: (error) => {
           this.handleServerErrors(error);
@@ -152,6 +187,20 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     } else {
       this.message = 'Please fill out all required fields.';
     }
+  }
+  
+  resetCheckboxes(): void {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = false; 
+    });
+  
+    this.selectedIds = [];
+  }
+
+  clearAppendices(): void {
+    const appendices: FormArray = this.reservationForm.get('appendices') as FormArray;
+    appendices.clear();
   }
 
   private handleServerErrors(error: any) {
@@ -204,7 +253,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     this.restaurantService.getRestaurant(this.id).subscribe(
       (response: any) => {
         this.restaurant = response;
-
+        console.log(this.restaurant)
         const workFromHour = this.restaurant.workFromHour;
         const workFromMinute = this.restaurant.workFromMinute;
         const workUntilHour = this.restaurant.workUntilHour;
