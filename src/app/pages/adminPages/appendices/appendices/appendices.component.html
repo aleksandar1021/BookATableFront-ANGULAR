@@ -1,0 +1,37 @@
+<section class="wrapper">    
+    <div class="table-agile-info">
+<div class="panel panel-default">
+<div class="panel-heading">
+ Restaurant appendices
+</div>
+<div>
+  <table class="table" ui-jq="footable">
+    <thead>
+      <tr>
+        <th data-breakpoints="xs">#</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of appendices; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{a.name}}</td>
+
+        <td>
+            <button type="button" routerLink="/admin/updateAppendice/{{a.id}}" class="btn btn-warning">Edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(a.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+</div><button routerLink="/admin/addAppendice" type="button" class="btn btn-success">Add new appendice</button>
+<p class="text-danger">{{errorMessage}}</p>
+</div>
+</section>
+

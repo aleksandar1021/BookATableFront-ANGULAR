@@ -28,6 +28,9 @@ import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaur
 import { CitiesComponent } from './pages/adminPages/cities/cities/cities.component';
 import { AddCitiesComponent } from './pages/adminPages/cities/add-cities/add-cities.component';
 import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/update-cities.component';
+import { AppendicesComponent } from './pages/adminPages/appendices/appendices/appendices.component';
+import { AddAppendicesComponent } from './pages/adminPages/appendices/add-appendices/add-appendices.component';
+import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-appendices/update-appendices.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/u
     UpdateRestaurantTypeComponent,
     CitiesComponent,
     AddCitiesComponent,
-    UpdateCitiesComponent
+    UpdateCitiesComponent,
+    AppendicesComponent,
+    AddAppendicesComponent,
+    UpdateAppendicesComponent
   ],
   imports: [
     BrowserModule,

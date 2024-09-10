@@ -20,6 +20,9 @@ import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaur
 import { CitiesComponent } from './pages/adminPages/cities/cities/cities.component';
 import { AddCitiesComponent } from './pages/adminPages/cities/add-cities/add-cities.component';
 import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/update-cities.component';
+import { AppendicesComponent } from './pages/adminPages/appendices/appendices/appendices.component';
+import { AddAppendicesComponent } from './pages/adminPages/appendices/add-appendices/add-appendices.component';
+import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-appendices/update-appendices.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -39,12 +42,21 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       { path: 'restaurants', component: AdminRestaurantsComponent, canActivate: [AuthGuard] },
+
+
       { path: 'restaurantTypes', component: RestaurantTypesComponent, canActivate: [AuthGuard] },
       { path: 'addRestaurantType', component: AddRestaurantTypeComponent, canActivate: [AuthGuard] },
       { path: 'updateRestaurantType/:id', component: UpdateRestaurantTypeComponent, canActivate: [AuthGuard] },
+
+
       { path: 'cities', component: CitiesComponent, canActivate: [AuthGuard] },
       { path: 'addCity', component: AddCitiesComponent, canActivate: [AuthGuard] },
       { path: 'updateCity/:id', component: UpdateCitiesComponent, canActivate: [AuthGuard] },
+
+
+      { path: 'appendices', component: AppendicesComponent, canActivate: [AuthGuard] },
+      { path: 'addAppendice', component: AddAppendicesComponent, canActivate: [AuthGuard] },
+      { path: 'updateAppendice/:id', component: UpdateAppendicesComponent, canActivate: [AuthGuard] },
 
     ]
   }
