@@ -12,6 +12,18 @@ export class CityService {
 
     constructor(private http: HttpClient) {}
 
+    create(cityObj: any): Observable<any> {
+      return this.http.post(this.apiUrl, cityObj);
+    }
+
+    update(nameObj: any, id: number): Observable<any> {
+      return this.http.put(this.apiUrl + `/${id}`, nameObj);
+    }
+
+    getCity(id:number): Observable<any> {
+      return this.http.get<any>(this.apiUrl + `/${id}`);
+    }
+
     getCities(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
     }

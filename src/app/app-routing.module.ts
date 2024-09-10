@@ -17,8 +17,9 @@ import { AdminRestaurantsComponent } from './pages/adminPages/admin-restaurants/
 import { RestaurantTypesComponent } from './pages/adminPages/restaurant-types/restaurant-types.component';
 import { AddRestaurantTypeComponent } from './pages/adminPages/add-restaurant-type/add-restaurant-type.component';
 import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaurant-type/update-restaurant-type.component';
-
-
+import { CitiesComponent } from './pages/adminPages/cities/cities/cities.component';
+import { AddCitiesComponent } from './pages/adminPages/cities/add-cities/add-cities.component';
+import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/update-cities.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -40,7 +41,10 @@ const routes: Routes = [
       { path: 'restaurants', component: AdminRestaurantsComponent, canActivate: [AuthGuard] },
       { path: 'restaurantTypes', component: RestaurantTypesComponent, canActivate: [AuthGuard] },
       { path: 'addRestaurantType', component: AddRestaurantTypeComponent, canActivate: [AuthGuard] },
-      { path: 'updateRestaurantType/:id', component: UpdateRestaurantTypeComponent, canActivate: [AuthGuard] }
+      { path: 'updateRestaurantType/:id', component: UpdateRestaurantTypeComponent, canActivate: [AuthGuard] },
+      { path: 'cities', component: CitiesComponent, canActivate: [AuthGuard] },
+      { path: 'addCity', component: AddCitiesComponent, canActivate: [AuthGuard] },
+      { path: 'updateCity/:id', component: UpdateCitiesComponent, canActivate: [AuthGuard] },
 
     ]
   }

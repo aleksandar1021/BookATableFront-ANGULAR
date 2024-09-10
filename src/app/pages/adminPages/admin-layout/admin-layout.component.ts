@@ -17,6 +17,7 @@ export class AdminLayoutComponent {
   navItems: NavItem[] = [
     { name: 'Restaurants', route: '/admin/restaurants', useCaseId: 40, icon: ' fa-cutlery' },
     { name: 'Restaurant types', route: '/admin/restaurantTypes', useCaseId: 28, icon: '  fa-building-o' },
+    { name: 'Cities', route: '/admin/cities', useCaseId: 18, icon: '  fa-location' },
 
   ];
 

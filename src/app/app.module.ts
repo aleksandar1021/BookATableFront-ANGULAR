@@ -25,6 +25,9 @@ import { AdminRestaurantsComponent } from './pages/adminPages/admin-restaurants/
 import { RestaurantTypesComponent } from './pages/adminPages/restaurant-types/restaurant-types.component';
 import { AddRestaurantTypeComponent } from './pages/adminPages/add-restaurant-type/add-restaurant-type.component';
 import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaurant-type/update-restaurant-type.component';
+import { CitiesComponent } from './pages/adminPages/cities/cities/cities.component';
+import { AddCitiesComponent } from './pages/adminPages/cities/add-cities/add-cities.component';
+import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/update-cities.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { UpdateRestaurantTypeComponent } from './pages/adminPages/update-restaur
     AdminRestaurantsComponent,
     RestaurantTypesComponent,
     AddRestaurantTypeComponent,
-    UpdateRestaurantTypeComponent
+    UpdateRestaurantTypeComponent,
+    CitiesComponent,
+    AddCitiesComponent,
+    UpdateCitiesComponent
   ],
   imports: [
     BrowserModule,

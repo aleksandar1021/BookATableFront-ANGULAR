@@ -14,8 +14,8 @@ export class RestaurantTypeService {
     constructor(private http: HttpClient) {}
     
 
-    updateRestaurantType(name: UpdateNamed, id: number): Observable<any> {
-      return this.http.put(this.apiUrl + `/${id}`, name);
+    updateRestaurantType(nameObj: UpdateNamed, id: number): Observable<any> {
+      return this.http.put(this.apiUrl + `/${id}`, nameObj);
     }
 
     createRestaurantType(name: Named): Observable<any> {
