@@ -17,13 +17,27 @@ export class RestaurantService {
 
     constructor(private http: HttpClient) {}
 
+
+    delete(id: number): Observable<any> {
+        const url = `${this.apiUrl}/${id}/Admin`;
+        return this.http.delete(url);
+      }
+
     applyRestaurant(restaurant: any): Observable<any> {
         return this.http.post(this.apiUrl, restaurant);
+    }
+
+    activateRestaurant(id: number ,restaurant: any): Observable<any> {
+        return this.http.patch(this.apiUrl+`/${id}`, restaurant);
     }
 
 
     getRestaurants(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
+    }
+
+    getRestaurantsAdmin(): Observable<any> {
+        return this.http.get<any>(this.apiUrl+ `/Admin?perPage=999`);
     }
 
     searchRestaurantsAll(name: string, mealCategoryId: string, restaurantTypeId: string, sorts: string, totalCount: number): Observable<ApiResponse<any[]>> {

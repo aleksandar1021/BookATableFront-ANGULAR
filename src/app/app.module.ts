@@ -35,6 +35,7 @@ import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-
 import { MealCategoriesComponent } from './pages/adminPages/meal-categories/meal-categories/meal-categories.component';
 import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/add-meal-categories/add-meal-categories.component';
 import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
+import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants/restaurants.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categorie
     UpdateAppendicesComponent,
     MealCategoriesComponent,
     AddMealCategoriesComponent,
-    UpdateMealCategoriesComponent
+    UpdateMealCategoriesComponent,
+    RestaurantsComponent
   ],
   imports: [
     BrowserModule,

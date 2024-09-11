@@ -26,6 +26,7 @@ import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-
 import { MealCategoriesComponent } from './pages/adminPages/meal-categories/meal-categories/meal-categories.component';
 import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/add-meal-categories/add-meal-categories.component';
 import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
+import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants/restaurants.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -45,7 +46,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: 'restaurants', component: AdminRestaurantsComponent, canActivate: [AuthGuard] },
+      { path: 'restaurants', component: RestaurantsComponent, canActivate: [AuthGuard] },
 
 
       { path: 'restaurantTypes', component: RestaurantTypesComponent, canActivate: [AuthGuard] },
