@@ -19,7 +19,8 @@ export class AdminLayoutComponent {
     { name: 'Restaurant types', route: '/admin/restaurantTypes', useCaseId: 28, icon: 'fa-building-o' },
     { name: 'Cities', route: '/admin/cities', useCaseId: 18, icon: 'fa-location' },
     { name: 'Appendices', route: '/admin/appendices', useCaseId: 33, icon: 'fa-plus-circle' },
-
+    { name: 'Meal categories', route: '/admin/mealCategories', useCaseId: 13, icon: 'fa-coffee' },
+    
   ];
 
   constructor(private authService : AuthService, private router: Router){

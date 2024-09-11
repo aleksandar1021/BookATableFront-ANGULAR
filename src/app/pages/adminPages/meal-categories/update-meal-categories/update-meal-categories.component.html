@@ -3,7 +3,7 @@
 
     <section class="panel" style="padding-top: 100px;">
         <header class="panel-heading">
-          Update city
+          Update meal category
         </header>
         <div class="panel-body">
           <div class="position-center">
@@ -24,13 +24,17 @@
               <div class="form-group">
                 <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Name</label>
                 <div class="col-lg-10">
-                  <input type="text" formControlName="zipCode" class="form-control" id="inputEmail1" placeholder="Zip code">
+                  <input  (change)="onFileChange($event)" type="file" class="form-control" id="inputEmail1" placeholder="Zip code">
                   <div class="errorMessage" *ngIf="createForm.get('zipCode')?.hasError('pattern') && createForm.get('zipCode')?.touched">
-                    <p class="">Name must start with a capital letter and be at least 3 characters long.</p>
+                    <p class="">Image is required.</p>
                   </div>
                   <div class="errorMessage" *ngIf="createForm.get('zipCode')?.hasError('serverError')">
                     <p class="color-danger">{{ createForm.get('zipCode')?.getError('serverError') }}</p>
                   </div>
+
+                  <img class="updateImage" *ngIf="image" [src]="url + image" alt="image">
+                
+                  <img class="updateImage" *ngIf="newImage" [src]="temp + newImage" alt="image">
                 </div>
               </div>
               

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';  
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms'; // Dodaj ovaj import
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,7 +32,9 @@ import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/u
 import { AppendicesComponent } from './pages/adminPages/appendices/appendices/appendices.component';
 import { AddAppendicesComponent } from './pages/adminPages/appendices/add-appendices/add-appendices.component';
 import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-appendices/update-appendices.component';
-
+import { MealCategoriesComponent } from './pages/adminPages/meal-categories/meal-categories/meal-categories.component';
+import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/add-meal-categories/add-meal-categories.component';
+import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,14 +61,18 @@ import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-
     UpdateCitiesComponent,
     AppendicesComponent,
     AddAppendicesComponent,
-    UpdateAppendicesComponent
+    UpdateAppendicesComponent,
+    MealCategoriesComponent,
+    AddMealCategoriesComponent,
+    UpdateMealCategoriesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     {

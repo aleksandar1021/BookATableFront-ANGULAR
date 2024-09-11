@@ -15,4 +15,16 @@ export class MealCategoryService {
     getMealCategories(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
     }
+
+    create(cityObj: any): Observable<any> {
+      return this.http.post(this.apiUrl, cityObj);
+    }
+
+    update(nameObj: any, id: number): Observable<any> {
+      return this.http.put(this.apiUrl + `/${id}`, nameObj);
+    }
+
+    get(id:number): Observable<any> {
+      return this.http.get<any>(this.apiUrl + `/${id}`);
+    }
 }

@@ -23,6 +23,10 @@ import { UpdateCitiesComponent } from './pages/adminPages/cities/update-cities/u
 import { AppendicesComponent } from './pages/adminPages/appendices/appendices/appendices.component';
 import { AddAppendicesComponent } from './pages/adminPages/appendices/add-appendices/add-appendices.component';
 import { UpdateAppendicesComponent } from './pages/adminPages/appendices/update-appendices/update-appendices.component';
+import { MealCategoriesComponent } from './pages/adminPages/meal-categories/meal-categories/meal-categories.component';
+import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/add-meal-categories/add-meal-categories.component';
+import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -57,6 +61,11 @@ const routes: Routes = [
       { path: 'appendices', component: AppendicesComponent, canActivate: [AuthGuard] },
       { path: 'addAppendice', component: AddAppendicesComponent, canActivate: [AuthGuard] },
       { path: 'updateAppendice/:id', component: UpdateAppendicesComponent, canActivate: [AuthGuard] },
+
+
+      { path: 'mealCategories', component: MealCategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'addMealCategory', component: AddMealCategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'updateMealCategory/:id', component: UpdateMealCategoriesComponent, canActivate: [AuthGuard] },
 
     ]
   }

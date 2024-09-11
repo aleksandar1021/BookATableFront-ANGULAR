@@ -3507,3 +3507,20 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 }
 
 
+.image{
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: cover !important;
+}
+
+.image img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.updateImage{
+    width: 150px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
