@@ -17,4 +17,8 @@ export class GenericService {
     const url = `${this.baseUrl}${endpoint}/${id}`;
     return this.http.delete<T>(url);
   }
+
+  gets<T>(url:string, perPage:number, keyword:string): Observable<T> {
+    return this.http.get<T>(this.baseUrl+url+`?perPage=${perPage}&keyword=${keyword}`);
+  }
 }

@@ -16,12 +16,14 @@ export class AdminLayoutComponent {
   searchQuery: string = '';
 
   navItems: NavItem[] = [
-    { name: 'Restaurants', route: '/admin/restaurants', useCaseId: 40, icon: 'fa-cutlery' },
-    { name: 'Restaurant types', route: '/admin/restaurantTypes', useCaseId: 28, icon: 'fa-building-o' },
-    { name: 'Cities', route: '/admin/cities', useCaseId: 18, icon: 'fa-location' },
-    { name: 'Appendices', route: '/admin/appendices', useCaseId: 33, icon: 'fa-plus-circle' },
-    { name: 'Meal categories', route: '/admin/mealCategories', useCaseId: 13, icon: 'fa-coffee' },
-    
+    { name: 'Restaurants', route: '/admin/restaurants', useCaseId: 40, icon: 'fa fa-cutlery' },
+    { name: 'Restaurant types', route: '/admin/restaurantTypes', useCaseId: 28, icon: 'fa fa-building-o' },
+    { name: 'Cities', route: '/admin/cities', useCaseId: 18, icon: 'fa fa-location' },
+    { name: 'Appendices', route: '/admin/appendices', useCaseId: 33, icon: 'fa fa-plus-circle' },
+    { name: 'Meal categories', route: '/admin/mealCategories', useCaseId: 13, icon: 'fa fa-coffee' },
+    { name: 'Contacts', route: '/admin/contacts', useCaseId: 13, icon: 'zmdi zmdi-email' },
+    { name: 'Users', route: '/admin/users', useCaseId: 13, icon: 'fa fa-users' },
+
   ];
 
   constructor(private authService : AuthService, private router: Router, private searchService: SearchService){

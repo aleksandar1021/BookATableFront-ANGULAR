@@ -9,7 +9,7 @@
 <input class="searchInpur" type="text" placeholder="Search Restaurants" (input)="onInputChange($event)"/>
 
 <div>
-  <table *ngIf="restaurants.length; else noRestaurants" class="table" ui-jq="footable">
+  <table *ngIf="restaurants?.length; else noRestaurants" class="table" ui-jq="footable">
     <thead>
       <tr>
         <th data-breakpoints="xs">#</th>

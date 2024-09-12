@@ -19,8 +19,7 @@ export class RestaurantsComponent implements OnInit{
   perPage : number = 5;
   totalCount : number = this.perPage;
 
-  filteredRestaurants: any[] = [];
-  searchSubscription!: Subscription;
+  
 
 
   constructor(private restaurantService:RestaurantService, 

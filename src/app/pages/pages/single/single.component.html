@@ -22,7 +22,7 @@
               <option *ngFor="let time of timeSlots" [value]="time">{{time}}</option>
             </select>
           </div>
-          <div *ngIf="restaurant?.appendiceRestaurants.length" class="phone-info">
+          <div *ngIf="restaurant?.appendiceRestaurants?.length" class="phone-info">
             <label>Appendices:</label>
             <div class="appendices" *ngFor="let m of restaurant?.appendiceRestaurants">
               <input type="checkbox" [value]="m.id" (change)="onCheckboxChange($event, m.id)" id="{{m.id}}">&nbsp;
@@ -89,10 +89,10 @@
 </div>
 
 
-<div *ngIf="restaurant?.images.length" class="containerHeadeing space">
+<div *ngIf="restaurant?.images?.length" class="containerHeadeing space">
     <h1>Images</h1>
 </div>
-<div *ngIf="restaurant?.images.length" class="container">
+<div *ngIf="restaurant?.images?.length" class="container">
     <div class="wrapper">
       <i id="left" class="fa-solid fa-angle-left"></i>
       <ul class="carousel">

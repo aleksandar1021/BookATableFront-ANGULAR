@@ -37,6 +37,7 @@ import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/a
 import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
 import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants/restaurants.component';
 import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read-more.component';
+import { ContactsComponent } from './pages/adminPages/contacts/contacts/contacts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read
     AddMealCategoriesComponent,
     UpdateMealCategoriesComponent,
     RestaurantsComponent,
-    ReadMoreComponent
+    ReadMoreComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
