@@ -3,7 +3,7 @@ import { NavItem } from '../../../interfaces/navigation.interface';
 import { AuthService } from '../../../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
-
+import { SearchService } from '../../../services/shared.service';
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
@@ -12,7 +12,8 @@ import { filter } from 'rxjs';
 export class AdminLayoutComponent {
   public filteredNavItems: NavItem[] = [];
   isLogged : boolean = false;
-
+  showSearch: boolean = false;
+  searchQuery: string = '';
 
   navItems: NavItem[] = [
     { name: 'Restaurants', route: '/admin/restaurants', useCaseId: 40, icon: 'fa-cutlery' },
@@ -23,7 +24,7 @@ export class AdminLayoutComponent {
     
   ];
 
-  constructor(private authService : AuthService, private router: Router){
+  constructor(private authService : AuthService, private router: Router, private searchService: SearchService){
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -33,7 +34,23 @@ export class AdminLayoutComponent {
       });
     });
 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showSearch = (
+          event.urlAfterRedirects.includes('/admin/restaurants') ||
+          event.urlAfterRedirects.includes('/admin/users')
+        );
+      }
+    });
     
+  }
+
+
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    if (input) {
+      this.searchService.changeSearchQuery(input.value); 
+    }
   }
 
   loadNavigation(): void {

@@ -27,6 +27,7 @@ import { MealCategoriesComponent } from './pages/adminPages/meal-categories/meal
 import { AddMealCategoriesComponent } from './pages/adminPages/meal-categories/add-meal-categories/add-meal-categories.component';
 import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categories/update-meal-categories/update-meal-categories.component';
 import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants/restaurants.component';
+import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read-more.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -47,6 +48,7 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       { path: 'restaurants', component: RestaurantsComponent, canActivate: [AuthGuard] },
+      { path: 'readMore/:id', component: ReadMoreComponent, canActivate: [AuthGuard] },
 
 
       { path: 'restaurantTypes', component: RestaurantTypesComponent, canActivate: [AuthGuard] },

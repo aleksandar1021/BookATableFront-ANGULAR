@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RestaurantTypeService } from '../../../../services/restaurantType.service'; 
 import { GenericService } from '../../../../services/generic.service';
 import { RestaurantService } from '../../../../services/restaurant.service';
 import { development } from '../../../../../environments/development';
+import { SearchService } from '../../../../services/shared.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
@@ -13,20 +15,50 @@ export class RestaurantsComponent implements OnInit{
   url = development.restaurantImageUrl;
   
   errorMessage : string = ''
+  isVisible : boolean = false;
+  perPage : number = 5;
+  totalCount : number = this.perPage;
+
+  filteredRestaurants: any[] = [];
+  searchSubscription!: Subscription;
 
 
-  constructor(private restaurantService:RestaurantService, private genericService: GenericService){
+  constructor(private restaurantService:RestaurantService, 
+             private genericService: GenericService,
+             private searchService: SearchService
+            ){
 
+  }
+
+  searchQuery: string = '';
+
+  onInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery = input.value; 
+    this.get()
   }
 
   ngOnInit(): void {
-    this.getRestaurantTypes()
+    this.get()
   }
 
-  getRestaurantTypes(): void {
-    this.restaurantService.getRestaurantsAdmin().subscribe(
+ 
+
+  loadMore(){
+    this.totalCount += this.perPage;
+    this.get();
+  }
+
+  get(): void {
+    this.restaurantService.getRestaurantsAdmin(this.totalCount, this.searchQuery).subscribe(
       (response: any) => {  
         this.restaurants = response.data;
+        if(response.totalCount > this.perPage){
+          this.isVisible = true
+        }
+        if(response?.totalCount <= this.totalCount){
+          this.isVisible = false;
+        }
       },
       (error) => {
         console.error('There was an error', error);

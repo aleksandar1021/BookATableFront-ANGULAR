@@ -36,8 +36,8 @@ export class RestaurantService {
         return this.http.get<any>(this.apiUrl);
     }
 
-    getRestaurantsAdmin(): Observable<any> {
-        return this.http.get<any>(this.apiUrl+ `/Admin?perPage=999`);
+    getRestaurantsAdmin(perPage:number, keyword:string): Observable<any> {
+        return this.http.get<any>(this.apiUrl+ `/Admin?perPage=${perPage}&keyword=${keyword}`);
     }
 
     searchRestaurantsAll(name: string, mealCategoryId: string, restaurantTypeId: string, sorts: string, totalCount: number): Observable<ApiResponse<any[]>> {
@@ -77,7 +77,7 @@ export class RestaurantService {
     }
 
     getRestaurant(id: string | null): Observable<ApiResponse<any[]>> {
-        return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}`);
+        return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}/Admin`);
     }
 
     getNewestRestaurants(): Observable<any> {

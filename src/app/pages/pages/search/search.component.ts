@@ -62,11 +62,11 @@ export class SearchComponent implements OnInit, AfterViewInit{
     this.getSortOptions();
 
     
-}
+  }
 
-ngAfterViewInit(): void {
-  
-}
+  ngAfterViewInit(): void {
+    
+  }
   buildSortOption(sortProperty: string, sortDirection: string): string {
     return `${sortProperty}${sortDirection.charAt(0).toUpperCase() + sortDirection.slice(1).toLowerCase()}`; 
   }
@@ -110,7 +110,7 @@ ngAfterViewInit(): void {
       .subscribe(
         (response: any) => {
           this.restaurants = response.data;
-          console.log(response.totalCount)
+          //console.log(response.totalCount)
           if(response.totalCount > this.perPage){
             this.isVisible = true
           }

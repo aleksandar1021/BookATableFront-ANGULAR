@@ -5,5 +5,6 @@ export const development = {
   restaurantImageUrl: 'http://localhost:5000/restaurantPhotos/',
   tempImageUrl: 'http://localhost:5000/temp/',
   apiFileUpload: "http://localhost:5000/api/files",
+  dishImageUrl: "http://localhost:5000/dishPhotos/",
 
 };
