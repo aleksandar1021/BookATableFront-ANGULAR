@@ -1,0 +1,51 @@
+<section class="wrapper">    
+    <div class="table-agile-info">
+<div class="panel panel-default">
+<div class="panel-heading">
+ Users
+</div>
+<input class="searchInpur" type="text" placeholder="Search users" (input)="onInputChange($event)"/>
+
+<div>
+  <table *ngIf="users?.length; else noRestaurants" class="table" ui-jq="footable">
+    <thead>
+      <tr>
+        <th data-breakpoints="xs">#</th>
+        <th>Image</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of users; let i = index">
+        <td>{{i + 1}}</td>
+        <td>
+            <img src="{{url + u.image}}" alt="{{u.firstName}}" style="width: 100px; height: 100px;">
+        </td>
+        <td>{{u.firstName}}</td>
+        <td>{{u.lastName}}</td>
+        <td>{{u.email}}</td>
+        
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(u.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noRestaurants>
+    <p class="alert-danger w-100 text-center">No results</p>
+  </ng-template>
+
+  <div *ngIf="isVisible" id="buttonContainer">
+    <button (click)="loadMore()" type="submit" class="sumbitButton">Load more</button>
+  </div>
+  
+</div>
+</div>
+<p class="text-danger">{{errorMessage}}</p>
+</div>
+</section>
+

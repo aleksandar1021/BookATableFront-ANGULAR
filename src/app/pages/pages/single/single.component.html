@@ -139,7 +139,7 @@
       <i  id="left1" class="fa-solid fa-angle-left arrow"></i>
       <ul class="carousel1">
         <li *ngFor="let r of restaurant?.ratings" class="card1">
-            <div class="img1"><img src="{{apiUrlUser}}{{r.user.image}}" alt="" draggable="false"></div>
+            <div class="img1"><img src="{{apiUrlUser}}{{r.user.image}}" alt="{{r.user.firstName}}" draggable="false"></div>
             <h1>{{r.user.firstName}} {{r.user.lastName}}</h1>
             
             <div class="stars">

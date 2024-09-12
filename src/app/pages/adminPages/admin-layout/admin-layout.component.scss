@@ -16,6 +16,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 }
 
+.top-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#logoutLink{
+    margin-top: 0px !important;
+    margin-right: 15px;
+}
+
 .searchInpur{
     width: 300px;
     height: 40px;

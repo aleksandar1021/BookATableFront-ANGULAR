@@ -29,6 +29,7 @@ import { UpdateMealCategoriesComponent } from './pages/adminPages/meal-categorie
 import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants/restaurants.component';
 import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read-more.component';
 import { ContactsComponent } from './pages/adminPages/contacts/contacts/contacts.component';
+import { UsersComponent } from './pages/adminPages/ussers/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -73,6 +74,9 @@ const routes: Routes = [
 
 
       { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
+
+
+      { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
 
     ]
   }
