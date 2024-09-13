@@ -1,4 +1,4 @@
-<section class="wrapper">    
+<section class="wrapper" style="top: -200px !important; position: relative;">    
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -12,11 +12,11 @@
             <h3 class="hddh1">Restaurant type</h3>
             <h4 class="hddh2">{{restaurant?.restaurantType}}</h4>
             
-            <h3 class="hddh1">User information</h3>
+            <!-- <h3 class="hddh1">User information</h3>
             <h4 class="hddh2">{{restaurant?.user.firstName}} 
                 <span> {{restaurant?.user.lastName}}</span>
                 <span>, email: {{restaurant?.user.email}}</span>
-            </h4>
+            </h4> -->
 
             <h3 class="hddh1">Address</h3>
             <h4 class="hddh2">{{restaurant?.address.city.name}} 
@@ -39,10 +39,10 @@
             <h3 class="hddh1">Working time</h3>
             <h4 class="hddh2">{{restaurant?.workFromHour!='0'?restaurant?.workFromHour:'00'}}:{{restaurant?.workFromMinute!='0'?restaurant?.workFromMinute:'00'}} - {{restaurant?.workUntilHour!='0'?restaurant?.workUntilHour:'00'}}:{{restaurant?.workUntilMinute!='0'?restaurant?.workUntilMinute:'00'}}</h4>
             
-            <h3 class="hddh1">Appendices</h3>
+            <h3 *ngIf="restaurant?.appendiceRestaurants?.length" class="hddh1">Appendices</h3>
             <p *ngFor="let a of restaurant?.appendiceRestaurants">{{a.name}}</p>
 
-            <h3 class="hddh1">Meal categories</h3>
+            <h3 *ngIf="restaurant?.appendiceRestaurants?.mealCategories" class="hddh1">Meal categories</h3>
             <p *ngFor="let a of restaurant?.mealCategories">{{a.name}}</p>
 
             <h3 class="hddh1" *ngIf="restaurant?.restaurantImages.length">Images</h3><br>

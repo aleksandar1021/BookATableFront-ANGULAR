@@ -21,7 +21,12 @@ export class RestaurantService {
     delete(id: number): Observable<any> {
         const url = `${this.apiUrl}/${id}/Admin`;
         return this.http.delete(url);
-      }
+    }
+
+    deleteUser(id: number): Observable<any> {
+        const url = `${this.apiUrl}/${id}`;
+        return this.http.delete(url);
+    }
 
     applyRestaurant(restaurant: any): Observable<any> {
         return this.http.post(this.apiUrl, restaurant);
@@ -34,6 +39,10 @@ export class RestaurantService {
 
     getRestaurants(): Observable<any> {
         return this.http.get<any>(this.apiUrl);
+    }
+
+    getRestaurantsUser(perPage:number, keyword:string, userId: number): Observable<any> {
+        return this.http.get<any>(this.apiUrl+ `/User?perPage=${perPage}&keyword=${keyword}&userId=${userId}`);
     }
 
     getRestaurantsAdmin(perPage:number, keyword:string): Observable<any> {
@@ -78,6 +87,10 @@ export class RestaurantService {
 
     getRestaurant(id: string | null): Observable<ApiResponse<any[]>> {
         return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}/Admin`);
+    }
+
+    getRestaurantClient(id: string | null): Observable<ApiResponse<any[]>> {
+        return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}`);
     }
 
     getNewestRestaurants(): Observable<any> {

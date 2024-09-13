@@ -4,7 +4,9 @@
 <div class="panel-heading">
  Contacts
 </div>
-<input class="searchInpur" type="text" placeholder="Search users" (input)="onInputChange($event)"/>
+<div class="inputCont">
+  <input class="searchInpur" type="text" placeholder="Search contacts" (input)="onInputChange($event)"/>
+</div>
 
 <div>
   <table *ngIf="contacts?.length; else noRestaurants" class="table" ui-jq="footable">

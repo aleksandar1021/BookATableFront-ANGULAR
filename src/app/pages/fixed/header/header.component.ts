@@ -14,22 +14,40 @@ export class HeaderComponent implements OnInit{
   isNavbarVisible = false;
   public filteredNavItems: NavItem[] = [];
   isLogged : boolean = false;
+  isRestaurantOwner:boolean= false
+  isAdmin: boolean = false
 
   ngOnInit(): void {
     this.loadNavigation();
+    
+    // Initialize isRestaurantOwner and isAdmin when the component loads
+    this.authService.isRestaurantOwner().subscribe(isRestaurantOwner => {
+      this.isRestaurantOwner = isRestaurantOwner;
+    });
+  
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
   }
-
-  constructor(private authService : AuthService, private router: Router){
+  
+  constructor(private authService: AuthService, private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.loadNavigation();
+  
       this.authService.isLoggedIn().subscribe(isLogged => {
         this.isLogged = isLogged; 
       });
+  
+      this.authService.isAdmin().subscribe(isAdmin => {
+        this.isAdmin = isAdmin; 
+      });
+  
+      this.authService.isRestaurantOwner().subscribe(isRestaurantOwner => {
+        this.isRestaurantOwner = isRestaurantOwner;
+      });
     });
-
-    
   }
 
   toggleNavbar() {

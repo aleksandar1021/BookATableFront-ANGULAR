@@ -1,4 +1,4 @@
-<section class="wrapper">    
+<section class="wrapper" style="top: -200px !important; position: relative;">    
     <div class="table-agile-info">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -22,8 +22,11 @@
         <th>Max guestes</th>
         <th>Interval</th>
         <th>User</th>
+        <th>Is activate</th>
+        <th>Add dishes</th>
+        <th>Reservations</th>
         <th>Read more</th>
-        <th>Activate</th>
+        <th>Update</th>
         <th>Remove</th>
       </tr>
     </thead>
@@ -41,11 +44,23 @@
         <td>{{r.timeInterval}}</td>
         <td>{{r.user.email}}</td>
         <td>
-          <button type="button" routerLink="/admin/readMore/{{r.id}}" class="btn btn-warning" >Read more</button>
-      </td>
+            {{r.isActivated ? "Yes" : "No"}}
+        </td>
+
         <td>
-          <button class="btn btn-success" [disabled]="r.isActivated" *ngIf="r.isActivated; else noToActivate" disabled>Activate</button>
-          <ng-template #noToActivate><button class="btn btn-success"  (click)="activate(r)">Activate</button></ng-template>
+            <button type="button" routerLink="/readMoreClient/{{r.id}}" class="btn btn-secondary" >Add dish</button>
+        </td>
+
+        <td>
+            <button type="button" routerLink="/readMoreClient/{{r.id}}" class="btn btn-primary" >View reservations</button>
+        </td>
+
+        <td>
+          <button type="button" routerLink="/readMoreClient/{{r.id}}" class="btn btn-info" >Read more</button>
+        </td>
+        
+        <td>
+            <button type="button" routerLink="/admin/readMore/{{r.id}}" class="btn btn-warning" >Update</button>
         </td>
         
         <td>
@@ -63,8 +78,10 @@
 </div>
 
 </div>
-<!-- <button routerLink="/admin/addMealCategory" type="button" class="btn btn-success">Add new meal category</button> -->
-<!-- <p class="text-danger">{{errorMessage}}</p> -->
+<div class="inputCont">
+    <button routerLink="/registerRestaurant" type="button" class="btn btn-success">Apply for new restaurant</button>
+</div>
+<p class="text-danger">{{errorMessage}}</p>
 </div>
 </section>
 

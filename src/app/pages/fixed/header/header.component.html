@@ -35,7 +35,7 @@
                                 </a>
                             </ul>
     
-                            <ul *ngIf="isLogged" class="list-right">
+                            <ul *ngIf="!isRestaurantOwner" class="list-right">
                                 <a routerLink="/registerRestaurant">
                                     <button style="width: 170px;" class="regLink">
                                         Create a restaurant
@@ -43,8 +43,16 @@
                                 </a>
                             </ul>
 
-                            <ul *ngIf="isLogged" class="list-right">
+                            <ul *ngIf="isAdmin" class="list-right">
                                 <a routerLink="/admin/restaurants">
+                                    <button style="width: 120px;" class="regLink">
+                                        Admin panel
+                                    </button>
+                                </a>
+                            </ul>
+
+                            <ul *ngIf="isRestaurantOwner" class="list-right">
+                                <a routerLink="/restaurants">
                                     <button style="width: 120px;" class="regLink">
                                         Dashboard
                                     </button>

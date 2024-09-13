@@ -50,9 +50,9 @@ export class ActivationUserComponent {
         activationCode : this.Code.value
       }).subscribe({
         next: (response : any) => {
-          this.message = `Successfull activated account, you will be redirected to the home page`
+          this.message = `Successfull activated account, you will be redirected to the login page`
           setTimeout(()=>{
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/login');
           }, 3000)
         },
         error: (error) => {

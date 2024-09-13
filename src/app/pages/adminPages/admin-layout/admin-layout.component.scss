@@ -32,8 +32,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     height: 40px;
     margin-top: 30px !important;
     margin-bottom: 30px !important;
-    margin-left: 37% !important;
     text-align: center;
+}
+
+.inputCont{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .searchInpur::placeholder {

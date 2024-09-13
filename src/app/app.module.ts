@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';  
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; 
-import { FormsModule } from '@angular/forms'; // Dodaj ovaj import
+import { FormsModule } from '@angular/forms'; 
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,9 @@ import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants
 import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read-more.component';
 import { ContactsComponent } from './pages/adminPages/contacts/contacts/contacts.component';
 import { UsersComponent } from './pages/adminPages/ussers/users/users.component';
+import { RestaurantsClientComponent } from './pages/pages/restaurants/restaurants.component';
+import { ReadMoreClientComponent } from './pages/pages/read-more-client/read-more-client.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +76,8 @@ import { UsersComponent } from './pages/adminPages/ussers/users/users.component'
     RestaurantsComponent,
     ReadMoreComponent,
     ContactsComponent,
-    UsersComponent
+    UsersComponent, 
+    RestaurantsClientComponent, ReadMoreClientComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ import { UsersComponent } from './pages/adminPages/ussers/users/users.component'
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule, 
+    CommonModule
   ],
   providers: [
     {

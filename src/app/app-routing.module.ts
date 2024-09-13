@@ -30,6 +30,8 @@ import { RestaurantsComponent } from './pages/adminPages/restaurants/restaurants
 import { ReadMoreComponent } from './pages/adminPages/restaurants/read-more/read-more.component';
 import { ContactsComponent } from './pages/adminPages/contacts/contacts/contacts.component';
 import { UsersComponent } from './pages/adminPages/ussers/users/users.component';
+import { RestaurantsClientComponent } from './pages/pages/restaurants/restaurants.component';
+import { ReadMoreClientComponent } from './pages/pages/read-more-client/read-more-client.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -44,6 +46,10 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'registerRestaurant', component: RegisterRestaurantComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+
+
+  { path: 'restaurants', component: RestaurantsClientComponent, canActivate: [AuthGuard] },
+  { path: 'readMoreClient/:id', component: ReadMoreClientComponent, canActivate: [AuthGuard] },
 
   {
     path: 'admin',

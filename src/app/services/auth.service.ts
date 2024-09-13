@@ -68,6 +68,29 @@ export class AuthService {
   //   return token ? true : false;
   // }
 
+
+  isRestaurantOwner(): Observable<boolean> {
+    var useCases = this.getUseCases();
+    if (!useCases.length) {
+      return of(false);
+    }
+    const targetUseCases: number[] = [34, 35, 37];
+    const hasAllUseCases = targetUseCases.every(target => useCases.includes(target));
+    return of(hasAllUseCases);
+  }
+  
+  isAdmin(): Observable<boolean> {
+    var useCases = this.getUseCases();
+  
+    if (!useCases.length) {
+      return of(false)
+    }
+  
+    const targetUseCases: number[] = Array.from({ length: 90 }, (_, i) => i + 2); 
+  
+    return of(targetUseCases.every(target => useCases.includes(target)));
+  }
+
   isLoggedIn(): Observable<boolean> {
     return this.http.get<boolean>('http://localhost:5000/api/Auth').pipe(
       catchError((error) => {
