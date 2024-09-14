@@ -43,6 +43,7 @@ import { UsersComponent } from './pages/adminPages/ussers/users/users.component'
 import { RestaurantsClientComponent } from './pages/pages/restaurants/restaurants.component';
 import { ReadMoreClientComponent } from './pages/pages/read-more-client/read-more-client.component';
 import { UpdateRestaurantComponent } from './pages/pages/update-restaurant/update-restaurant.component';
+import { RestaurantReservationsComponent } from './pages/pages/restaurant-reservations/restaurant-reservations.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { UpdateRestaurantComponent } from './pages/pages/update-restaurant/updat
     ReadMoreComponent,
     ContactsComponent,
     UsersComponent, 
-    RestaurantsClientComponent, ReadMoreClientComponent, UpdateRestaurantComponent
+    RestaurantsClientComponent, ReadMoreClientComponent, UpdateRestaurantComponent, RestaurantReservationsComponent
   ],
   imports: [
     BrowserModule,

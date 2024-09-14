@@ -13,9 +13,21 @@ export class ReservationService {
 
     constructor(private http: HttpClient) {}
 
-    makeReservation(reservation: Reservation): Observable<any> {
-        return this.http.post(this.apiUrl, reservation);
+    getReservationsForRestaurant(userId: number, restaurantId: number, query:string, totalCount:number): Observable<any> {
+      return this.http.get(this.apiUrl + `/Restaurant?userId=${userId}&restaurantId=${restaurantId}&perPage=${totalCount}&keyword=${query}`);
     }
+
+    accept(id: number): Observable<any> {
+        return this.http.patch(this.apiUrl+ `/${id}/Accept`, 1);
+    }
+
+    realise(id: number): Observable<any> {
+      return this.http.patch(this.apiUrl+ `/${id}/Realise`, 1);
+    }
+
+    makeReservation(reservation: Reservation): Observable<any> {
+      return this.http.post(this.apiUrl, reservation);
+  }
 
     getReservations(id : number): Observable<any> {
       return this.http.get(this.apiUrl + `/?userId=${id}&perPage=1000`);
