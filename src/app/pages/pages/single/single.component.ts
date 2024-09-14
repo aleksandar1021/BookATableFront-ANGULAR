@@ -39,7 +39,10 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   form: FormGroup;
 
   selectedIds: number[] = [];
+  closedDaysInt : any[] = []
+  closedDaysString : any[] = []
 
+  start: boolean = false;
 
   setRating(star: number): void {
     this.rating = star;
@@ -78,6 +81,11 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   //     appendices.removeAt(index);
   //   }
   // }
+
+  getClosedDays(closedDays: number[]): string[] {
+    const daysOfWeek: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    return closedDays.map(day => daysOfWeek[day]);
+  }
 
   onCheckboxChange(event: Event, id: number): void {
     const checkbox = event.target as HTMLInputElement;
@@ -123,6 +131,8 @@ export class SingleComponent implements OnInit, AfterViewChecked {
         restaurantId: this.id
       });
     }
+
+
   }
 
   submitRating(): void {
@@ -164,6 +174,8 @@ export class SingleComponent implements OnInit, AfterViewChecked {
  
 
   onSubmit(): void {  
+    this.start = true;
+
     this.message = '';
     this.errorMessage = '';
     
@@ -179,9 +191,11 @@ export class SingleComponent implements OnInit, AfterViewChecked {
           this.reservationForm.reset();
           this.clearAppendices(); 
           this.resetCheckboxes();  
+          this.start=false;
         },
         error: (error) => {
           this.handleServerErrors(error);
+          this.start=false;
         }
       });
     } else {
@@ -253,7 +267,10 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     this.restaurantService.getRestaurant(this.id).subscribe(
       (response: any) => {
         this.restaurant = response;
-        console.log(this.restaurant)
+
+        this.closedDaysInt = response.regularClosedDays
+        this.closedDaysString = this.getClosedDays(this.closedDaysInt)
+
         const workFromHour = this.restaurant.workFromHour;
         const workFromMinute = this.restaurant.workFromMinute;
         const workUntilHour = this.restaurant.workUntilHour;
@@ -267,7 +284,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
         for (let i = 1; i <= this.restaurant.maxNumberOfGuests; i++) {
           this.numbersOfGuests.push(i);
         }
-
+        //console.log(response)
         this.timeSlots = this.generateTimeSlots(workFromHour, workFromMinute, workUntilHour, workUntilMinute, timeInterval);
       },
       (error) => {

@@ -41,3 +41,18 @@ select{
     margin-top: 30px;
     font-size: 18px;
 }
+
+.cont{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0px auto;
+    margin-bottom: 30px;
+}
+
+.img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}

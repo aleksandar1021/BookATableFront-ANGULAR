@@ -42,6 +42,9 @@
     <p class="message" *ngIf="message">{{message}}</p>
     <p class="message" *ngIf="errorMessage">{{errorMessage}}</p>
 
+    <div *ngIf="start" class="sp">
+      <img class="spiner" src="assets/icons/spiner.GIF" alt="">
+    </div>
 </div>
 
 <div class="containerHeadeing space">
@@ -75,6 +78,9 @@
         <h2>Maximum number of guests:</h2>
         <h3>{{restaurant?.maxNumberOfGuests}}</h3>
 
+        <h2  *ngIf="closedDaysString.length > 0">Closed days:</h2>
+        <h3 style="color: red;" *ngFor="let c of closedDaysString">{{c}}</h3>
+
         <h2>Addres:</h2>
         <h3>
             <span *ngIf="restaurant?.address.city.name">{{restaurant?.address.city.name}}</span>
@@ -89,15 +95,15 @@
 </div>
 
 
-<div *ngIf="restaurant?.images?.length" class="containerHeadeing space">
+<div *ngIf="restaurant?.restaurantImages?.length" class="containerHeadeing space">
     <h1>Images</h1>
 </div>
-<div *ngIf="restaurant?.images?.length" class="container">
+<div *ngIf="restaurant?.restaurantImages?.length" class="container">
     <div class="wrapper">
       <i id="left" class="fa-solid fa-angle-left"></i>
       <ul class="carousel">
-        <li *ngFor="let image of restaurant?.images" class="card">
-            <a href="{{apiUrlRestaurants}}{{image}}"><div class="img"><img src="{{apiUrlRestaurants}}{{image}}" alt="" draggable="false"></div></a>
+        <li *ngFor="let image of restaurant?.restaurantImages" class="card">
+            <a href="{{apiUrlRestaurants}}{{image}}"><div class="img"><img src="{{apiUrlRestaurants}}{{image.path}}" alt="{{image.path}}" draggable="false"></div></a>
         </li>
       </ul>
       <i id="right" class="fa-solid fa-angle-right"></i>

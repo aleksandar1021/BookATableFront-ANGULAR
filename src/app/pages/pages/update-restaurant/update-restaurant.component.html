@@ -338,6 +338,12 @@
       <div *ngIf="registerForm.get('images')?.hasError('required') && registerForm.get('images')?.touched">
         <div class="errorMessage">At least one image is required.</div>
       </div>
+
+      <div class="cont">
+        <img class="img" *ngFor="let i of oldImages" src="{{url + i}}" alt="{{i}}">
+
+        <img class="img" *ngFor="let i of uploadedImagePaths" src="{{temp + i}}" alt="{{i}}">
+      </div>
   
       <!-- Meal Categories -->
       <div class="customInput noMargin">

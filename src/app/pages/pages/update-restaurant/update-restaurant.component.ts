@@ -8,6 +8,7 @@ import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '
 import { HttpClient } from '@angular/common/http';
 import { AppendiceService } from '../../../services/appendices.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { development } from '../../../../environments/development';
 
 @Component({
   selector: 'app-update-restaurant',
@@ -30,6 +31,11 @@ export class UpdateRestaurantComponent implements OnInit {
   selectedDays: number[] = [];
   restaurant: any;
   restaurantId: any
+  oldImages : string[] = []
+  url = development.restaurantImageUrl
+  temp = development.tempImageUrl
+
+
   registerForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -121,9 +127,10 @@ export class UpdateRestaurantComponent implements OnInit {
           number: this.restaurant.address.number,
           floor: this.restaurant.address.floor,
           addressDescription: this.restaurant.address.description,
-          //images: this.restaurant.images
+          images: this.restaurant.images
         });
-  
+        
+        this.oldImages = this.restaurant.images
         this.selectedCategoryIds = this.restaurant.mealCategories.map((item: any) => item.id);
         this.selectedAppendiceIds = this.restaurant.appendiceRestaurants.map((item: any) => item.id);
         this.selectedDays = [...this.restaurant.regularClosedDaysInt];
@@ -157,6 +164,8 @@ export class UpdateRestaurantComponent implements OnInit {
     this.selectedFiles = Array.from(files);
   
     this.uploadFiles(this.selectedFiles);
+
+    //console.log(this.selectedFiles)
   }
 
   uploadFiles(files: File[]): void {
@@ -170,6 +179,7 @@ export class UpdateRestaurantComponent implements OnInit {
         (response) => {
           this.uploadedImagePaths.push(response.file);
           this.registerForm.patchValue({ images: this.uploadedImagePaths });
+          this.oldImages = []
         },
         (error) => {
           console.error('Error uploading file: ', error);
