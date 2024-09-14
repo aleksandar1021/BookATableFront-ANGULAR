@@ -17,6 +17,13 @@ export class RestaurantService {
 
     constructor(private http: HttpClient) {}
 
+    updateRestaurant(data: any, id:any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${id}`, data);
+    }
+    
+    getRestaurantById(id: string): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${id}`);
+    }
 
     delete(id: number): Observable<any> {
         const url = `${this.apiUrl}/${id}/Admin`;
