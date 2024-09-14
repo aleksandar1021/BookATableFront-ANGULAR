@@ -4,7 +4,9 @@ import { CityService } from '../../../services/city.service';
 import { AuthService } from '../../../services/auth.service';
 import { RestaurantService } from '../../../services/restaurant.service'; 
 import { MealCategoryService } from '../../../services/mealCategory.service';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AppendiceService } from '../../../services/appendices.service';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -16,9 +18,16 @@ export class RegisterRestaurantComponent implements OnInit {
   restaurantTypes: any = [];
   cities: any = [];
   mealCategories: any = [];
+  appendices: any = [];
+  selectedAppendiceIds: number[] = [];
   message: string = '';
   errorMessage: string = '';
   selectedCategoryIds: number[] = [];
+  selectedFiles: File[] = [];
+  uploadedImagePaths: string[] = []; 
+  daysOfWeek: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  selectedDays: number[] = [];
+
 
   registerForm = new FormGroup({
     name: new FormControl('', [
@@ -39,6 +48,7 @@ export class RegisterRestaurantComponent implements OnInit {
     maxNumberOfGuests: new FormControl('', [Validators.required, Validators.min(1)]),
     restaurantType: new FormControl('', [Validators.required]),
     mealCategoryType: new FormArray([]),
+    appendiceType: new FormArray([]),
     city: new FormControl('', [Validators.required]),
     addressOfPlace: new FormControl('', [
       Validators.required,
@@ -56,25 +66,78 @@ export class RegisterRestaurantComponent implements OnInit {
     addressDescription: new FormControl('', [
       Validators.minLength(3),
       Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
-    ])
-  });
+    ]),
+    images: new FormControl<string[] | null>(null, [Validators.required, this.imagesValidator])
 
+  });
+  imagesValidator(control: FormControl): { [key: string]: any } | null {
+    if (control.value && control.value.length === 0) {
+      return { 'required': true };
+    }
+    return null;
+  }
   constructor(
     private authService: AuthService, 
     private restaurantTypeService: RestaurantTypeService, 
     private cityService: CityService,
     private mealCategoryService: MealCategoryService,
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private http: HttpClient,
+    private appendiceService: AppendiceService
   ) {}
 
   ngOnInit(): void {
     this.getRestaurantTypes();
     this.getCities();
     this.getMealCategories();
+    this.getAppendices()
+  }
+
+  onDayChange(event: any, index: number): void {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      this.selectedDays.push(index);
+    } else {
+      const dayIndex = this.selectedDays.indexOf(index);
+      if (dayIndex !== -1) {
+        this.selectedDays.splice(dayIndex, 1);
+      }
+    }
+    //console.log(this.selectedDays); 
+  }
+
+  onFilesSelected(event: any): void {
+    const files: FileList = event.target.files;
+    this.selectedFiles = Array.from(files);
+  
+    this.uploadFiles(this.selectedFiles);
+  }
+
+  uploadFiles(files: File[]): void {
+    this.uploadedImagePaths = [];
+
+    files.forEach(file => {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.http.post<any>('http://localhost:5000/api/files', formData).subscribe(
+        (response) => {
+          this.uploadedImagePaths.push(response.file);
+          this.registerForm.patchValue({ images: this.uploadedImagePaths });
+        },
+        (error) => {
+          console.error('Error uploading file: ', error);
+        }
+      );
+    });
   }
 
   get mealCategoryFormArray(): FormArray {
     return this.registerForm.get('mealCategoryType') as FormArray;
+  }
+
+  get appendiceFormArray(): FormArray {
+    return this.registerForm.get('appendiceType') as FormArray;
   }
 
   onCheckboxChange(event: Event, categoryId: number): void {
@@ -87,6 +150,19 @@ export class RegisterRestaurantComponent implements OnInit {
         this.selectedCategoryIds.splice(index, 1);
       }
     }
+  }
+
+  onCheckboxChange2(event: Event, appendiceId: number): void {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.selectedAppendiceIds.push(appendiceId);
+    } else {
+      const index = this.selectedAppendiceIds.indexOf(appendiceId);
+      if (index !== -1) {
+        this.selectedAppendiceIds.splice(index, 1);
+      }
+    }
+
   }
 
   getRestaurantTypes(): void {
@@ -110,6 +186,25 @@ export class RegisterRestaurantComponent implements OnInit {
         console.error('Error fetching meal categories', error);
       }
     );
+  }
+
+  getAppendices(): void {
+    this.appendiceService.gets().subscribe(
+      (response: any) => {
+        this.appendices = response.data;
+        this.initializeAppendiceFormArray();
+      },
+      (error) => {
+        console.error('Error fetching meal categories', error);
+      }
+    );
+  }
+
+  initializeAppendiceFormArray(): void {
+    const formArray = this.appendiceFormArray;
+    this.appendices.forEach(() => {
+      formArray.push(new FormControl(false)); 
+    });
   }
 
   initializeMealCategoryFormArray(): void {
@@ -139,10 +234,23 @@ export class RegisterRestaurantComponent implements OnInit {
     return mealCategoriesRestaurants;
   }
 
+  createAppendiceRestaurants(): any {
+    const AppendiceRestaurants = this.selectedAppendiceIds.map((appendiceId: number) => ({
+      appendiceId,
+      restaurantId: 0 
+    }));
+    
+    console.log(AppendiceRestaurants)
+
+    return AppendiceRestaurants;
+  }
+
   registerRestaurant(): void {
+    this.markAllControlsAsTouched();
+  
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
-
+  
       const requestPayload = {
         name: formData.name,
         workFromHour: formData.workFromHour,
@@ -161,15 +269,32 @@ export class RegisterRestaurantComponent implements OnInit {
           floor: formData.floor ? formData.floor : null,
           description: formData.addressDescription,
         },
-        mealCategoriesRestaurants: this.createMealCategoriesRestaurants()
+        mealCategoriesRestaurants: this.createMealCategoriesRestaurants(),
+        images: this.uploadedImagePaths,
+        primaryImagePath: this.uploadedImagePaths.length > 0 ? this.uploadedImagePaths[0] : null,
+        appendices: this.createAppendiceRestaurants(),
+        regularClosedDays: this.selectedDays
       };
-
+  
       this.restaurantService.applyRestaurant(requestPayload).subscribe(
         (response) => {
           this.message = "You have successfully applied for a restaurant marketing permit, wait until the administrator checks the data and selects the restaurant if everything is in order.";
+          
           this.registerForm.reset();
           this.mealCategoryFormArray.clear(); 
+          this.appendiceFormArray.clear(); 
           this.selectedCategoryIds = []; 
+          this.selectedAppendiceIds = []; 
+          
+          this.mealCategories.forEach(() => {
+            this.mealCategoryFormArray.push(new FormControl(false));
+          });
+          
+          this.appendices.forEach(() => {
+            this.appendiceFormArray.push(new FormControl(false));
+          });
+          
+          this.selectedDays = []; 
         },
         (error) => {
           console.error('Error registering restaurant', error);
@@ -179,7 +304,32 @@ export class RegisterRestaurantComponent implements OnInit {
       console.log('Form is invalid');
     }
   }
+  
 
+  markAllControlsAsTouched(): void {
+    Object.keys(this.registerForm.controls).forEach(key => {
+      const control = this.registerForm.get(key);
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markControlsAsTouched(control);
+      } else {
+        control?.markAsTouched();
+      }
+    });
+  }
+  
+  markControlsAsTouched(control: AbstractControl): void {
+    if (control instanceof FormGroup) {
+      Object.keys(control.controls).forEach(key => {
+        this.markControlsAsTouched(control.get(key) as AbstractControl);
+      });
+    } else if (control instanceof FormArray) {
+      control.controls.forEach(ctrl => {
+        this.markControlsAsTouched(ctrl);
+      });
+    } else {
+      control.markAsTouched();
+    }
+  }
   handleServerErrors(error: any) {
     if (error.status === 422 && Array.isArray(error.error)) {
       this.clearErrors();

@@ -17,8 +17,10 @@
           <input type="text" formControlName="name" id="name" placeholder="Restaurant Name">
         </div>
       </div>
-      <div class="errorMessage" *ngIf="registerForm.get('name')?.hasError('pattern') && registerForm.get('name')?.touched">
-        Name must start with a capital letter and be at least 3 characters long, maximum 70.
+      <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
       </div>
       <div class="errorMessage" *ngIf="registerForm.get('name')?.hasError('serverError')">
           {{ registerForm.get('name')?.getError('serverError') }}
@@ -239,8 +241,10 @@
           <input type="text" formControlName="addressOfPlace" id="addressOfPlace" placeholder="Address of restaurant">
         </div>
       </div>
-      <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.hasError('pattern') && registerForm.get('addressOfPlace')?.touched">
-        Addres must start with a capital letter and be at least 3 characters long, maximum 70.
+      <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
       </div>
       <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.hasError('serverError')">
           {{ registerForm.get('addressOfPlace')?.getError('serverError') }}
@@ -321,11 +325,23 @@
           {{ registerForm.get('addressDescription')?.getError('serverError') }}
       </div>
 
-
+      <!-- IMAGES -->
+       
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/image.png" alt="Image Icon">
+        </div>
+        <div class="inputFiled" style="margin-top: 12px;">
+          <input type="file" (change)="onFilesSelected($event)" multiple>
+        </div>
+      </div>
+      <div *ngIf="registerForm.get('images')?.hasError('required') && registerForm.get('images')?.touched">
+        <div class="errorMessage">At least one image is required.</div>
+      </div>
   
       <!-- Meal Categories -->
       <div class="customInput noMargin">
-        <h4>Select meal categories (required)</h4>
+        <h4>Select meal categories</h4>
       </div>
       
       <div class="mealCategory" *ngFor="let category of mealCategories; let i = index">
@@ -335,6 +351,35 @@
             [value]="category.id"
             (change)="onCheckboxChange($event, category.id)"
           > {{ category.name }}
+        </label>
+      </div>
+
+      <!-- Appendices -->
+      <div class="customInput noMargin">
+        <h4>Select Appendices</h4>
+      </div>
+      
+      <div class="mealCategory" *ngFor="let a of appendices; let i = index">
+        <label>
+          <input 
+            type="checkbox" 
+            [value]="a.id"
+            (change)="onCheckboxChange2($event, a.id)"
+          > {{ a.name }}
+        </label>
+      </div>
+
+      <!-- Closed days -->
+      <div class="customInput noMargin">
+        <h4>Closed days</h4>
+      </div>
+      <div class="mealCategory" *ngFor="let day of daysOfWeek; let i = index">
+        <label>
+          <input 
+            type="checkbox" 
+            [value]="i"
+            (change)="onDayChange($event, i)"
+          > {{ day }}
         </label>
       </div>
   
