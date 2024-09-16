@@ -34,7 +34,7 @@ export class ReservationService {
     }
 
     deleteReservation(reservationId: number): Observable<any> {
-      const url = `${this.apiUrl}/${reservationId}`;
+      const url = `${this.apiUrl}/${reservationId}/User`;
       return this.http.delete(url);
     }
 

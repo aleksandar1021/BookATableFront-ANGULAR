@@ -34,6 +34,9 @@ import { RestaurantsClientComponent } from './pages/pages/restaurants/restaurant
 import { ReadMoreClientComponent } from './pages/pages/read-more-client/read-more-client.component';
 import { UpdateRestaurantComponent } from './pages/pages/update-restaurant/update-restaurant.component';
 import { RestaurantReservationsComponent } from './pages/pages/restaurant-reservations/restaurant-reservations.component';
+import { DishesComponent } from './pages/pages/dishes/dishes/dishes.component';
+import { AddDishComponent } from './pages/pages/dishes/add-dish/add-dish.component';
+import { UpdateDishComponent } from './pages/pages/dishes/update-dish/update-dish.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -55,6 +58,10 @@ const routes: Routes = [
   { path: 'updateRestaurant/:id', component: UpdateRestaurantComponent, canActivate: [AuthGuard] },
 
   { path: 'restaurantReservations/:id', component: RestaurantReservationsComponent, canActivate: [AuthGuard] },
+
+  { path: 'dishes/:id', component: DishesComponent, canActivate: [AuthGuard] },
+  { path: 'addDish/:id', component: AddDishComponent, canActivate: [AuthGuard] },
+  { path: 'updateDish/:id', component: UpdateDishComponent, canActivate: [AuthGuard] },
 
 
   {
