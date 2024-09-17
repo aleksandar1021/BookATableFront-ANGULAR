@@ -52,3 +52,8 @@
 <ng-template #noReservations>
     <div class="errorMessage">You have no reservations yet</div>
 </ng-template>
+
+
+<div *ngIf="isLoaderVisible" class="loading-state">
+    <div class="loading"></div>
+</div>

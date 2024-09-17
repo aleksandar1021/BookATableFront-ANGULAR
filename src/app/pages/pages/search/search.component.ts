@@ -5,6 +5,7 @@ import { RestaurantTypeService } from '../../../services/restaurantType.service'
 import { AuthService } from '../../../services/auth.service';
 import { Saved } from '../../../interfaces/saved.interface';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -36,9 +37,11 @@ export class SearchComponent implements OnInit, AfterViewInit{
               private mealCategoryService: MealCategoryService, 
               private restaurantTypeService: RestaurantTypeService,
               private authService: AuthService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private titleService: Title
               ){
-             
+                this.titleService.setTitle('Book a table | Search');
+
             }
 
   ngOnInit(): void {

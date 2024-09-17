@@ -5,6 +5,7 @@ import { MealCategoryService } from '../../../../services/mealCategory.service';
 import { development } from '../../../../../environments/development';
 import { DishService } from '../../../../services/dish.service';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dishes',
@@ -25,8 +26,12 @@ export class DishesComponent implements OnInit{
   searchQuery: string = '';
 
 
-  constructor(private dishService: DishService, private genericService: GenericService, private route: ActivatedRoute){
-
+  constructor(private dishService: DishService, 
+              private genericService: GenericService, 
+              private route: ActivatedRoute,
+              private titleService: Title
+            ){
+    this.titleService.setTitle('Book a table | Dishes');
   }
 
   loadMore(){

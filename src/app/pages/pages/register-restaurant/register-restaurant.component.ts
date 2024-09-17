@@ -7,6 +7,7 @@ import { MealCategoryService } from '../../../services/mealCategory.service';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppendiceService } from '../../../services/appendices.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-restaurant',
@@ -83,8 +84,11 @@ export class RegisterRestaurantComponent implements OnInit {
     private mealCategoryService: MealCategoryService,
     private restaurantService: RestaurantService,
     private http: HttpClient,
-    private appendiceService: AppendiceService
-  ) {}
+    private appendiceService: AppendiceService,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Book a table | Register restaurant');
+  }
 
   ngOnInit(): void {
     this.getRestaurantTypes();

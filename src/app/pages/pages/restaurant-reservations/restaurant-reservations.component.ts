@@ -4,6 +4,7 @@ import { GenericService } from '../../../services/generic.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from '../../../services/reservation.service';
 import { AuthService } from '../../../services/auth.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-restaurant-reservations',
   templateUrl: './restaurant-reservations.component.html',
@@ -20,13 +21,16 @@ export class RestaurantReservationsComponent implements OnInit{
   perPage : number = 5;
   totalCount : number = this.perPage;
 
+  isLoaderVisible = false
+
   constructor(private reservationService:ReservationService, 
               private genericService: GenericService, 
               private route: ActivatedRoute,
-              private authService: AuthService
+              private authService: AuthService,
+              private titleService: Title
             ){
-
-  }
+              this.titleService.setTitle('Book a table | Restaurant reservations');
+             }
 
   ngOnInit(): void {
     
@@ -34,6 +38,7 @@ export class RestaurantReservationsComponent implements OnInit{
       this.id = params['id']; 
       this.getReservations(this.authService.getUserFromToken().Id ,this.id)
     });
+
 
 
   }
@@ -67,32 +72,50 @@ export class RestaurantReservationsComponent implements OnInit{
     );
   }
 
+  ifRealised(isAccepted: boolean, isRealised: boolean){
+    if(!isAccepted && !isRealised){
+      return false
+    }else if(isAccepted && isRealised){
+      return false
+    }
+
+    return true
+  }
+
   accept(r: any) {
+    this.isLoaderVisible = true;
     this.reservationService.accept(r.id).subscribe(
       response => {
         r.isAccepted = true
+        this.isLoaderVisible = false;
       },
       error => {
-     
+        this.isLoaderVisible = false;
       }
     );
   }
 
   realised(r: any) {
+    this.isLoaderVisible = true;
+
     this.reservationService.realise(r.id).subscribe(
       response => {
         r.isRealised = true
+        this.isLoaderVisible = false;
       },
       error => {
-       
+        this.isLoaderVisible = false;
       }
     );
   }
 
   delete(id: number) {
+    this.isLoaderVisible = true;
+
     this.genericService.deleteEntity(id, 'Reservations').subscribe(
       response => {
         this.reservations = this.reservations.filter(x => x.id != id);
+        this.isLoaderVisible = false;
       },
       error => {
         if(error.status == 409){
@@ -100,6 +123,7 @@ export class RestaurantReservationsComponent implements OnInit{
         }else{
           this.errorMessage = 'An error occurred, please try again later.';
         }
+        this.isLoaderVisible = false;
       }
     );
   }

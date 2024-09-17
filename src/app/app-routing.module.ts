@@ -37,6 +37,8 @@ import { RestaurantReservationsComponent } from './pages/pages/restaurant-reserv
 import { DishesComponent } from './pages/pages/dishes/dishes/dishes.component';
 import { AddDishComponent } from './pages/pages/dishes/add-dish/add-dish.component';
 import { UpdateDishComponent } from './pages/pages/dishes/update-dish/update-dish.component';
+import { adminGuard } from './admin.guard';
+import { restaurantOwnerGuard } from './restaurant-owner.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -53,20 +55,21 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
 
 
-  { path: 'restaurants', component: RestaurantsClientComponent, canActivate: [AuthGuard] },
-  { path: 'readMoreClient/:id', component: ReadMoreClientComponent, canActivate: [AuthGuard] },
-  { path: 'updateRestaurant/:id', component: UpdateRestaurantComponent, canActivate: [AuthGuard] },
+  { path: 'restaurants', component: RestaurantsClientComponent, canActivate: [restaurantOwnerGuard] },
+  { path: 'readMoreClient/:id', component: ReadMoreClientComponent, canActivate: [restaurantOwnerGuard] },
+  { path: 'updateRestaurant/:id', component: UpdateRestaurantComponent, canActivate: [restaurantOwnerGuard] },
 
-  { path: 'restaurantReservations/:id', component: RestaurantReservationsComponent, canActivate: [AuthGuard] },
+  { path: 'restaurantReservations/:id', component: RestaurantReservationsComponent, canActivate: [restaurantOwnerGuard] },
 
-  { path: 'dishes/:id', component: DishesComponent, canActivate: [AuthGuard] },
-  { path: 'addDish/:id', component: AddDishComponent, canActivate: [AuthGuard] },
-  { path: 'updateDish/:id', component: UpdateDishComponent, canActivate: [AuthGuard] },
+  { path: 'dishes/:id', component: DishesComponent, canActivate: [restaurantOwnerGuard] },
+  { path: 'addDish/:id', component: AddDishComponent, canActivate: [restaurantOwnerGuard] },
+  { path: 'updateDish/:id', component: UpdateDishComponent, canActivate: [restaurantOwnerGuard] },
 
 
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [adminGuard],
     children: [
       { path: 'restaurants', component: RestaurantsComponent, canActivate: [AuthGuard] },
       { path: 'readMore/:id', component: ReadMoreComponent, canActivate: [AuthGuard] },

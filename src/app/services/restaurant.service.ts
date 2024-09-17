@@ -83,6 +83,8 @@ export class RestaurantService {
         );
     }
 
+    
+
 
     makeReservation(reservation: Reservation): Observable<any> {
         return this.http.post(this.apiUrlReservation, reservation);
@@ -100,21 +102,8 @@ export class RestaurantService {
         return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/${id}`);
     }
 
-    getNewestRestaurants(): Observable<any> {
-        return this.http.get<any>(this.apiUrl).pipe(
-            map((response: any) => {
-                const restaurants = response.data;
-                if (Array.isArray(restaurants)) {
-                    return restaurants
-                        .sort((a, b) => {
-                            const dateA = new Date(a.createdAt);
-                            const dateB = new Date(b.createdAt);
-                            return dateB.getTime() - dateA.getTime(); 
-                        })
-                        .slice(0, 3); 
-                }
-                return []; 
-            })
-        );
+    getNewestRestaurants(): Observable<ApiResponse<any[]>> {
+        return this.http.get<ApiResponse<any[]>>(this.apiUrl + `?sorts[0].sortProperty=created&sorts[0].direction=Desc&perPage=3`)
+        
     }
 }

@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../../services/auth.service';
 import { Saved } from '../../../interfaces/saved.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +32,11 @@ export class HomeComponent implements OnInit, AfterViewChecked{
               private renderer: Renderer2, 
               private el: ElementRef, 
               private restaurantService: RestaurantService,
-              private authService: AuthService
-            ) { }
+              private authService: AuthService,
+              private titleService: Title
+            ) { 
+              this.titleService.setTitle('Book a table | Home');
+            }
 
   
   
@@ -119,16 +123,17 @@ export class HomeComponent implements OnInit, AfterViewChecked{
         }
     );
   }
-    getNewestRestaurants(): void {
-      this.restaurantService.getTrendyRestaurants().subscribe(
-          (response: any) => {
-              this.newestRestaurants = response; 
-          },
-          (error) => {
-              console.error('There was an error', error);
-          }
-      );
-    }
+  getNewestRestaurants(): void {
+    this.restaurantService.getNewestRestaurants().subscribe(
+      (response: any) => {
+        this.newestRestaurants = response.data;
+      },
+      (error) => {
+        console.error('There was an error', error);
+      }
+    );
+  }
+  
 
 
   show() : void {

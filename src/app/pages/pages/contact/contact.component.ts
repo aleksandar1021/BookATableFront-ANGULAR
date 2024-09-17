@@ -15,9 +15,14 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export class ContactComponent {
   message : String ='';
   errorMessage : String ='';
+  isLoaderVisible = false
 
-  constructor(private titleService: Title, private router: Router, private http: HttpClient, private contactService: ContactService) {
-    this.titleService.setTitle('Book a table | Login');
+  constructor(private titleService: Title, 
+              private router: Router, 
+              private http: HttpClient, 
+              private contactService: ContactService
+            ) {
+    this.titleService.setTitle('Book a table | Contact');
   }
   
 
@@ -50,6 +55,7 @@ export class ContactComponent {
     }
     this.message = '';
     if (this.contactForm.valid) {
+      this.isLoaderVisible = true
       this.contactService.sendContactPageMessage({
         email: this.Email.value,
         firstName: this.FirstName.value,
@@ -59,6 +65,8 @@ export class ContactComponent {
       }).subscribe({
         next: (response : any) => {
           this.message = `The message has been successfully sent.`
+          this.isLoaderVisible = false
+
           this.contactForm.reset()
           if(response.status != 201){
             this.errorMessage = response.error.message;

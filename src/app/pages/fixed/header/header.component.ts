@@ -19,15 +19,15 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadNavigation();
-    
-    // Initialize isRestaurantOwner and isAdmin when the component loads
-    this.authService.isRestaurantOwner().subscribe(isRestaurantOwner => {
+        this.authService.isRestaurantOwner().subscribe(isRestaurantOwner => {
       this.isRestaurantOwner = isRestaurantOwner;
     });
   
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
+
+   
   }
   
   constructor(private authService: AuthService, private router: Router) {

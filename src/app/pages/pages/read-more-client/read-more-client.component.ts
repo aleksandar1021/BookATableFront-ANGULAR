@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from '../../../services/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
 import { development } from '../../../../environments/development';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-read-more-client',
   templateUrl: './read-more-client.component.html',
@@ -14,7 +15,8 @@ export class ReadMoreClientComponent implements OnInit{
   url = development.restaurantImageUrl
   dishUrl = development.dishImageUrl
   
-  constructor(private restaurantService: RestaurantService, private route: ActivatedRoute){
+  constructor(private titleService: Title, private restaurantService: RestaurantService, private route: ActivatedRoute){
+    this.titleService.setTitle('Book a table | Read more');
 
   }
 

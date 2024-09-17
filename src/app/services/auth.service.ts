@@ -4,7 +4,7 @@ import { ActivateUser, User } from '..//interfaces/user.interface';
 import { development } from '../../environments/development';
 import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -74,32 +74,30 @@ export class AuthService {
     if (!useCases.length) {
       return of(false);
     }
-    const targetUseCases: number[] = [34, 35, 37];
+    const targetUseCases: number[] = [34, 35, 37, 93];
     const hasAllUseCases = targetUseCases.every(target => useCases.includes(target));
     return of(hasAllUseCases);
   }
   
   isAdmin(): Observable<boolean> {
     var useCases = this.getUseCases();
-  
     if (!useCases.length) {
       return of(false)
     }
-  
-    const targetUseCases: number[] = Array.from({ length: 90 }, (_, i) => i + 2); 
-  
+    const targetUseCases: number[] = Array.from({ length: 93 }, (_, i) => i + 2); 
     return of(targetUseCases.every(target => useCases.includes(target)));
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.http.get<boolean>('http://localhost:5000/api/Auth').pipe(
+    return this.http.get<any>('http://localhost:5000/api/Auth').pipe(
+      map((response: any) => response.isLogged),
       catchError((error) => {
+        alert('Error occurred:'+ error.error.message);
         if (error.status === 401 || error.status === 500) {
           return of(false); 
         }
         const tokenExpiration = this.getUserFromToken()?.exp;
         const currentTimestamp = Math.floor(Date.now() / 1000);
-
         if (tokenExpiration && tokenExpiration < currentTimestamp) {
           return of(false); 
         }
@@ -107,6 +105,32 @@ export class AuthService {
       })
     );
   }
+  
+  
+
+  isLoggedIn2() {
+    return this.http.get<any>('http://localhost:5000/api/Auth').pipe(
+      tap((response:any) => {
+        return response.isLogged
+      }),
+      catchError((error) => {
+        alert('Error occurred:'+ error.error.message);
+        
+        if (error.status === 401 || error.status === 500) {
+          return of(false); 
+        }
+  
+        const tokenExpiration = this.getUserFromToken()?.exp;
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+  
+        if (tokenExpiration && tokenExpiration < currentTimestamp) {
+          return of(false); 
+        }
+        return of(false); 
+      })
+    );
+  }
+  
 
   getUserFromToken(): any | null {
     const token = localStorage.getItem('token');

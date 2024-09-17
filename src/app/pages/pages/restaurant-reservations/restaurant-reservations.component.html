@@ -53,8 +53,8 @@
         </td>
         
         <td>
-            <button *ngIf="r.IsAccepted || r.isRealised; else noRealised" disabled class="btn btn-primary" (click)="realised(r)">Realise</button>
-            <ng-template #noRealised><button class="btn btn-primary" (click)="realised(r)">Realise</button></ng-template>
+            <button *ngIf="ifRealised(r.isAccepted, r.isRealised); else noRealised" (click)="realised(r)" class="btn btn-primary">Realise</button>
+            <ng-template #noRealised><button class="btn btn-primary" disabled >Realise</button></ng-template>
         </td>
         
         <td>
@@ -76,3 +76,6 @@
 </div>
 </section>
 
+<div *ngIf="isLoaderVisible" class="loading-state">
+  <div class="loading"></div>
+</div>

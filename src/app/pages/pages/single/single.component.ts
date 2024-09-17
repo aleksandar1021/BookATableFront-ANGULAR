@@ -7,6 +7,7 @@ import { Reservation } from '../../../interfaces/reservation.interface';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
 import { development } from '../../../../environments/development';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single',
@@ -55,7 +56,8 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     private http: HttpClient,
     private authService: AuthService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private titleService: Title
   ) {
     this.reservationForm = this.fb.group({
       date: ['', Validators.required],
@@ -69,6 +71,8 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     this.form = new FormGroup({
       ratingMessage: new FormControl('')
     });
+    this.titleService.setTitle('Book a table | Single');
+
   }
 
   // onAppendiceChange(event: any): void {
@@ -199,6 +203,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
         }
       });
     } else {
+      this.start = false;
       this.message = 'Please fill out all required fields.';
     }
   }

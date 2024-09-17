@@ -7,7 +7,9 @@ import { AuthService } from './services/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, 
+              private router: Router
+            ) {}
 
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
@@ -17,4 +19,22 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   }
+
+  isAdmin() : boolean{
+    if(this.authService.isAdmin()){
+      return true
+    }else{
+      this.router.navigate(['/home']); 
+      return false
+    }
+  }
+
+  isRestaurantOwner() : boolean{
+    if(this.authService.isRestaurantOwner()){
+      return true
+    }else{
+      this.router.navigate(['/home']); 
+      return false
+    }
+  }
 }

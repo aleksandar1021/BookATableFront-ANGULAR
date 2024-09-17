@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from '../../../services/reservation.service';
 import { AuthService } from '../../../services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,17 +14,19 @@ export class ReservationsComponent implements OnInit{
   reservations : any = [];
   userId : any;
   apiUrlRestaurants = "http://localhost:5000/restaurantPhotos/";
+  isLoaderVisible = false
 
 
-
-  constructor(private reservationService: ReservationService, private authService: AuthService){
-
+  constructor(private titleService: Title,private reservationService: ReservationService, private authService: AuthService){
+    this.titleService.setTitle('Book a table | Reservations');
   }
 
   deleteReservation(reservationId: number) {
+    this.isLoaderVisible = true
     this.reservationService.deleteReservation(reservationId).subscribe(
       response => {
         this.reservations = this.reservations.filter((r: any) => r.id !== reservationId);
+        this.isLoaderVisible = false
       },
       error => {
         console.error('Error deleting reservation:', error);

@@ -7,6 +7,7 @@ import { MealCategoryService } from '../../../../services/mealCategory.service';
 import { development } from '../../../../../environments/development';
 import { HttpClient } from '@angular/common/http';
 import { DishService } from '../../../../services/dish.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-add-dish',
   templateUrl: './add-dish.component.html',
@@ -23,8 +24,13 @@ export class AddDishComponent {
   restaurantId: any;
 
 
-  constructor(private router:Router, private dishSerice: DishService, private http: HttpClient, private route: ActivatedRoute){
-
+  constructor(private router:Router, 
+              private dishSerice: DishService, 
+              private http: HttpClient, 
+              private route: ActivatedRoute,
+              private titleService: Title
+            ){
+    this.titleService.setTitle('Book a table | Add dish');
   }
 
   ngOnInit(): void {

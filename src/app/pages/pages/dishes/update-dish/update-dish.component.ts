@@ -7,6 +7,7 @@ import { MealCategoryService } from '../../../../services/mealCategory.service';
 import { development } from '../../../../../environments/development';
 import { HttpClient } from '@angular/common/http';
 import { DishService } from '../../../../services/dish.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-update-dish',
   templateUrl: './update-dish.component.html',
@@ -30,7 +31,12 @@ export class UpdateDishComponent {
   dish: any
 
 
-  constructor(private router:Router, private dishSerice: DishService, private http: HttpClient, private route: ActivatedRoute){
+  constructor(private router:Router, 
+              private dishSerice: DishService, 
+              private http: HttpClient, 
+              private route: ActivatedRoute,
+              private titleService: Title
+            ){
     this.createForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -50,6 +56,9 @@ export class UpdateDishComponent {
         
       ])
     });
+
+    this.titleService.setTitle('Book a table | Update dish');
+
   }
 
   ngOnInit(): void {

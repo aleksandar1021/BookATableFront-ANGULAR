@@ -6,6 +6,7 @@ import { development } from '../../../../environments/development';
 import { SearchService } from '../../../services/shared.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
@@ -26,9 +27,11 @@ export class RestaurantsClientComponent implements OnInit{
   constructor(private restaurantService:RestaurantService, 
              private genericService: GenericService,
              private authService: AuthService,
+             private titleService: Title
             ){
+              this.titleService.setTitle('Book a table | Restaurants');
 
-  }
+            }
 
   searchQuery: string = '';
 

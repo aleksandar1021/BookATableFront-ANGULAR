@@ -3,6 +3,7 @@ import { RestaurantService } from '../../../services/restaurant.service'
 import { AuthService } from '../../../services/auth.service'
 import { development } from '../../../../environments/development';
 import { Saved } from '../../../interfaces/saved.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-saved',
@@ -14,8 +15,11 @@ export class SavedComponent implements OnInit{
   apiUrlRestaurants : string = "http://localhost:5000/restaurantPhotos/"
 
 
-  constructor(private restaurantService: RestaurantService, private authService: AuthService){
-
+  constructor(private restaurantService: RestaurantService, 
+              private authService: AuthService,
+              private titleService: Title
+            ){
+    this.titleService.setTitle('Book a table | Saved');
   }
 
   ngOnInit(): void {
