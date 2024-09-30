@@ -30,6 +30,7 @@ export class ReservationsComponent implements OnInit{
       },
       error => {
         console.error('Error deleting reservation:', error);
+        this.isLoaderVisible = false
       }
     );
   }

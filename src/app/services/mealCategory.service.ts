@@ -13,7 +13,7 @@ export class MealCategoryService {
     constructor(private http: HttpClient) {}
 
     getMealCategories(): Observable<any> {
-        return this.http.get<any>(this.apiUrl);
+        return this.http.get<any>(this.apiUrl+`?perPage=999`);
     }
 
     create(cityObj: any): Observable<any> {

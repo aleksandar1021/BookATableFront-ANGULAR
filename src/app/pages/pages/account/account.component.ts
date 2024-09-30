@@ -14,14 +14,14 @@ export class AccountComponent implements OnInit {
   apiFileUpload = "http://localhost:5000/api/files"; 
   apiUpdateUser = "http://localhost:5000/api/users"; 
 
-  message: String = '';
-  errorMessage: String = '';
+  message: string = '';
+  errorMessage: string = '';
   user: any;
 
   firstName: any = '';
-  lastName : any = '';
-  email : any = '';
-  password :any = '';
+  lastName: any = '';
+  email: any = '';
+  password: any = '';
   rePassword = '';
   image = ''; 
   newImage = '';  
@@ -40,6 +40,12 @@ export class AccountComponent implements OnInit {
         this.lastName = response.lastName;
         this.email = response.email;
         this.image = response.image;  
+
+        this.registerForm.patchValue({
+          firstname: this.firstName,
+          lastname: this.lastName,
+          email: this.email
+        });
       },
       (error) => {
         console.error('There was an error', error);
@@ -84,8 +90,7 @@ export class AccountComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
     this.message = '';
-  
-    if (1) {
+    if (this.registerForm.valid) {
       this.updateUser();
     } else {
       this.errorMessage = 'Please fill all required fields correctly.';
@@ -93,7 +98,6 @@ export class AccountComponent implements OnInit {
   }
 
   updateUser() {
-
     this.firstName = this.registerForm.get('firstname')?.value ? this.registerForm.get('firstname')?.value : this.firstName;
     this.lastName = this.registerForm.get('lastname')?.value ? this.registerForm.get('lastname')?.value : this.lastName;
     this.email = this.registerForm.get('email')?.value ? this.registerForm.get('email')?.value : this.email;
@@ -104,10 +108,10 @@ export class AccountComponent implements OnInit {
       lastName: this.lastName,
       email: this.email,
       password: this.password,
-      image: this.newImage ? this.newImage : '' 
+      image: this.newImage ? this.newImage : ''
     };
   
-    this.errorMessage='';
+    this.errorMessage = '';
     this.message = '';
     this.authService.updateUser(userUpdateData, this.authService.getUserFromToken().Id).subscribe({
       next: (response) => {

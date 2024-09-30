@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
   getTrendyRestaurants(): void {
     this.restaurantService.getTrendyRestaurants().subscribe(
         (response: any) => {
-            this.trendyRestaurants = response; 
+            this.trendyRestaurants = response.data; 
         },
         (error) => {
             console.error('There was an error', error);
@@ -190,7 +190,7 @@ export class HomeComponent implements OnInit, AfterViewChecked{
       if (carousel.scrollLeft < maxScrollLeft) {
         timeoutId = window.setTimeout(() => {
           carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
-        }, 2500);
+        }, 5000);
       }
     }
 

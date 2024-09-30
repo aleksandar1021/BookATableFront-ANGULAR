@@ -19,7 +19,7 @@
     <div class="dropdown width">
         <label for="sortOptions">Sort by:</label>
         <select id="sortOptions" [(ngModel)]="selectedSortOption">
-            <option hidden value="">Izaberite opciju sortiranja</option>
+            <option hidden value="">Select a sort option</option>
             <option *ngFor="let option of sortOptions" [value]="option.value">{{option.label}}</option>
         </select>
     </div>

@@ -2,11 +2,11 @@
     <div class="table-agile-info">
 <div class="panel panel-default">
 <div class="panel-heading">
- Restaurant types
+ Restaurant reservations
 </div>
 
 <div class="inputCont">
-    <input class="searchInpur" type="text" placeholder="Search Restaurants" (input)="onInputChange($event)"/>
+    <input class="searchInpur" type="text" placeholder="Search reservations" (input)="onInputChange($event)"/>
 </div>
 
 <div>
@@ -21,6 +21,7 @@
         <th>Date</th>
         <th>Appendices</th>
         <th>Reservation code</th>
+        <th>Number of guests</th>
         <th>Note</th>
         <th>Accept</th>
         <th>Realise</th>
@@ -46,6 +47,7 @@
         </ng-template>
 
         <td>{{r.code}}</td>
+        <td>{{r.numberOfGuests}}</td>
         <td>{{r.note ? r.note : "/"}}</td>
         <td>
             <button *ngIf="!r.isAccepted; else noAccept"  class="btn btn-success" (click)="accept(r)">Accept</button>

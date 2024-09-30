@@ -18,6 +18,11 @@ export class GenericService {
     return this.http.delete<T>(url);
   }
 
+  deleteEntityAdmin<T>(id: number, endpoint: string, appendice: string): Observable<T> {
+    const url = `${this.baseUrl}${endpoint}/${id}/${appendice}`;
+    return this.http.delete<T>(url);
+  }
+
   gets<T>(url:string, perPage:number, keyword:string): Observable<T> {
     return this.http.get<T>(this.baseUrl+url+`?perPage=${perPage}&keyword=${keyword}`);
   }

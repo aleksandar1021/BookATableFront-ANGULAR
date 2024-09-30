@@ -6,7 +6,7 @@
         <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" class="book-right2">
           <div class="date-field">
             <label>Date :</label>
-            <input type="date" id="datepicker" formControlName="date" [attr.min]="minDate" [attr.max]="maxDate">
+            <input type="date" id="datepicker" formControlName="date" [min]="minDate" [max]="maxDate">
           </div>
           <div class="form-left">
             <label>No.of People :</label>
@@ -66,13 +66,18 @@
 
         <h2 *ngIf="restaurant?.rate">Rate:</h2>
         <h3>{{ restaurant?.rate | number: '1.1-1' }}</h3>
+
+        <h2>Working time:</h2>
+        <h3>{{restaurant?.workFromHour!='0'?restaurant?.workFromHour:'00'}}:{{restaurant?.workFromMinute!='0'?restaurant?.workFromMinute:'00'}} - {{restaurant?.workUntilHour!='0'?restaurant?.workUntilHour:'00'}}:{{restaurant?.workUntilMinute!='0'?restaurant?.workUntilMinute:'00'}}</h3>
+        
+
       </div>
 
     
 
 
     <div class="right">
-        <h2>Appemdices:</h2>
+        <h2>Appendices:</h2>
         <h3 *ngFor="let m of restaurant?.appendiceRestaurants">{{m.name}}</h3>
 
         <h2>Maximum number of guests:</h2>
@@ -81,7 +86,7 @@
         <h2  *ngIf="closedDaysString.length > 0">Closed days:</h2>
         <h3 style="color: red;" *ngFor="let c of closedDaysString">{{c}}</h3>
 
-        <h2>Addres:</h2>
+        <h2>Address:</h2>
         <h3>
             <span *ngIf="restaurant?.address.city.name">{{restaurant?.address.city.name}}</span>
             <span *ngIf="restaurant?.address.place">, {{restaurant?.address.place}}</span>
@@ -103,7 +108,7 @@
       <i id="left" class="fa-solid fa-angle-left"></i>
       <ul class="carousel">
         <li *ngFor="let image of restaurant?.restaurantImages" class="card">
-            <a href="{{apiUrlRestaurants}}{{image}}"><div class="img"><img src="{{apiUrlRestaurants}}{{image.path}}" alt="{{image.path}}" draggable="false"></div></a>
+            <a target="_blank" href="{{apiUrlRestaurants}}{{image.path}}"><div class="img"><img src="{{apiUrlRestaurants}}{{image.path}}" alt="{{image.path}}" draggable="false"></div></a>
         </li>
       </ul>
       <i id="right" class="fa-solid fa-angle-right"></i>

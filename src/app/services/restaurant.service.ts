@@ -61,7 +61,7 @@ export class RestaurantService {
     }
 
     getSaved(id : number): Observable<any> {
-        return this.http.get<any>(this.apiUrlSaved + `?userId=${id}`);
+        return this.http.get<any>(this.apiUrlSaved + `?userId=${id}&perPage=999`);
     }
 
     toggleSaveRestaurant(savedData: Saved) {
@@ -69,7 +69,7 @@ export class RestaurantService {
     }
 
 
-    getTrendyRestaurants(): Observable<any> {
+    getTrendyRestaurants2(): Observable<any> {
         return this.http.get<any>(this.apiUrl).pipe(
             map((response: any) => {
                 const restaurants = response.data;
@@ -83,6 +83,10 @@ export class RestaurantService {
         );
     }
 
+    getTrendyRestaurants(): Observable<ApiResponse<any[]>> {
+        return this.http.get<ApiResponse<any[]>>(this.apiUrl + `/Top?perPage=3`)
+        
+    }
     
 
 

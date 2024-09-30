@@ -40,12 +40,12 @@ export class UpdateRestaurantComponent implements OnInit {
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{1,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{1,69})*$/)
     ]),
     description: new FormControl('', [
       Validators.minLength(3),
       Validators.maxLength(200),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{1,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{1,69})*$/)
     ]),    
     workFromHour: new FormControl('', [Validators.required, Validators.min(0), Validators.max(23)]),
     workFromMinute: new FormControl('', [Validators.required, Validators.min(0), Validators.max(59)]),
@@ -415,4 +415,6 @@ export class UpdateRestaurantComponent implements OnInit {
       }
     });
   }
+
+  
 }

@@ -27,6 +27,6 @@ export class AppendiceService {
     }
 
     gets(): Observable<any> {
-        return this.http.get<any>(this.apiUrl);
+        return this.http.get<any>(this.apiUrl+`?perPage=999`);
     }
 }

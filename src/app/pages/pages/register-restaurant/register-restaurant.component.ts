@@ -4,7 +4,7 @@ import { CityService } from '../../../services/city.service';
 import { AuthService } from '../../../services/auth.service';
 import { RestaurantService } from '../../../services/restaurant.service'; 
 import { MealCategoryService } from '../../../services/mealCategory.service';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AppendiceService } from '../../../services/appendices.service';
 import { Title } from '@angular/platform-browser';
@@ -34,7 +34,7 @@ export class RegisterRestaurantComponent implements OnInit {
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{0,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{0,69})*$/)
     ]),
     description: new FormControl('', [
       Validators.minLength(3),
@@ -54,11 +54,11 @@ export class RegisterRestaurantComponent implements OnInit {
     addressOfPlace: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{1,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{1,69})*$/)
     ]),
     place: new FormControl('', [
       Validators.minLength(3),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{1,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{1,69})*$/)
     ]),
     number: new FormControl('', [
       Validators.pattern(/^[\s\S]{1,10}$/)
@@ -66,7 +66,7 @@ export class RegisterRestaurantComponent implements OnInit {
     floor: new FormControl('', [Validators.min(0), Validators.max(100)]),
     addressDescription: new FormControl('', [
       Validators.minLength(3),
-      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{2,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{2,69})*$/)
+      Validators.pattern(/^[A-ZŠĐČĆŽ][a-zšđčćžA-ZŠĐČĆŽ]{1,69}(\s[a-zšđčćžA-ZŠĐČĆŽ]{1,69})*$/)
     ]),
     images: new FormControl<string[] | null>(null, [Validators.required, this.imagesValidator])
 
@@ -85,10 +85,13 @@ export class RegisterRestaurantComponent implements OnInit {
     private restaurantService: RestaurantService,
     private http: HttpClient,
     private appendiceService: AppendiceService,
-    private titleService: Title
+    private titleService: Title,
+    private fb: FormBuilder
   ) {
     this.titleService.setTitle('Book a table | Register restaurant');
   }
+
+  
 
   ngOnInit(): void {
     this.getRestaurantTypes();
@@ -204,6 +207,21 @@ export class RegisterRestaurantComponent implements OnInit {
     );
   }
 
+  deselectAllCheckboxes(): void {
+    this.mealCategoryFormArray.controls.forEach((control) => {
+      control.setValue(false); 
+      control.updateValueAndValidity()
+    });
+  
+    this.appendiceFormArray.controls.forEach((control) => {
+      control.setValue(false); 
+      control.updateValueAndValidity()    
+    });
+  
+    this.selectedCategoryIds = []; 
+    this.selectedAppendiceIds = []; 
+  }
+
   initializeAppendiceFormArray(): void {
     const formArray = this.appendiceFormArray;
     this.appendices.forEach(() => {
@@ -248,6 +266,22 @@ export class RegisterRestaurantComponent implements OnInit {
 
     return AppendiceRestaurants;
   }
+  
+  resetCheckboxes(): void {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = false; 
+    });
+  
+    this.selectedCategoryIds = [];
+    this.selectedAppendiceIds = [];
+    this.selectedDays = [];
+  }
+
+  clearAppendices(): void {
+    const appendices: FormArray = this.registerForm.get('appendiceType') as FormArray;
+    appendices.clear();
+  }
 
   registerRestaurant(): void {
     this.markAllControlsAsTouched();
@@ -284,21 +318,18 @@ export class RegisterRestaurantComponent implements OnInit {
         (response) => {
           this.message = "You have successfully applied for a restaurant marketing permit, wait until the administrator checks the data and selects the restaurant if everything is in order.";
           
-          this.registerForm.reset();
+          this.registerForm.reset({
+            mealCategoryType: this.mealCategories.map(() => false),
+            appendiceType: this.appendices.map(() => false),
+          });
           this.mealCategoryFormArray.clear(); 
           this.appendiceFormArray.clear(); 
-          this.selectedCategoryIds = []; 
-          this.selectedAppendiceIds = []; 
-          
-          this.mealCategories.forEach(() => {
-            this.mealCategoryFormArray.push(new FormControl(false));
-          });
-          
-          this.appendices.forEach(() => {
-            this.appendiceFormArray.push(new FormControl(false));
-          });
-          
-          this.selectedDays = []; 
+         
+          this.resetCheckboxes()
+          this.clearAppendices()
+
+        
+
         },
         (error) => {
           console.error('Error registering restaurant', error);

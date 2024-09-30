@@ -73,6 +73,7 @@ export class ContactComponent {
           }
         },
         error: (error) => {
+          this.isLoaderVisible = false
           this.handleServerErrors(error);
         }
       });

@@ -55,7 +55,7 @@ export class UsersComponent implements OnInit{
   }
 
   delete(id: number) {
-    this.genericService.deleteEntity(id, 'Contacts').subscribe(
+    this.genericService.deleteEntityAdmin(id, 'Users', 'Admin').subscribe(
       response => {
         this.users = this.users.filter(x => x.id != id);
       },
@@ -68,4 +68,6 @@ export class UsersComponent implements OnInit{
       }
     );
   }
+
+  
 }

@@ -43,7 +43,7 @@ import { restaurantOwnerGuard } from './restaurant-owner.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'activateUser', component: ActivationUserComponent },
   { path: 'contact', component: ContactComponent },

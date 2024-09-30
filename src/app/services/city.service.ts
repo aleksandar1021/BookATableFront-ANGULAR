@@ -25,6 +25,6 @@ export class CityService {
     }
 
     getCities(): Observable<any> {
-        return this.http.get<any>(this.apiUrl);
+        return this.http.get<any>(this.apiUrl+`?perPage=999`);
     }
 }

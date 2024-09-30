@@ -107,13 +107,13 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-
+    
     this.minDate = tomorrow.toISOString().split('T')[0];
-  
-    const futureDate = new Date();
-    futureDate.setDate(tomorrow.getDate() + 20);
+    
+    const futureDate = new Date(tomorrow);
+    futureDate.setDate(tomorrow.getDate() + 20); 
+    
     this.maxDate = futureDate.toISOString().split('T')[0];
-  
     this.id = this.route.snapshot.queryParamMap.get('id');
   
     this.route.queryParams.subscribe(params => {
@@ -248,22 +248,34 @@ export class SingleComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  generateTimeSlots(workFromHour: number, workFromMinute: number, workUntilHour: number, workUntilMinute: number, timeInterval: number): string[] {
+  generateTimeSlots(
+    workFromHour: number,
+    workFromMinute: number,
+    workUntilHour: number,
+    workUntilMinute: number,
+    timeInterval: number
+  ): string[] {
     const slots: string[] = [];
     let startTime = workFromHour * 60 + workFromMinute;
     let endTime = workUntilHour * 60 + workUntilMinute;
-    const lastValidTime = endTime - 60;
-
-    while (startTime <= lastValidTime) {
-      const hours = Math.floor(startTime / 60);
+  
+    if (endTime < startTime) {
+      endTime += 24 * 60; 
+    }
+  
+    const latestTime = endTime - 60;
+  
+    while (startTime <= latestTime) {
+      const hours = Math.floor((startTime % (24 * 60)) / 60);
       const minutes = startTime % 60;
       const formattedTime = `${this.padZero(hours)}:${this.padZero(minutes)}`;
       slots.push(formattedTime);
       startTime += timeInterval;
     }
+    
     return slots;
   }
-
+  
   padZero(num: number): string {
     return num < 10 ? '0' + num : num.toString();
   }
@@ -299,9 +311,9 @@ export class SingleComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if(this.restaurant?.images?.length){
+    setTimeout(() => {
       this.initializeCarousel();
-    }
+    }, 1000); 
     if(this.restaurant?.ratings?.length){
       this.initializeCarousel1();
     }
@@ -358,7 +370,7 @@ export class SingleComponent implements OnInit, AfterViewChecked {
       if (carousel.scrollLeft < maxScrollLeft) {
         timeoutId = window.setTimeout(() => {
           carousel.scrollLeft = Math.min(carousel.scrollLeft + firstCardWidth, maxScrollLeft);
-        }, 2500);
+        }, 5000);
       }
     }
 
