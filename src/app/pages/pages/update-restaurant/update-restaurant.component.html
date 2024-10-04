@@ -241,10 +241,10 @@
           <input type="text" formControlName="addressOfPlace" id="addressOfPlace" placeholder="Address of restaurant">
         </div>
       </div>
-      <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
-        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</div>
-        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
-        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
+      <div *ngIf="registerForm.get('addressOfPlace')?.touched && registerForm.get('addressOfPlace')?.invalid">
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['required']">Name is required.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
       </div>
       <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.hasError('serverError')">
           {{ registerForm.get('addressOfPlace')?.getError('serverError') }}
