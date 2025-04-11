@@ -1,0 +1,59 @@
+<section class="wrapper" style="top: -200px !important; position: relative;">    
+    <div class="table-agile-info">
+<div class="panel panel-default">
+<div class="panel-heading">
+ Restaurant dishes
+</div>
+<div class="inputCont">
+    <input class="searchInpur" type="text" placeholder="Search dishes by name" (input)="onInputChange($event)"/>
+  </div>
+<div>
+  <table class="table" ui-jq="footable" *ngIf="dishes?.length; else noRestaurants">
+    <thead>
+      <tr>
+        <th data-breakpoints="xs">#</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let m of dishes; let i = index">
+        <td>{{i + 1}}</td>
+        <td class="image"><img src="{{url}}{{m.image}}" alt="{{m.name}}"></td>
+        <td>{{m.name}}</td>
+        <td>{{m.description}}</td>
+        <td>{{m.price}}</td>
+
+        <td>
+            <button type="button" routerLink="/updateDish/{{m.id}}" class="btn btn-warning">Edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(m.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noRestaurants>
+    <p class="alert-danger w-100 text-center">No results</p>
+  </ng-template>
+  <div *ngIf="isVisible" id="buttonContainer">
+      <button (click)="loadMore()" type="submit" class="sumbitButton">Load more</button>
+  </div>
+  
+</div>
+</div>
+
+<div class="inputCont">
+    <button routerLink="/addDish/{{restaurantId}}" type="button" class="btn btn-success">Add new dish</button>
+</div>
+
+
+<p class="text-danger">{{errorMessage}}</p>
+</div>
+</section>
+

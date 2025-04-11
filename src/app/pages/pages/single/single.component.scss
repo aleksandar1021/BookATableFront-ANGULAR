@@ -1,0 +1,532 @@
+.container {
+    display: flex;
+    padding: 0 35px;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+  }
+  .card{
+      background-color: #eeeeee;
+      // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      padding: 0px !important;
+  }
+  .wrapper {
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+  }
+  .wrapper i {
+    top: 50%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+    transform: translateY(-50%);
+    transition: transform 0.1s linear;
+  }
+  .wrapper i:active{
+    transform: translateY(-50%) scale(0.85);
+  }
+  .wrapper i:first-child{
+    left: -22px;
+  }
+  .wrapper i:last-child{
+    right: -22px;
+  }
+  #left{
+      z-index: 100 !important;
+  }
+  .wrapper .carousel{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% / 3) - 12px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel.no-transition {
+    scroll-behavior: auto;
+  }
+  .carousel.dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+  .carousel.dragging .card {
+    cursor: grab;
+    user-select: none;
+  }
+  .carousel :where(.card, .img) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .carousel .card {
+    scroll-snap-align: start;
+    height: 342px;
+    list-style: none;
+    cursor: pointer;
+    padding-bottom: 15px;
+    flex-direction: column;
+  }
+//   .carousel .card .img {
+//     background: #d2252b;
+//     height: 148px;
+//     width: 148px;
+//     border-radius: 50%;
+//   }
+  .card .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 4px solid #fff;
+  }
+
+  .card .img {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border: 4px solid #fff;
+  }
+
+  .card a {
+    width: 100%;
+    height: 100%;
+
+  }
+
+  .card {
+    width: 100% !important;
+    height: 100% !important;
+
+  }
+  
+  
+  
+  @media screen and (max-width: 900px) {
+    .wrapper .carousel {
+      grid-auto-columns: calc((100% / 2) - 9px);
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .wrapper .carousel {
+      grid-auto-columns: 100%;
+    }
+  }
+  
+  .containerHeadeing{
+      width: 80%;
+      margin: 0px auto;
+      text-align: center;
+  }
+  
+  .containerHeadeing > h1{
+      font-size: 40px;
+      font-weight: 550;
+  }
+  
+
+  /////
+  
+  //@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+  // VARIABLES
+  $bg: url("https://wallpaperscraft.com/image/coffee_coffee_beans_cupcake_candy_93301_1920x1080.jpg") no-repeat center;
+  $food: url("http://img.taste.com.au/UZVXAdo7/taste/2016/11/chinese-egg-noodle-and-vegetable-stir-fry-94186-1.jpeg") no-repeat center;
+  
+
+  // COLORS
+  $white: #fff;
+  $black: #212129;
+  $gray: #9B9B9B;
+  $heart: #17BEBB;
+  $star: #FFE500;
+  $button: #EF3E36;
+  
+ 
+  
+  
+  
+  .text{
+    min-height: 150px;
+  }
+  
+  
+  .coin{
+    width: 30px;
+  }
+  .price{
+    margin-left: 30px;
+  }
+
+  .food{
+    margin-top: 15px !important;
+  }
+  
+  .card1 {
+     position: relative;
+     background: $white;
+     width: 250px;
+     margin: 20px auto;
+     box-shadow: 0px 0px 10px 2px #7d7d7d;
+     object-fit: cover;
+     .header {
+        // background: $food;
+        background-size: cover;
+        min-height: 250px;
+           .icon a .fa-heart-o {
+           position: absolute;
+           left: 85%;
+           bottom: 30.7%;
+           background: $heart;
+           color: $white;
+           font-size: 1.3em;
+           font-weight: bold;
+           padding: 15px;
+           border-radius: 50%;
+           box-shadow: 0px 5px 30px 1px $heart;
+        }
+        img{
+          width: 100%;
+          height: 250px;
+        }
+     }
+     .text {
+        .food {
+           color: $black;
+           text-align: left;
+           font-weight: normal;
+           text-transform: uppercase;
+           letter-spacing: 0.1em;
+           margin: 5px 30px;
+        }
+        .fa-clock-o {
+           color: $gray;
+           margin: 0 30px;
+        }
+        .fa-users {
+           color: $gray;
+        }
+     }
+     
+     .info {
+        margin: 10px 30px;
+     }
+     a.btn {
+        display: block;
+        background: $button;
+        color: $white;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-align: center;
+        padding: 10px;
+        transition: 250ms;
+        &:hover {
+           background: $heart;
+           transition: 250ms;
+        }
+     }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+.reservation{
+    margin-top: -120px !important;
+}
+
+.containerReservation{
+    width: 60%;
+    margin: 0px auto;
+}
+
+.space{
+    margin-top: 100px;
+}
+
+.message{
+  text-align: center;
+  padding: 30px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+}
+.container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 59%;
+  margin: 0px auto;
+}
+
+.left, .right {
+  width: 45%;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  min-height: 500px !important;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+h3 span {
+  font-weight: 500;
+  color: #555;
+}
+
+@media screen and (max-width: 1000px) {
+  .container2 {
+    flex-direction: column;
+  }
+  .left, .right{
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/// comments css
+
+
+.container1 {
+  display: flex;
+  padding: 0 35px;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+.card1{
+    background-color: #eeeeee;
+    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.wrapper1 {
+  max-width: 1100px;
+  width: 100%;
+  position: relative;
+}
+.wrapper1 i {
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  position: absolute;
+  text-align: center;
+  line-height: 50px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+  transform: translateY(-50%);
+  transition: transform 0.1s linear;
+}
+.wrapper1 i:active{
+  transform: translateY(-50%) scale(0.85);
+}
+.wrapper1 i:first-child{
+  left: -22px;
+}
+.wrapper1 i:last-child{
+  right: -22px;
+}
+#left1{
+    z-index: 100 !important;
+}
+.wrapper1 .carousel1{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% / 3) - 12px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.carousel1::-webkit-scrollbar {
+  display: none;
+}
+.carousel1.no-transition {
+  scroll-behavior: auto;
+}
+.carousel1.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+.carousel1.dragging .card1 {
+  cursor: grab;
+  user-select: none;
+}
+.carousel1 :where(.card, .img) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel1 .card {
+  scroll-snap-align: start;
+  height: 342px;
+  list-style: none;
+  cursor: pointer;
+  padding-bottom: 15px;
+  flex-direction: column;
+}
+.carousel1 .card1 .img1 {
+  background: #d2252b;
+  height: 106px;
+  width: 106px;
+  border-radius: 50%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.card1 .img1 img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+}
+.carousel1 .card1 h2 {
+  font-weight: 500;
+  font-size: 1.56rem;
+  margin: 30px 0 5px;
+}
+.carousel1 .card1 span {
+  color: #6A6D78;
+  font-size: 1.31rem;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper1 .carousel1 {
+    grid-auto-columns: calc((100% / 2) - 9px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper1 .carousel1 {
+    grid-auto-columns: 100%;
+  }
+}
+
+.stars img{
+  width: 30px;
+  margin-right: 5px;
+}
+
+.stars{
+  width: 70%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.card1 h1{
+  text-align: center;
+  color: #d2252b;
+  font-size: 22px;
+}
+
+.card1 p{
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  min-height: 60px;
+}
+
+.card1{
+  list-style-type: none !important;
+}
+
+.super{
+  text-align: left !important;
+}
+
+#formContainer{
+  margin-top: 50px;
+}
+
+#hedding2{
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.stars2 img{
+  width: 30px;
+  margin-right: 5px;
+  margin-right: 20px;
+  transition: transform 0.2s;
+}
+
+.stars2 img:last-child{
+  margin-right: 0px;
+}
+.stars2{
+  width: 70%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+#hedding{
+  color: #000;
+  font-size: 25px;
+}
+
+.stars2 img:hover {
+  transform: scale(1.2);
+}
+
+.appendices{
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+.appendices label{
+  margin-top: 16px;
+}
+
+.spiner{
+  width: 100px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.sp{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}

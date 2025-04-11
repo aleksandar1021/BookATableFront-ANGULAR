@@ -1,0 +1,431 @@
+<div id="formContainer">
+    <div id="logoContainer">
+      <img id="logo" src="assets/images/logo.png" alt="Restaurant Logo">
+    </div>
+  
+    <p id="hedding">The exit you deserve</p>
+
+    <p id="hedding2">Update restaurant</p>
+  
+    <form [formGroup]="registerForm" id="register-form" (ngSubmit)="registerRestaurant()">
+      <!-- Restaurant Name -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/text.png" alt="Name Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="name" id="name" placeholder="Restaurant Name">
+        </div>
+      </div>
+      <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('name')?.hasError('serverError')">
+          {{ registerForm.get('name')?.getError('serverError') }}
+      </div>
+
+  
+      <!-- Description -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/text.png" alt="Description Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="description" id="description" placeholder="Restaurant Description">
+        </div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('description')?.hasError('pattern') && registerForm.get('description')?.touched">
+        Description must start with a capital letter and be at least 3 characters long, maximum 200.
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('description')?.hasError('serverError')">
+          {{ registerForm.get('description')?.getError('serverError') }}
+      </div>
+
+
+  
+      <!-- Working Hours -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workFromHour" min="0" max="23" id="workFromHour" placeholder="Work from (Hour)">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('workFromHour')?.hasError('required') && registerForm.get('workFromHour')?.touched">
+        Work from (hour) is required.
+      </div>
+
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('workFromHour')?.hasError('min') || registerForm.get('workFromHour')?.hasError('max')) && registerForm.get('workFromHour')?.touched">
+        Work from (hour) must be between 0 and 23.
+      </div>
+
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('workFromHour')?.hasError('serverError')">
+        {{ registerForm.get('workFromHour')?.getError('serverError') }}
+      </div>
+
+
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workFromMinute" min="0" max="59" id="workFromMinute" placeholder="Work from (Minute)">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('workFromMinute')?.hasError('required') && registerForm.get('workFromMinute')?.touched">
+        Work from (minute) is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('workFromMinute')?.hasError('min') || registerForm.get('workFromMinute')?.hasError('max')) && registerForm.get('workFromMinute')?.touched">
+        Work from (minute) must be between 0 and 23.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('workFromMinute')?.hasError('serverError')">
+        {{ registerForm.get('workFromMinute')?.getError('serverError') }}
+      </div>
+
+
+
+
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workUntilHour" min="0" max="23" id="workUntilHour" placeholder="Work until (Hour)">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('workUntilHour')?.hasError('required') && registerForm.get('workUntilHour')?.touched">
+        Work until (hour) is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('workUntilHour')?.hasError('min') || registerForm.get('workUntilHour')?.hasError('max')) && registerForm.get('workUntilHour')?.touched">
+        Work until (hour) must be between 0 and 23.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('workUntilHour')?.hasError('serverError')">
+        {{ registerForm.get('workUntilHour')?.getError('serverError') }}
+      </div>
+
+
+
+  
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="workUntilMinute" min="0" max="59" id="workUntilMinute" placeholder="Work until (Minute)">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('workUntilMinute')?.hasError('required') && registerForm.get('workUntilMinute')?.touched">
+        Work until (minute) is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('workUntilMinute')?.hasError('min') || registerForm.get('workUntilMinute')?.hasError('max')) && registerForm.get('workUntilMinute')?.touched">
+        Work until (minute) must be between 0 and 23.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('workUntilMinute')?.hasError('serverError')">
+        {{ registerForm.get('workUntilMinute')?.getError('serverError') }}
+      </div>
+
+
+  
+      <!-- Time Interval -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/clock.png" alt="Clock Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" step="10" formControlName="timeInterval" min="10" max="60" id="timeInterval" placeholder="Time interval between reservations">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('timeInterval')?.hasError('required') && registerForm.get('timeInterval')?.touched">
+        Time interval between reservations is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('timeInterval')?.hasError('min') || registerForm.get('timeInterval')?.hasError('max')) && registerForm.get('timeInterval')?.touched">
+          Time interval between reservations is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('timeInterval')?.hasError('serverError')">
+        {{ registerForm.get('timeInterval')?.getError('serverError') }}
+      </div>
+
+      
+  
+      <!-- Maximum Number of Guests -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/number.png" alt="Guests Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="maxNumberOfGuests" min="1" id="maxNumberOfGuests" placeholder="Maximum number of guests">
+        </div>
+      </div>
+
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('maxNumberOfGuests')?.hasError('required') && registerForm.get('maxNumberOfGuests')?.touched">
+        Maximum number of guests is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('maxNumberOfGuests')?.hasError('min') || registerForm.get('maxNumberOfGuests')?.hasError('max')) && registerForm.get('maxNumberOfGuests')?.touched">
+          Maximum number of guests is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('maxNumberOfGuests')?.hasError('serverError')">
+        {{ registerForm.get('maxNumberOfGuests')?.getError('serverError') }}
+      </div>
+
+
+  
+      <!-- Restaurant Type -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/restaurant.png" alt="Restaurant Icon">
+        </div>
+        <div class="inputFiled">
+          <select formControlName="restaurantType" id="restaurantType">
+            <option hidden value="">Select restaurant type</option>
+            <option *ngFor="let type of restaurantTypes" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="errorMessage" *ngIf="registerForm.get('restaurantType')?.hasError('required') && registerForm.get('restaurantType')?.touched">
+        Restaurant type is required.
+      </div>
+
+
+       <!-- Restaurant city -->
+       <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Restaurant Icon">
+        </div>
+        <div class="inputFiled">
+          <select formControlName="city" id="city">
+            <option hidden value="">Select city</option>
+            <option *ngFor="let c of cities" [value]="c.id">{{ c.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="errorMessage" *ngIf="registerForm.get('city')?.hasError('required') && registerForm.get('city')?.touched">
+        City is required.
+      </div>
+
+       <!-- Address of restaurant -->
+       <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Description Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="addressOfPlace" id="addressOfPlace" placeholder="Address of restaurant">
+        </div>
+      </div>
+      <div *ngIf="registerForm.get('addressOfPlace')?.touched && registerForm.get('addressOfPlace')?.invalid">
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['required']">Name is required.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.errors?.['pattern']">Name must start with a capital letter and be at least 3 characters long, maximum 70.</div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('addressOfPlace')?.hasError('serverError')">
+          {{ registerForm.get('addressOfPlace')?.getError('serverError') }}
+      </div>
+
+      <!-- Place of restaurant -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Description Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="place" id="place" placeholder="Place of restaurant (optional)">
+        </div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('place')?.hasError('pattern') && registerForm.get('place')?.touched">
+        Place must start with a capital letter and be at least 3 characters long, maximum 70.
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('place')?.hasError('serverError')">
+          {{ registerForm.get('place')?.getError('serverError') }}
+      </div>
+      
+
+
+       <!-- Address number -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Description Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="number" id="number" placeholder="Number of address (optional)">
+        </div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('number')?.hasError('pattern') && registerForm.get('number')?.touched">
+        Number must 1 characters long, maximum 10.
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('number')?.hasError('serverError')">
+          {{ registerForm.get('number')?.getError('serverError') }}
+      </div>
+
+
+       
+      <!-- floor -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Guests Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="number" formControlName="floor" min="0" id="floor" placeholder="Floor (optional)">
+        </div>
+      </div>
+      <div class="errorMessage" 
+        *ngIf="registerForm.get('floor')?.hasError('required') && registerForm.get('floor')?.touched">
+        Select floor..
+      </div>
+      <div class="errorMessage" 
+          *ngIf="(registerForm.get('floor')?.hasError('min') || registerForm.get('floor')?.hasError('max')) && registerForm.get('floor')?.touched">
+          Maximum number of guests is required.
+      </div>
+      <div class="errorMessage" 
+          *ngIf="registerForm.get('floor')?.hasError('serverError')">
+        {{ registerForm.get('floor')?.getError('serverError') }}
+      </div>
+
+
+      <!-- description -->
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/location.png" alt="Guests Icon">
+        </div>
+        <div class="inputFiled">
+          <input type="text" formControlName="addressDescription" id="addressDescription" placeholder="Address description (optional)">
+        </div>
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('addressDescription')?.hasError('pattern') && registerForm.get('addressDescription')?.touched">
+        Place must start with a capital letter and be at least 3 characters long, maximum 70.
+      </div>
+      <div class="errorMessage" *ngIf="registerForm.get('addressDescription')?.hasError('serverError')">
+          {{ registerForm.get('addressDescription')?.getError('serverError') }}
+      </div>
+
+      <!-- IMAGES -->
+       
+      <div class="mb-3 customInput">
+        <div class="iconFormsCustom">
+          <img src="assets/icons/image.png" alt="Image Icon">
+        </div>
+        <div class="inputFiled" style="margin-top: 12px;">
+          <input type="file" (change)="onFilesSelected($event)" multiple>
+        </div>
+      </div>
+      <div *ngIf="registerForm.get('images')?.hasError('required') && registerForm.get('images')?.touched">
+        <div class="errorMessage">At least one image is required.</div>
+      </div>
+
+      <div class="cont">
+        <img class="img" *ngFor="let i of oldImages" src="{{url + i}}" alt="{{i}}">
+
+        <img class="img" *ngFor="let i of uploadedImagePaths" src="{{temp + i}}" alt="{{i}}">
+      </div>
+  
+      <!-- Meal Categories -->
+      <div class="customInput noMargin">
+        <h4>Select meal categories</h4>
+      </div>
+      
+      <div class="mealCategory" *ngFor="let category of mealCategories; let i = index">
+        <label>
+          <input *ngIf="selectedCategoryIds.includes(category.id); else noChecked"
+            type="checkbox" checked="checked"
+            [value]="category.id"
+            (change)="onCheckboxChange($event, category.id)"
+          > 
+          <ng-template #noChecked>
+            <input 
+            type="checkbox" 
+            [value]="category.id"
+            (change)="onCheckboxChange($event, category.id)"
+          >
+          </ng-template>
+          
+          {{ category.name }}
+        </label>
+      </div>
+
+      
+
+      <!-- Appendices -->
+      <div class="customInput noMargin">
+        <h4>Select Appendices</h4>
+      </div>
+      
+      <div class="mealCategory" *ngFor="let a of appendices; let i = index">
+        <label>
+            <input *ngIf="selectedAppendiceIds.includes(a.id); else noChecked"
+            type="checkbox" checked="checked"
+            [value]="a.id"
+            (change)="onCheckboxChange2($event, a.id)"
+          > 
+          <ng-template #noChecked>
+            <input 
+            type="checkbox" 
+            [value]="a.id"
+            (change)="onCheckboxChange2($event, a.id)"
+          >
+          </ng-template>
+          
+          {{ a.name }}
+        </label>
+      </div>
+
+      <!-- Closed days -->
+      <div class="customInput noMargin">
+        <h4>Closed days</h4>
+      </div>
+      <div class="mealCategory" *ngFor="let day of daysOfWeek; let i = index">
+        <label>
+            <input *ngIf="selectedDays.includes(i); else noChecked"
+            type="checkbox" checked="checked"
+            [value]="i"
+            (change)="onDayChange($event, i)"
+          > 
+          <ng-template #noChecked>
+            <input 
+            type="checkbox" 
+            [value]="i"
+            (change)="onDayChange($event, i)"
+          >
+          </ng-template>
+          
+          {{ day }}
+        </label>
+      </div>
+  
+      <!-- Submit Button -->
+      <div id="buttonContainer">
+        <button type="submit" class="sumbitButton">Update</button>
+      </div>  
+      <!-- Error Messages -->
+      <div class="errorMessage" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div *ngIf="message" class="successMessage">{{message}}</div>
+
+    </form>
+  </div>
+  

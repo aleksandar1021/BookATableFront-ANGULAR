@@ -1,0 +1,114 @@
+
+<div class="agile-banner-main" id="home">
+    <div class="banner-layer">
+        <div class="header-main">
+            <div class="container">
+                <nav class="navbar navbar-default">
+                    <!-- navbar-header -->
+                    <div class="" id="navbarEdited">
+                        <a href="/home"><div id="logo">
+                            <img src="assets/images/logo.png" alt="logo">
+                        </div></a>
+                       
+
+                        <ul class="nav navbar-nav navbar-right" id="links">
+                            <li *ngFor="let item of filteredNavItems" class="scroll hvr-underline-from-center">
+                                <a [routerLink]="item.route">{{ item.name }}</a>
+                            </li>
+                        </ul>
+
+
+                        <ul *ngIf="!isLogged" class="list-right">
+                            <a href="/login">
+                                <button id="loginLink">
+                                    Login
+                                </button>
+                            </a>
+                        </ul>
+
+                        <div class="blocks" *ngIf="isLogged">
+                            <ul *ngIf="isLogged" (click)="logout()" class="list-right">
+                                <a>
+                                    <button id="logoutLink">
+                                        Logout
+                                    </button>
+                                </a>
+                            </ul>
+    
+                            <ul *ngIf="!isRestaurantOwner" class="list-right">
+                                <a routerLink="/registerRestaurant">
+                                    <button style="width: 170px;" class="regLink">
+                                        Create a restaurant
+                                    </button>
+                                </a>
+                            </ul>
+
+                            <ul *ngIf="isAdmin" class="list-right">
+                                <a routerLink="/admin/restaurants">
+                                    <button style="width: 120px;" class="regLink">
+                                        Admin panel
+                                    </button>
+                                </a>
+                            </ul>
+
+                            <ul *ngIf="isRestaurantOwner" class="list-right">
+                                <a routerLink="/restaurants">
+                                    <button style="width: 120px;" class="regLink">
+                                        Dashboard
+                                    </button>
+                                </a>
+                            </ul>
+                        </div>
+
+                        <div class="navbar-header">
+                            <button (click)="toggleNavbar()" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+    
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix"> </div>
+                </nav>
+                <div class="clearfix"> </div>
+            </div>
+
+            <div *ngIf="isNavbarVisible" id="toggleNavbar">
+                <ul class="nav navbar-nav navbar-right" id="links2">
+                    <li class="scroll hvr-underline-from-center">
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a class="scroll hvr-underline-from-center" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="scroll hvr-underline-from-center" href="#menu">Menu</a>
+                    </li>
+                    <li>
+                        <a class="scroll hvr-underline-from-center" href="#team">Team</a>
+                    </li>
+                    <li>
+                        <a class="scroll hvr-underline-from-center" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li>
+                        <a class="scroll hvr-underline-from-center" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- //menu -->
+        <!-- banner -->
+       
+
+        <div class="clearfix"> </div>
+       
+    </div>
+
+    
+</div>
+

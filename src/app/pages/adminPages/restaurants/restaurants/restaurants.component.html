@@ -1,0 +1,70 @@
+<section class="wrapper">    
+    <div class="table-agile-info">
+<div class="panel panel-default">
+<div class="panel-heading">
+ Restaurants
+ 
+</div>    
+
+<div class="inputCont">
+  <input class="searchInpur" type="text" placeholder="Search Restaurants" (input)="onInputChange($event)"/>
+</div>
+
+<div>
+  <table *ngIf="restaurants?.length; else noRestaurants" class="table" ui-jq="footable">
+    <thead>
+      <tr>
+        <th data-breakpoints="xs">#</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Working time</th>
+        <th>Restaurant type</th>
+        <th>Max guestes</th>
+        <th>Interval</th>
+        <th>User</th>
+        <th>Read more</th>
+        <th>Activate</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of restaurants; let i = index">
+        <td>{{i + 1}}</td>
+        <td class="image">
+            <img *ngIf="r.primaryImagePath; else noImage" src="{{url}}{{r.primaryImagePath}}" alt="{{r.name}}">
+            <ng-template #noImage><img class="im" src="assets/images/d.jpg" alt="{{r.name}}" draggable="false"></ng-template>
+        </td>
+        <td>{{r.name}}</td>
+        <td>{{r.workFromHour!='0'?r.workFromHour:'00'}}:{{r.workFromMinute!='0'?r.workFromMinute:'00'}} - {{r.workUntilHour!='0'?r.workUntilHour:'00'}}:{{r.workUntilMinute!='0'?r.workUntilMinute:'00'}}</td>
+        <td>{{r.restaurantType}}</td>
+        <td>{{r.maxNumberOfGuests}}</td>
+        <td>{{r.timeInterval}}</td>
+        <td>{{r.user.email}}</td>
+        <td>
+          <button type="button" routerLink="/admin/readMore/{{r.id}}" class="btn btn-warning" >Read more</button>
+      </td>
+        <td>
+          <button class="btn btn-success" [disabled]="r.isActivated" *ngIf="r.isActivated; else noToActivate" disabled>Activate</button>
+          <ng-template #noToActivate><button class="btn btn-success"  (click)="activate(r)">Activate</button></ng-template>
+        </td>
+        
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(r.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noRestaurants>
+    <p class="alert-danger w-100 text-center">No results</p>
+  </ng-template>
+  <div *ngIf="isVisible" id="buttonContainer">
+      <button (click)="loadMore()" type="submit" class="sumbitButton">Load more</button>
+  </div>
+</div>
+
+</div>
+<!-- <button routerLink="/admin/addMealCategory" type="button" class="btn btn-success">Add new meal category</button> -->
+<!-- <p class="text-danger">{{errorMessage}}</p> -->
+</div>
+</section>
+

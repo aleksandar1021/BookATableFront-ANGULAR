@@ -1,0 +1,103 @@
+<div class="wrap">
+    <div class="search">
+      <input type="text" class="searchTerm" [formControl]="searchControl" placeholder="Search restaurants">
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+    <div *ngIf="(searchResults$ | async)?.length ?? 0" class="resultContainer">
+        <a href="/single?id={{result.id}}" *ngFor="let result of searchResults$ | async">
+            <div  class="searchResults">
+                {{ result.name }}
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="containerHeadeing">
+    <h1>Categories</h1>
+</div>
+<div class="container">
+    <div class="wrapper">
+      <i id="left" class="fa-solid fa-angle-left"></i>
+      <ul class="carousel">
+        <li *ngFor="let mealCat of mealCategories" class="card">
+            <a href="/search?mealCategoryId={{mealCat.id}}"><div class="img"><img src="{{apiUrlMealCategories}}{{mealCat.image}}" alt="{{mealCat.name}}" draggable="false"></div></a>
+          <h2></h2>
+          <a href="/search?mealCategoryId={{mealCat.id}}"><span>{{mealCat.name}}</span></a>
+        </li>
+      </ul>
+      <i id="right" class="fa-solid fa-angle-right"></i>
+    </div>
+</div>
+
+<!-- Trendy restaurants -->
+
+<div class="containerHeadeing spacer">
+    <h1>Trendy restaurants</h1>
+</div>
+
+<div class="container">
+    <div class="wrapper1">
+      <ul class="carousel1">
+        
+          <li *ngFor="let restaurant of trendyRestaurants" class="card1">
+            <a  href="/single?id={{restaurant.id}}">
+              <div class="img">
+                <img class="im" *ngIf="restaurant.primaryImagePath; else noImage" src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.name}}" draggable="false">
+                <ng-template #noImage><img class="im" src="assets/images/d.jpg" alt="{{restaurant.name}}" draggable="false"></ng-template>
+              </div>
+            </a>               
+            <h2>{{restaurant.name}}</h2>
+              <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img *ngIf="restaurant.rate >= 4" src="assets/icons/star.png" alt="star"></span>
+              <div *ngIf="isLogged">
+                <img  *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
+                <ng-template #notSaved >
+                <img class="heart" src="assets/icons/heart.png" alt="heart" (click)="toggleSave(restaurant)">
+                </ng-template>
+              </div>
+          </li>
+      
+      </ul>
+    </div>
+</div>
+<div id="buttonContainer">
+    <button routerLink="/search" type="submit" class="sumbitButton">See more</button>
+</div>
+
+
+
+
+<div class="containerHeadeing spacer">
+    <h1>Newest restaurants</h1>
+</div>
+
+<div class="container">
+    <div class="wrapper1">
+      <ul class="carousel1">
+        
+            <li *ngFor="let restaurant of newestRestaurants" class="card1">
+              <a  href="/single?id={{restaurant.id}}">
+                <div class="img">
+                  <img class="im" *ngIf="restaurant.primaryImagePath; else noImage" src="{{apiUrlRestaurants}}{{restaurant.primaryImagePath}}" alt="{{restaurant.name}}" draggable="false">
+                  <ng-template #noImage><img class="im" src="assets/images/d.jpg" alt="{{restaurant.name}}" draggable="false"></ng-template>
+                </div>
+              </a>                
+              <h2>{{restaurant.name}}</h2>
+                <span><i class="zmdi zmdi-star"></i> &nbsp; {{restaurant.rate}} &nbsp; <img *ngIf="restaurant.rate >= 4" src="assets/icons/star.png" alt="star"></span>
+                <div *ngIf="isLogged">
+                  <img  *ngIf="restaurant.isSaved; else notSaved" class="heart" src="assets/icons/allHeart.png" alt="heart" (click)="toggleSave(restaurant)">
+                  <ng-template #notSaved >
+                  <img class="heart" src="assets/icons/heart.png" alt="heart" (click)="toggleSave(restaurant)">
+                  </ng-template>
+                </div>
+            </li>
+        
+      </ul>
+    </div>
+</div>
+<div id="buttonContainer">
+    <a href="search?&sorts[0].sortProperty=created&sorts[0].direction=Desc"><button type="submit" class="sumbitButton">See more</button></a>
+</div>
+
+

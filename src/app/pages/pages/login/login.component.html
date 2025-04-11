@@ -1,0 +1,52 @@
+<div id="formContainer">
+    <div id="logoContainer">
+        <img id="logo" src="assets/images/logo.png" alt="">
+    </div>
+
+
+    <p id="hedding">The exit you deserve</p>
+
+    <p id="hedding2">Login now</p>
+    <form [formGroup]="loginForm" id="register-form" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-3" class="customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/email.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+              <input type="text" name="email" id="email" formControlName="email" placeholder="Email">
+            </div>
+        </div>
+        <div class="errorMessage" *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+            Enter a valid email.
+        </div>
+        <div class="errorMessage" *ngIf="loginForm.get('email')?.hasError('serverError')">
+            {{ loginForm.get('email')?.getError('serverError') }}
+        </div>
+        
+        <div class="mb-3" class="customInput">
+            <div class="iconFormsCustom">
+                <img src="assets/icons/key.png" alt="icon">
+            </div>
+            <div class="inputFiled">
+              <input type="password" name="password" id="password" formControlName="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="errorMessage" *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
+            Password must contains minimum 8 characters, one capital letter ant one special character.
+        </div>
+        <div class="errorMessage" *ngIf="loginForm.get('password')?.hasError('serverError')">
+            {{ loginForm.get('password')?.getError('serverError') }}
+        </div>
+
+        <div *ngIf="message" class="successMessage">{{message}}</div>
+
+        <div *ngIf="errorMessage" class="errorMessage">{{errorMessage}}</div>
+
+        <div id="buttonContainer">
+            <button type="submit" class="sumbitButton">Login</button>
+        </div>
+
+        <p id="registerTitle">Don’t you have an account? <a id="link" href="/register">Sign up</a></p>
+    </form>
+</div>

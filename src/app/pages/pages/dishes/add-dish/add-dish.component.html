@@ -1,0 +1,73 @@
+<section class="panel" style="padding-top: 100px;" style="top: -120px !important; position: relative;">
+    <header class="panel-heading">
+        Add new dish
+    </header>
+    <div class="panel-body">
+        <div class="position-center">
+            <form class="form-horizontal" role="form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Name</label>
+                <div class="col-lg-10">
+                    <input type="text" formControlName="name" class="form-control" id="inputEmail1" placeholder="Name">
+                    <div class="errorMessage" *ngIf="createForm.get('name')?.hasError('pattern') && createForm.get('name')?.touched">
+                        <p class="">Name must start with a capital letter and be length between 3 and 100 characters long.</p>
+                    </div>
+                    <div class="errorMessage" *ngIf="createForm.get('name')?.hasError('serverError')">
+                        <p class="color-danger">{{ createForm.get('name')?.getError('serverError') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Description</label>
+                <div class="col-lg-10">
+                    <input type="text" formControlName="description" class="form-control" id="inputEmail1" placeholder="Description">
+                    <div class="errorMessage" *ngIf="createForm.get('description')?.hasError('pattern') && createForm.get('description')?.touched">
+                        <p class="">Description must start with a capital letter and be length between 3 and 70 characters long.</p>
+                    </div>
+                    <div class="errorMessage" *ngIf="createForm.get('description')?.hasError('serverError')">
+                        <p class="color-danger">{{ createForm.get('description')?.getError('serverError') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Price</label>
+                <div class="col-lg-10">
+                    <input type="text" formControlName="price" class="form-control" id="inputEmail1" placeholder="Price">
+                    <div class="errorMessage" *ngIf="createForm.get('price')?.hasError('pattern') && createForm.get('price')?.touched">
+                        <p class="">The number can contain a decimal point, but it must not be longer than 10 numbers.</p>
+                    </div>
+                    <div class="errorMessage" *ngIf="createForm.get('price')?.hasError('serverError')">
+                        <p class="color-danger">{{ createForm.get('price')?.getError('serverError') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Image</label>
+                <div class="col-lg-10">
+                    <input type="file" formControlName="image" (change)="onFileChange($event)" class="form-control" id="inputEmail1" placeholder="Image">
+                    <div class="errorMessage" *ngIf="createForm.get('zipCode')?.hasError('pattern') && createForm.get('zipCode')?.touched">
+                        <p class="">Image is required.</p>
+                    </div>
+                    <div class="errorMessage" *ngIf="createForm.get('zipCode')?.hasError('serverError')">
+                        <p class="color-danger">{{ createForm.get('zipCode')?.getError('serverError') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="message" class="successMessage width">{{message}}</div>
+
+            <div *ngIf="errorMessage" class="errorMessage width">{{errorMessage}}</div>
+           
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,23 @@
+<div *ngIf="saveds?.length; else noSaveds" class="container">
+    <div *ngFor="let s of saveds" class="card">
+        <div class="image">
+            <img *ngIf="s.restaurant.image; else noImage" src="{{apiUrlRestaurants}}{{s.restaurant.image}}" alt="{{s.restaurant.name}}" draggable="false">
+            <ng-template #noImage><img src="assets/images/d.jpg" alt="{{s.restaurant.name}}" draggable="false"></ng-template>
+        </div>
+
+        <div class="wrapper">
+            <div class="info">
+                <h2>Restaurant name:</h2>
+                <a href="/single?id={{s.restaurantId}}"><h3>{{s.restaurant.name}}</h3></a>
+            </div>
+            
+
+            <div class="info infoFlex">
+                <img class="icon" src="assets/icons/x.png" (click)="toggleSave(s)" alt="icon" >
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noSaveds>
+    <div class="errorMessage">You have no saveds yet</div>
+</ng-template>

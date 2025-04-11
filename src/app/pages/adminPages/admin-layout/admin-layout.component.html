@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+<title>Admin panel | Book a table</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<section id="container">
+<!--header start-->
+<header class="header fixed-top clearfix">
+<!--logo start-->
+<div class="brand">
+
+    <a href="/home" class="logo">
+        Book a table
+    </a>
+    
+</div>
+<!--logo end-->
+
+
+<div class="top-nav clearfix">
+
+    <button id="logoutLink" (click)="logout()">
+        Logout
+    </button>
+       
+</div>
+</header>
+<!--header end-->
+<!--sidebar start-->
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li *ngFor="let nav of filteredNavItems">
+                    <a href="{{nav.route}}">
+                        <i class="{{nav.icon}}"></i>
+                        <span>&nbsp; {{nav.name}}</span>
+                    </a>
+                </li>
+                
+                
+            </ul>            
+        </div>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->
+<!--main content start-->
+<section id="main-content">
+
+
+
+
+    <router-outlet></router-outlet>
+
+
+
+    <div class="footer">
+    <div class="wthree-copyright">
+        <p>© Design by <a href="/home">Book a table</a></p>
+    </div>
+    </div>
+
+</section>
+
+<!--main content end-->
+</section>
+
+</body>
+

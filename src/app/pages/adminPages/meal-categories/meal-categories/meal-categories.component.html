@@ -1,0 +1,39 @@
+<section class="wrapper">    
+    <div class="table-agile-info">
+<div class="panel panel-default">
+<div class="panel-heading">
+ Meal categories
+</div>
+<div>
+  <table class="table" ui-jq="footable">
+    <thead>
+      <tr>
+        <th data-breakpoints="xs">#</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of mealCategories; let i = index">
+        <td>{{i + 1}}</td>
+        <td class="image"><img src="{{url}}{{m.image}}" alt="{{m.name}}"></td>
+        <td>{{m.name}}</td>
+
+        <td>
+            <button type="button" routerLink="/admin/updateMealCategory/{{m.id}}" class="btn btn-warning">Edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(m.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+</div><button routerLink="/admin/addMealCategory" type="button" class="btn btn-success">Add new meal category</button>
+<p class="text-danger">{{errorMessage}}</p>
+</div>
+</section>
+

@@ -1,0 +1,113 @@
+<section class="wrapper" style="top: -200px !important; position: relative;">    
+    <div class="table-agile-info">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Restaurant information 
+            </div>    
+
+        <div>
+            <h3 class="hddh1">Name</h3>
+            <h4 class="hddh2">{{restaurant?.name}}</h4>
+
+            <h3 class="hddh1">Restaurant type</h3>
+            <h4 class="hddh2">{{restaurant?.restaurantType}}</h4>
+            
+            <!-- <h3 class="hddh1">User information</h3>
+            <h4 class="hddh2">{{restaurant?.user.firstName}} 
+                <span> {{restaurant?.user.lastName}}</span>
+                <span>, email: {{restaurant?.user.email}}</span>
+            </h4> -->
+
+            <h3 class="hddh1">Address</h3>
+            <h4 class="hddh2">{{restaurant?.address.city.name}} 
+                <span *ngIf="restaurant?.address.address">, {{restaurant?.address.address}}</span>
+                <span *ngIf="restaurant?.address.number">, {{restaurant?.address.number}}</span>
+                <span *ngIf="restaurant?.address.place">, {{restaurant?.address.place}}</span>
+                <span *ngIf="restaurant?.address.floor">, floor: {{restaurant?.address.floor}}</span>
+
+            </h4>
+
+            <h3 class="hddh1">Description</h3>
+            <h4 class="hddh2">{{restaurant?.description?restaurant?.description:'/'}}</h4>
+
+            <h3 class="hddh1">Maximum number of guests</h3>
+            <h4 class="hddh2">{{restaurant?.maxNumberOfGuests}}</h4>
+
+            <h3 class="hddh1">Time interval between reservations</h3>
+            <h4 class="hddh2">{{restaurant?.timeInterval}}</h4>
+
+            <h3 class="hddh1">Working time</h3>
+            <h4 class="hddh2">{{restaurant?.workFromHour!='0'?restaurant?.workFromHour:'00'}}:{{restaurant?.workFromMinute!='0'?restaurant?.workFromMinute:'00'}} - {{restaurant?.workUntilHour!='0'?restaurant?.workUntilHour:'00'}}:{{restaurant?.workUntilMinute!='0'?restaurant?.workUntilMinute:'00'}}</h4>
+            
+            <h3 *ngIf="restaurant?.appendiceRestaurants?.length" class="hddh1">Appendices</h3>
+            <p *ngFor="let a of restaurant?.appendiceRestaurants">{{a.name}}</p>
+
+            <h3 *ngIf="restaurant?.appendiceRestaurants?.mealCategories" class="hddh1">Meal categories</h3>
+            <p *ngFor="let a of restaurant?.mealCategories">{{a.name}}</p>
+
+            <h3 class="hddh1" *ngIf="restaurant?.restaurantImages.length">Images</h3><br>
+            <div class="cont" *ngIf="restaurant?.restaurantImages.length">
+                <img *ngFor="let image of restaurant?.restaurantImages" src="{{url+image.path}}" alt="{{restaurant.name}}" class="image">
+            </div>
+
+            <h3 class="hddh1" *ngIf="restaurant?.dishes.length">Dishes</h3><br>
+            <div class="cont" *ngIf="restaurant?.dishes.length">
+                <div *ngFor="let d of restaurant?.dishes" >
+                    <img alt="{{restaurant.name}}" src="{{dishUrl+d.image}}" class="image">
+                    <p>name: {{d.name}}</p>
+                    <p>price: {{d.price}}</p>
+                </div>
+                
+            </div>
+
+
+            <h3 *ngIf="restaurant?.reservations.length" class="hddh1">Reservations</h3>
+            <h4 *ngIf="restaurant?.reservations.length" class="hddh2">
+                <p *ngFor="let r of restaurant?.reservations">
+                    Date and time: {{r.date}} {{r.time}}, numbe of guests: {{r.numberOfGuests}}, is realised: {{r.isRealised?"Yes":"No"}}
+                </p>
+            </h4>
+
+            <h3 *ngIf="restaurant?.ratings.length" class="hddh1">Ratings</h3>
+            <h4 *ngIf="restaurant?.ratings.length" class="hddh2">
+                <p *ngFor="let r of restaurant?.ratings">
+                    Rate: {{r.rate}} {{r.time}}, message: {{r.message?r.message:"/"}}, user: {{r.user.email}}
+                </p>
+            </h4>
+
+            <h3 class="hddh1">Is activated</h3>
+            <h4 class="hddh2">{{restaurant?.isActivated?'Yes':'No'}}</h4>
+
+
+            <br>
+        </div>
+
+    </div>
+</div>
+</section>
+
+
+<style>
+    p{
+        text-align: center;
+    }
+
+    .image{
+        width: 200px !important;
+        height: 200px !important;
+        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cont{
+        width: 80%;
+        margin: 0px auto;
+        flex-wrap: wrap;
+        gap: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+
+</style>

@@ -1,0 +1,15 @@
+<div class="footer-cpy text-center">
+    <div class="social_banner">
+        <ul class="social_list">
+            <li *ngFor="let social of socialMediaLinks">
+                <a [href]="social.href" target="_blank">
+                  <i [class]="social.icon" class="lll" [ngStyle]="{ 'background-color': social.color }"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copy">
+        <p>©All rights reserved | <a href="/home">Book a table</a>
+        </p>
+    </div>
+</div>
